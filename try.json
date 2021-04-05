@@ -1,0 +1,15 @@
+{
+  "_id": { "$oid": "616b67e6c03f1f5c0196a049" },
+  "name": "Phones and Tablest",
+  "nameAr": "موبايلات وتابلت",
+  "allSubCats": [
+    { 
+        "subCatName": "Mobile Phones", 
+        "subCatArr": ["smartPhones", "CellPhones"] 
+    },
+    {
+      "subCatName": "Tablets",
+      "subCatArr": ["iPad Tablets", "Tablet Accessoires", "Bags and Cases"]
+    }
+  ]
+}
