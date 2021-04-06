@@ -80,7 +80,7 @@ const Login = () => {
                     md={6}
                   >
                     <Button
-                      color="primary"
+                      color="secondary"
                       fullWidth
                       startIcon={<FacebookIcon />}
                       onClick={handleSubmit}
