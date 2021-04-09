@@ -10,7 +10,9 @@ var userSchema = new mongoose.Schema({
     type:String,
     required:true
   },
-  age:Number
+  cart:[],
+  age:Number,
+  isAdmin:Boolean
 })
 
 
