@@ -8,6 +8,7 @@ const User = require("./models/users")
 
 const authController = require('./controllers/auth')
 const userController = require('./controllers/user')
+const productController= require('./controllers/products')
 server.use(bodyParser.json())
 server.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Origin',"*")
@@ -18,29 +19,11 @@ server.use((req,res,next)=>{
 
 server.use('/auth',authController)
 server.use('/user',userController)
-
-// reg email pass
-//{
-//   "email":"mos@gmail.com",
-//   "password": "123456"
-// }
+server.use('/product',productController)
 
 
 
 
-
-// server.post('/products/add', authenticateToken, (req, res) => {
-//   res.send('Your prodcut is added');
-// })
-
-
-
-
-
-/// helping function
-
-
-/// generate -> login
 
 
 
