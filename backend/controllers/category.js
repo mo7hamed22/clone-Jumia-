@@ -4,7 +4,7 @@ const Category = require("../models/categories");
 const User = require("../models/users");
 const { ObjectID } = require("mongodb");
 
-const { authenticateToken } = require("../models/jwt");
+const { authenticateToken ,checkIsAdmin} = require("../models/jwt");
 //=====Check IF ID Valid
 const validateID = function (req, res, next) {
   let id = req.params.id;
@@ -17,26 +17,7 @@ const validateID = function (req, res, next) {
   }
 };
 //=====
-// const { checkIsAdmin } = require("./user");
-const checkIsAdmin = (req, res, next) => {
-  const { id } = req.token;
-  console.log(id);
-  User.findOne({ _id: id }, { _id: false, isAdmin: true })
-    .then((data, err) => {
-      if (data) {
-        if (data.toObject().isAdmin) {
-          next();
-        } else {
-          res.status(501).send("Not Authorized");
-        }
-      } else {
-        console.log(err);
-      }
-    })
-    .catch((err) => {
-      console.log(err.message);
-    });
-};
+
 //Add  Category
 router.post("/addCategory", authenticateToken, checkIsAdmin, (req, res) => {
   let body = req.body;
