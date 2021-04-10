@@ -2,13 +2,14 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser=require("body-parser")
 const jwt = require('jsonwebtoken');
-
+const cors = require('cors');
 var server=express()
 const User = require("./models/users")
 
 const authController = require('./controllers/auth')
 const userController = require('./controllers/user')
 server.use(bodyParser.json())
+server.use(cors('*'))
 server.use((req,res,next)=>{
   res.setHeader('Access-Control-Allow-Origin',"*")
   res.setHeader('Access-Control-Allow-Headers','Origin,X-Requested-With,Content-Type,Accept,Authorization')

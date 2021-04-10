@@ -1,6 +1,5 @@
 import React from 'react';
 import { Alert, Button, Container, Form } from 'react-bootstrap';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import {userActions} from '../_action/user.action'
 
@@ -9,9 +8,7 @@ class LogIn extends React.Component {
     userEmail: '',
     password: '',
     show: false,
-    requiredEmail: false,
-    requiredPassword: false,
-    usersList: []
+    required: false
   }
   
   handelKeyUP = (event) => {
@@ -20,11 +17,10 @@ class LogIn extends React.Component {
   }
   handelSubmit = (e) => {
     e.preventDefault()
-    if (this.state.userEmail && this.state.password) {
-      this.props.login(this.state.userEmail, this.state.password)
-      let activeUser = JSON.parse(localStorage.getItem('user'))
-      console.log(activeUser);
-      const { userEmail, password } = this.state
+    this.setState({required:true})
+    const { userEmail, password } = this.state
+    if (userEmail && password) {
+      this.props.login(userEmail, password)
       
       // axios.post('http://localhost:8080/user/login/',{data:{userEmail,password}})
       // .then((users) => {
@@ -36,31 +32,25 @@ class LogIn extends React.Component {
       //     this.setState({ show: false });
       //   }
       // })
-    }else if (!this.state.userEmail&&!this.state.password) {
-      this.setState({requiredEmail:true,requiredPassword:true})
-    } else if (!this.state.userEmail) {
-      this.setState({requiredEmail:true})
-    } else if (!this.state.password) {
-      this.setState({requiredPassword:true})
     }
   }
   render() {
-    const {loggingIn} = this.props
+    const { userEmail, password } = this.state;
     return(
       <Container>
         <Form>
-          <Alert show={this.state.show} className='text-danger' variant="danger" dismissible>
+          <Alert className='d-none' variant="danger" dismissible>
             This Email is Not Register
           </Alert>
           <Form.Group>
             <Form.Label>Email address</Form.Label>
             <Form.Control id="userEmail" name="userEmail" type="email" placeholder="Enter Your Email" onChange={this.handelKeyUP} />
-            <Alert show={this.state.requiredEmail} className='text-danger' >Email Is Required</Alert>
+            <Alert className={this.state.required && !userEmail ? 'text-danger' : 'd-none'} >Email Is Required</Alert>
           </Form.Group>
           <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control id="password" name="password" type="password" autoComplete="off" placeholder="Password" onChange={this.handelKeyUP} />
-            <Alert show={this.state.requiredPassword} className='text-danger' >password Is Required</Alert>
+            <Alert className={this.state.required&& !password ?'text-danger':'d-none'} >password Is Required</Alert>
           </Form.Group>
           <Button variant="primary" type="submit" onClick={this.handelSubmit}>
             Submit
