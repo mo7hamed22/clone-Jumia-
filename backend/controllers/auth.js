@@ -40,7 +40,7 @@ router.post('/login',(req,resp)=>{
      const token = generateAccessToken({id:data.id});
           resp.status(200).send({token: token});
          }else{
-          resp.send('Data is empty');
+          resp.send('Invalid Username Or Password');
          }
        }else{
         resp.send('Error in your username');}})
