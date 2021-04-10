@@ -1,19 +1,18 @@
 const express= require("express")
 const router = express.Router()
-
 const User = require("../models/users")
-const { authenticateToken,generateAccessToken} = require('../models/jwt')
-
-///////// signup endpoint
+const {generateAccessToken} = require('../models/jwt')
+const bcrypt=require('bcryptjs')
 //////////    "/home/signup"
 router.post('/signup',(req,resp)=> {
-
-  console.log("this is signup ENDPOINT!!");
-  var user = req.body
-  console.log("user: ",user);
-  User.create(user,(err,data)=>{
+  // var user = req.body
+  // console.log("user: ",user);
+  var {password,...user}=req.body
+ bcrypt.hash(password,12).then(password=>{
+   password =password;
+  const newUser = {...user,password}
+  User.create(newUser,(err,data)=>{
     if(!err){
-      console.log(data);
         const token = generateAccessToken({id:data.id})
       resp.status(201).json({token:token})
     }else{
@@ -24,9 +23,15 @@ router.post('/signup',(req,resp)=> {
       }
     }
   })
+  console.log(newUser)
+ }).catch(err=>{
+   console.log(err)
+ })
+ 
+  
 })
-////////////  login endpoint
-///////  "/home/login'"
+
+///////  /home/login
 router.post('/login',(req,resp)=>{ 
   User.findOne({email: req.body.email, password: req.body.password},(err,data)=>{   
     console.log(data);         
@@ -38,9 +43,6 @@ router.post('/login',(req,resp)=>{
           resp.send('Data is empty');
          }
        }else{
-        resp.send('Error in your username');
-      }
-  })
+        resp.send('Error in your username');}})
 })
-
 module.exports=router

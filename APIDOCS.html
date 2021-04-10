@@ -1,0 +1,157 @@
+
+<p>
+===============================
+
+====>Login As Admin
+=======>	http://localhost:8080/auth/login 
+	{
+        
+    "email":"admin@admin.com",
+    "password":"123456"
+
+      }
+      Will Get Token Like : => 
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxODA2NTU5OCwiZXhwIjoxNjE4MDg3MTk4fQ.B6swllum3Ze-WGCstVIGch0HZAA6MZjirTtq1q4jMQ0"
+}
+
+
+=================================
+=====> Registration 
+
+=============>	http://localhost:8080/auth/signup
+	{
+	    
+    "email":"admin@admin.com", ==>required
+    "password":"123456"      ==>required
+    
+    ====> if You want as Admin Add ===> isAdmin:True
+    
+    ===>and Any other data
+	
+	}
+	
+	
+	===>
+	 Will Get Token Like : => 
+       "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxODA2NTU5OCwiZXhwIjoxNjE4MDg3MTk4fQ.B6swllum3Ze-WGCstVIGch0HZAA6MZjirTtq1q4jMQ0"
+}
+==============================================================	
+=====> Delete User By Email
+
+=============>	http://localhost:8080/user/delete
+		
+	{
+	 method:"DELETE",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNj        YjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0H    b6TcO9734AjPAZnh1e8'
+    },
+    body{
+    		email:"mm@mm.com"
+	
+	}
+==================================================================	
+
+==========> Update User By Id 
+
+	=========> http://localhost:8080/user/update
+	{
+	 method:"PUT",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNj        YjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0H    b6TcO9734AjPAZnh1e8'
+    },
+    body{
+    		id: "User Id"	
+	}
+=====================================================================
+
+==========>Get All Users 	
+	================> http://localhost:8080/user/getAll
+	{
+	 method:"GET",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0Hb6TcO9734AjPAZnh1e8'
+    }
+    
+	}
+	
+=========================================================================================================================================================================================================>//Add  Category	
+			******	http://localhost:8080/category/addCategory ********
+	{
+	 method:"POST",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0Hb6TcO9734AjPAZnh1e8'
+    },
+    body{
+    
+     "nameEn": "Category 88",
+        "subCategory": [
+            {
+                "subCatArray": [
+                    "llllll",
+                    "ss"
+                ],
+                "subCatName": "sub 3"
+            }
+        ]
+    
+    }
+    }
+    
+	}
+===========================================================================
+================> //Get All Categories
+		******	http://localhost:8080/category/getAllCategories ********
+		
+		method: Get
+
+===================================================
+
+======================> //Delete Category by ID
+
+	******	http://localhost:8080/category/deleteCategory ********
+
+
+{
+	 method:"DELETE",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0Hb6TcO9734AjPAZnh1e8'
+    },
+    body{
+    
+     id : Category Id 
+    
+    }
+    }
+
+===========================================================================
+	
+	******	http://localhost:8080/category/updateCategory ********
+
+
+{
+	 method:"UPDATE",
+    headers:{
+        authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzAzOTc1ZWYwZjNjYjdmODVhN2ZjNCIsImlhdCI6MTYxNzk3MTA3NiwiZXhwIjoxNjE3OTkyNjc2fQ.5RyrIjSZZZw0tndEFSmtyJ0Hb6TcO9734AjPAZnh1e8'
+    },
+    body{
+    
+    body{
+    
+    ====> id: Category ID
+    ===>New Updated 
+     "nameEn": "Category 88",
+        "subCategory": [
+            {
+                "subCatArray": [
+                    "llllll",
+                    "ss"
+                ],
+                "subCatName": "sub 3"
+            }
+        ]
+    
+    }
+	
+	
+	
+</p>

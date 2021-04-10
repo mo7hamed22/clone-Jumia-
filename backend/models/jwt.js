@@ -1,4 +1,5 @@
 const jwt= require('jsonwebtoken')
+const User= require('../models/users')
 
 function generateAccessToken(id) {
     return jwt.sign(id, 'this_is_my_secret_algol', { expiresIn: '6h' });
@@ -16,9 +17,29 @@ function generateAccessToken(id) {
       next()
     })
   }
-
+  const checkIsAdmin=(req,res,next)=>{
+    const {id} = req.token;
+    console.log(id)
+    User.findOne({_id:id},{_id:false,isAdmin:true}).then((data,err)=>{
+  
+  if(data){
+  if(data.toObject().isAdmin){
+  req.cookies=data
+   next()
+  }else{
+    res.status(501).send('Not Authorized')
+  }
+  }else{
+    console.log(err)
+  }
+    }).catch(err=>{
+      console.log(err.message)
+    })
+   
+  }
   module.exports={
       authenticateToken,
-      generateAccessToken
+      generateAccessToken,
+      checkIsAdmin
 
   }
