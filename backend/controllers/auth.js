@@ -33,16 +33,24 @@ router.post('/signup',(req,resp)=> {
 
 ///////  /home/login
 router.post('/login',(req,resp)=>{ 
-  User.findOne({email: req.body.email, password: req.body.password},(err,data)=>{   
-    console.log(data);         
+  let existingUser;
+
+  User.findOne({email: req.body.email},(err,data)=>{        
        if(!err){
         if(data !== null){
-     const token = generateAccessToken({id:data.id});
-          resp.status(200).send({token: token});
+          existingUser=data
+          bcrypt.compare(req.body.password,existingUser.password).then(isValid=>{
+            if(isValid){
+              const token = generateAccessToken({id:data.id});
+              resp.status(200).send({token: token});
+            }else{
+              resp.status(404).send('Invalid Password')
+            }
+          })
          }else{
           resp.send('Invalid Username Or Password');
          }
        }else{
-        resp.send('Error in your username');}})
+        resp.send('Error in Login');}})
 })
 module.exports=router
