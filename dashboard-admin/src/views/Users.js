@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -12,8 +12,22 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
+import { userService } from "_services/user.services";
 
 function TableList() {
+  const [users, setUsers] = React.useState([]);
+  useEffect(() => {
+    userService.GetAllUsers().then(
+      data => {
+        console.log(data.data)
+        setUsers(data.data);
+      },
+      err => {
+        console.log
+      }
+    )
+  })
+  
   return (
     <>
       <Container fluid>
@@ -21,7 +35,7 @@ function TableList() {
           <Col md="12">
             <Card className="strpied-tabled-with-hover">
               <Card.Header>
-                <Card.Title as="h4">Striped Table with Hover</Card.Title>
+                <Card.Title as="h4">Users Table with Hover</Card.Title>
                 <p className="card-category">
                   Here is a subtitle for this table
                 </p>
@@ -32,54 +46,19 @@ function TableList() {
                     <tr>
                       <th className="border-0">ID</th>
                       <th className="border-0">Name</th>
-                      <th className="border-0">Salary</th>
-                      <th className="border-0">Country</th>
-                      <th className="border-0">City</th>
+                      <th className="border-0">Email</th>
+                      <th className="border-0">Age</th>
+                      <th className="border-0">Cart</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td>$36,738</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Minerva Hooper</td>
-                      <td>$23,789</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Sage Rodriguez</td>
-                      <td>$56,142</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Philip Chaney</td>
-                      <td>$38,735</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>Doris Greene</td>
-                      <td>$63,542</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>Mason Porter</td>
-                      <td>$78,615</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                    </tr>
+                    {users.map((user) => <tr>
+                      <td>{user._id}</td>
+                      <td>{user.name}</td>
+                      <td>{ user.email }</td>
+                      <td>{user.age}</td>
+                      <td>{ user.cart.length==0?'Empty':user.cart }</td>
+                    </tr>)}
                   </tbody>
                 </Table>
               </Card.Body>

@@ -12,13 +12,15 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 import AdminLayout from "layouts/Admin.js";
 import { Provider } from "react-redux";
 import { store } from './_helper/store';
+import LogIn from "views/login";
 
 ReactDOM.render(
   <BrowserRouter>
     <Provider store={store}>
-    <Switch>
+      <Switch>
+        <Route path="/login" component={LogIn} exact />
       <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
-      <Redirect from="/" to="/admin/login" />
+      <Redirect from="/" to="/login" />
     </Switch>
     </Provider>
   </BrowserRouter>,

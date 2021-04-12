@@ -20,7 +20,7 @@ import { useHistory } from 'react-router-dom';
       userService.LogIn(userEmail, password)
         .then(user => {
           if (user.data.token) {
-            localStorage.setItem('token', JSON.stringify(user.data))
+            localStorage.setItem('token', JSON.stringify(user.data.token))
             console.log(props);
             
             history.push('/admin/dashboard')
@@ -34,6 +34,7 @@ import { useHistory } from 'react-router-dom';
   }
     return(
       <Container>
+        <h2 className="text-center">Login</h2>
         <Form>
           <Form.Text
             className={submited && !isLogedin ? 'alert-danger h4 p-3 rounded' : 'd-none'}>

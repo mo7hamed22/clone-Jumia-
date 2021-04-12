@@ -1,12 +1,12 @@
 import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
-import TableList from "views/TableList.js";
+import TableList from "views/Users.js";
 import Typography from "views/Typography.js";
 import Icons from "views/Icons.js";
 import Maps from "views/Maps.js";
 import Notifications from "views/Notifications.js";
 import Upgrade from "views/Upgrade.js";
-import LogIn from "views/login";
+import AddUser from "views/AddUSer";
 
 const dashboardRoutes = [
   {
@@ -33,7 +33,7 @@ const dashboardRoutes = [
   },
   {
     path: "/table",
-    name: "Table List",
+    name: "Users List",
     icon: "nc-icon nc-notes",
     component: TableList,
     layout: "/admin",
@@ -67,12 +67,13 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/login",
-    name: "LogIn",
+    path: "/adduser",
+    name: "AddUser",
     icon: "nc-icon nc-single-02",
-    component: LogIn,
+    component: AddUser,
     layout: "/admin",
   },
+  
 ];
 
 export default dashboardRoutes;
