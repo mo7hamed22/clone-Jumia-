@@ -21,9 +21,11 @@ import { useHistory } from 'react-router-dom';
         .then(user => {
           if (user.data.token) {
             localStorage.setItem('token', JSON.stringify(user.data.token))
-            console.log(props);
+            localStorage.setItem('userInfo', JSON.stringify(user.data.data))
             
-            history.push('/admin/dashboard')
+            console.log(props);            
+            //history.push('/admin/dashboard')
+            window.location.href = '/admin/dashboard';   
             setIsLogedin(true)
           } else {
             setIsLogedin(false)

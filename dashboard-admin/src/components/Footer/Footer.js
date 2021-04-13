@@ -13,7 +13,7 @@ class Footer extends Component {
                   Home
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
                   Company
                 </a>
@@ -27,12 +27,11 @@ class Footer extends Component {
                 <a href="#pablo" onClick={(e) => e.preventDefault()}>
                   Blog
                 </a>
-              </li>
+              </li> */}
             </ul>
             <p className="copyright text-center">
               © {new Date().getFullYear()}{" "}
-              <a href="http://www.creative-tim.com">Creative Tim</a>, made with
-              love for a better web
+              <a href="#">4Mz</a>
             </p>
           </nav>
         </Container>

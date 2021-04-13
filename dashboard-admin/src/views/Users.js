@@ -1,139 +1,140 @@
 import React, { useEffect } from "react";
-
+import { useHistory } from 'react-router-dom';
 // react-bootstrap components
+
 import {
   Badge,
   Button,
   Card,
   Navbar,
   Nav,
-  Table,
   Container,
   Row,
   Col,
 } from "react-bootstrap";
 import { userService } from "_services/user.services";
+const loaderClass = {
+  position: 'fixed',
+  background: '#fff',
+  width: '100%',
+  zIndex: '11111',
+  top: '0',
+  height: '100%',
+  textAlign: 'center',
+};
 
 function TableList() {
   const [users, setUsers] = React.useState([]);
+  const [ spinner, setSpinner ] = React.useState(true);
+  
+
   useEffect(() => {
     userService.GetAllUsers().then(
-      data => {
-        console.log(data.data)
+      data => {        
         setUsers(data.data);
+        setSpinner(false);  
       },
       err => {
         console.log
       }
     )
-  })
+  },[])
+
+  let history = useHistory();
+  const addNewUser = () =>{
+      history.push('/admin/adduser')
+      
+  }
   
   return (
     <>
+    
+    {spinner ? <div style={loaderClass}>
+      <img src={require("assets/img/loading.gif").default} />
+    </div>
+ : ''}
+  
       <Container fluid>
         <Row>
-          <Col md="12">
-            <Card className="strpied-tabled-with-hover">
-              <Card.Header>
-                <Card.Title as="h4">Users Table with Hover</Card.Title>
-                <p className="card-category">
-                  Here is a subtitle for this table
-                </p>
-              </Card.Header>
-              <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover table-striped">
-                  <thead>
-                    <tr>
-                      <th className="border-0">ID</th>
-                      <th className="border-0">Name</th>
-                      <th className="border-0">Email</th>
-                      <th className="border-0">Age</th>
-                      <th className="border-0">Cart</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {users.map((user) => <tr>
-                      <td>{user._id}</td>
-                      <td>{user.name}</td>
-                      <td>{ user.email }</td>
-                      <td>{user.age}</td>
-                      <td>{ user.cart.length==0?'Empty':user.cart }</td>
-                    </tr>)}
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md="12">
-            <Card className="card-plain table-plain-bg">
-              <Card.Header>
-                <Card.Title as="h4">Table on Plain Background</Card.Title>
-                <p className="card-category">
-                  Here is a subtitle for this table
-                </p>
-              </Card.Header>
-              <Card.Body className="table-full-width table-responsive px-0">
-                <Table className="table-hover">
-                  <thead>
-                    <tr>
-                      <th className="border-0">ID</th>
-                      <th className="border-0">Name</th>
-                      <th className="border-0">Salary</th>
-                      <th className="border-0">Country</th>
-                      <th className="border-0">City</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Dakota Rice</td>
-                      <td>$36,738</td>
-                      <td>Niger</td>
-                      <td>Oud-Turnhout</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Minerva Hooper</td>
-                      <td>$23,789</td>
-                      <td>Curaçao</td>
-                      <td>Sinaai-Waas</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>Sage Rodriguez</td>
-                      <td>$56,142</td>
-                      <td>Netherlands</td>
-                      <td>Baileux</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>Philip Chaney</td>
-                      <td>$38,735</td>
-                      <td>Korea, South</td>
-                      <td>Overland Park</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>Doris Greene</td>
-                      <td>$63,542</td>
-                      <td>Malawi</td>
-                      <td>Feldkirchen in Kärnten</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td>Mason Porter</td>
-                      <td>$78,615</td>
-                      <td>Chile</td>
-                      <td>Gloucester</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Card.Body>
-            </Card>
+          <Col lg="12" className="mb-3">
+            <Button onClick={addNewUser} className="btn float-right btn-sm btn-outline-info">Add new <i className="fas fa-plus"></i></Button>
           </Col>
         </Row>
+      <Row>
+      {users.map((user, index) =>
+          <Col lg="3" sm="6" key={index}>
+            <Card className="card-stats">
+              <Card.Body>
+                <Row>
+                  <Col xs="5">
+                    <div className="icon-big text-center icon-warning">
+                      <i className="nc-icon nc-circle-09 text-warning"></i>
+                      <i className="d-none"></i>
+                    </div>
+                  </Col>
+                  <Col xs="7">
+                    <div className="numbers">
+                      <Card.Title as="h4">{user.name}</Card.Title>
+                      <p className="card-category">{user.age} Years</p>
+                    </div>
+                  </Col>
+                </Row>
+              </Card.Body>
+              <Card.Footer>
+                <hr></hr>
+                <div className="stats">
+                  <i className="fas fa-trash text-danger mr-1"></i>
+                  Delete
+                </div>
+              </Card.Footer>
+            </Card>
+          </Col>
+          )}
+        
+        </Row>
+        
       </Container>
     </>
+
+    // <>
+    //   <Container fluid>
+    //     <Row>
+    //       <Col md="12">
+    //         <Card className="strpied-tabled-with-hover">
+    //           <Card.Header>
+    //             <Card.Title as="h4">Users Table with Hover</Card.Title>
+    //             <p className="card-category">
+    //               Here is a subtitle for this table
+    //             </p>
+    //           </Card.Header>
+    //           <Card.Body className="table-full-width table-responsive px-0">
+    //             <Table className="table-hover table-striped">
+    //               <thead>
+    //                 <tr>
+    //                   <th className="border-0">ID</th>
+    //                   <th className="border-0">Name</th>
+    //                   <th className="border-0">Email</th>
+    //                   <th className="border-0">Age</th>
+    //                   <th className="border-0">Cart</th>
+    //                 </tr>
+    //               </thead>
+    //               <tbody>
+    //                 {users.map((user) => <tr>
+    //                   <td>{user._id}</td>
+    //                   <td>{user.name}</td>
+    //                   <td>{ user.email }</td>
+    //                   <td>{user.age}</td>
+    //                   <td>{ user.cart.length==0?'Empty':user.cart }</td>
+    //                 </tr>)}
+    //               </tbody>
+    //             </Table>
+    //           </Card.Body>
+    //         </Card>
+    //       </Col>
+        
+    //     </Row>
+    //   </Container>
+    // </>
   );
 }
 
