@@ -1,13 +1,15 @@
 import './App.css';
 import {Button} from '@material-ui/core'; 
 import PrimarySearchAppBar from './navbar';
-import Test from './test'
+import Nav from './Component/CategoryNav/Nav'
+
 
 function App() {
   return (    
     <div className="App">
       <PrimarySearchAppBar />
-      <Test></Test>
+      <Nav/>
+
        {/* <Button color="primary" variant="contained"> Press me </Button>  */}
     </div>
   );
