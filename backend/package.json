@@ -10,14 +10,22 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "fill-range": "^7.0.1",
+    "glob-parent": "^5.1.2",
+    "is-binary-path": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.11.17"
+    "mongoose": "^5.11.17",
+    "negotiator": "^0.6.2",
+    "raw-body": "^2.4.1",
+    "readable-stream": "^3.6.0",
+    "readdirp": "^3.6.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "normalize-path": "^3.0.0"
   }
 }

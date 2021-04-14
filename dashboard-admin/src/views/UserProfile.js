@@ -14,6 +14,12 @@ import {
 } from "react-bootstrap";
 
 function User() {
+
+
+  let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+
+
+
   return (
     <>
       <Container fluid>
@@ -26,113 +32,47 @@ function User() {
               <Card.Body>
                 <Form>
                   <Row>
-                    <Col className="pr-1" md="5">
+                    <Col className="pr-1" md="12">
                       <Form.Group>
-                        <label>Company (disabled)</label>
+                        <label>User Name</label>
                         <Form.Control
-                          defaultValue="Creative Code Inc."
-                          disabled
-                          placeholder="Company"
+                          defaultValue={userInfo.name}                          
+                          placeholder="User name"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                    <Col className="px-1" md="3">
+
+                    <Col className="pr-1" md="12">
                       <Form.Group>
-                        <label>Username</label>
+                        <label>User Email</label>
                         <Form.Control
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label htmlFor="exampleInputEmail1">
-                          Email address
-                        </label>
-                        <Form.Control
-                          placeholder="Email"
+                          defaultValue={userInfo.email}                          
+                          placeholder="User Emial"
                           type="email"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="6">
+
+                    <Col className="pr-1" md="12">
                       <Form.Group>
-                        <label>First Name</label>
+                        <label>User Age</label>
                         <Form.Control
-                          defaultValue="Mike"
-                          placeholder="Company"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="6">
-                      <Form.Group>
-                        <label>Last Name</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue={userInfo.age}                          
+                          placeholder="User age"
                           type="text"
                         ></Form.Control>
                       </Form.Group>
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="12">
-                      <Form.Group>
-                        <label>Address</label>
-                        <Form.Control
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-1" md="4">
-                      <Form.Group>
-                        <label>City</label>
-                        <Form.Control
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="px-1" md="4">
-                      <Form.Group>
-                        <label>Country</label>
-                        <Form.Control
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                    <Col className="pl-1" md="4">
-                      <Form.Group>
-                        <label>Postal Code</label>
-                        <Form.Control
-                          placeholder="ZIP Code"
-                          type="number"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
+                 
                   <Row>
                     <Col md="12">
                       <Form.Group>
                         <label>About Me</label>
                         <Form.Control
                           cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                          that two seat Lambo."
-                          placeholder="Here can be your description"
+                          placeholder="My name is ...."                          
                           rows="4"
                           as="textarea"
                         ></Form.Control>

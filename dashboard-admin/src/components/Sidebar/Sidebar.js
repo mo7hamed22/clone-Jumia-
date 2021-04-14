@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Light Bootstrap Dashboard React - v2.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/light-bootstrap-dashboard-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/light-bootstrap-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { Component } from "react";
 import { useLocation, NavLink } from "react-router-dom";
 
@@ -38,19 +21,19 @@ function Sidebar({ color, image, routes }) {
       <div className="sidebar-wrapper">
         <div className="logo d-flex align-items-center justify-content-start">
           <a
-            href="https://www.creative-tim.com?ref=lbd-sidebar"
+            href="#"
             className="simple-text logo-mini mx-1"
           >
             <div className="logo-img">
               <img
-                src={require("assets/img/reactlogo.png").default}
-                alt="..."
+                src={require("assets/img/logo.png").default}
+                alt="..." style={{width: '1000px'}}
               />
             </div>
           </a>
-          <a className="simple-text" href="http://www.creative-tim.com">
-            Creative Tim
-          </a>
+          {/* <a className="simple-text" href="http://www.creative-tim.com">
+           Jumia Dashboard
+          </a> */}
         </div>
         <Nav>
           {routes.map((prop, key) => {

@@ -42,7 +42,7 @@ router.post('/login',(req,resp)=>{
           bcrypt.compare(req.body.password,existingUser.password).then(isValid=>{
             if(isValid){
               const token = generateAccessToken({id:data.id});
-              resp.status(200).send({token: token});
+              resp.status(200).send({token: token,data:data});
             }else{
               resp.status(404).send('Invalid Password')
             }
