@@ -8,7 +8,8 @@ function App() {
   return (    
     <div className="App">
       <PrimarySearchAppBar />
-      <Nav/>
+      {/* Menu Component */}
+      {/* <Nav/> */}
 
        {/* <Button color="primary" variant="contained"> Press me </Button>  */}
     </div>
