@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import {productService} from '../_services/product_services';
+import { useHistory } from 'react-router-dom';
 // react-bootstrap components
 import {
   Badge,
@@ -39,6 +40,11 @@ function Typography() {
     )
   })
 
+  let history = useHistory();  
+  const gotToAddProduct = () =>{
+    history.push('/admin/addProduct')
+  }
+
   return (
     <>
     {spinner ? <div style={loaderClass}>
@@ -46,11 +52,15 @@ function Typography() {
     </div>
  : ''}
     <Container fluid>
+    <Row>
+          <Col lg="12" className="mb-3">
+            <Button onClick={gotToAddProduct} className="btn float-right btn-sm btn-outline-info">Add new <i className="fas fa-plus"></i></Button>
+          </Col>
+        </Row>
       <Row>
         <Col md="12">
           <Card className="strpied-tabled-with-hover">
-            <Card.Header>
-            <Button className="btn float-right btn-sm btn-outline-info">Add new <i className="fas fa-plus"></i></Button>
+            <Card.Header>            
               <Card.Title as="h4">Products Details</Card.Title>
               {/* <p className="card-category">
                 Here is a subtitle for this table
