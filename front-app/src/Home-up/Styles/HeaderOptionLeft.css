@@ -1,0 +1,17 @@
+.HeaderOptionLeftContainer {
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+}
+
+.headerOptionTitle {
+  padding: 0 10px;
+}
+
+.HeaderOptionLeftContainer:hover {
+  color: orange;
+}
+
+.headerOptionTitle {
+  font-size: 15px;
+}
