@@ -1,0 +1,10 @@
+.leftTopContainer {
+  flex: 0.2;
+  background-color: white;
+  padding: 5px;
+  margin: 10px;
+  border-radius:5px ;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

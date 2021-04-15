@@ -5,16 +5,10 @@ import Products from "views/Products.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import AddUser from "views/AddUSer";
+import AddProduct from "./views/AddProduct";
 
 const dashboardRoutes = [
-  // {
-  //   upgrade: true,
-  //   path: "/upgrade",
-  //   name: "Upgrade to PRO",
-  //   icon: "nc-icon nc-alien-33",
-  //   component: Upgrade,
-  //   layout: "/admin",
-  // },
+
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -27,6 +21,13 @@ const dashboardRoutes = [
     name: "Products",
     icon: "nc-icon nc-paper-2",
     component: Products,
+    layout: "/admin",
+  },
+  {
+    path: "/addProduct",
+    name: "Add product",
+    icon: "nc-icon nc-chart-pie-35",
+    component: AddProduct,
     layout: "/admin",
   },
   {

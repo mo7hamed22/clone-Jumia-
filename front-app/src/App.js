@@ -1,17 +1,21 @@
-import './App.css';
-import {Button} from '@material-ui/core'; 
-import PrimarySearchAppBar from './navbar';
-import Nav from './Component/CategoryNav/Nav'
-import Register from './pages/Register/Register.jsx';
+import "./App.css";
+import { Button } from "@material-ui/core";
+import PrimarySearchAppBar from "./navbar";
+import Billboard from "./Home-up/Components/Billboard";
+import Header from "./Home-up/Components//Header";
+import MiddleImage from "./Home-up/Components//MiddleImage";
+import QuickLinks from "./Home-up/Components//QuickLinks";
+import TopSection from "./Home-up/Components//TopSection";
 
 function App() {
-  return (    
+  return (
     <div className="App">
-      <PrimarySearchAppBar />
-      {/* Menu Component */}
-      {/* <Nav/> */}
-<Register/>
-       {/* <Button color="primary" variant="contained"> Press me </Button>  */}
+      {/* <PrimarySearchAppBar /> */}
+      <Billboard />
+      <MiddleImage />
+      <Header />
+      <TopSection />
+      <QuickLinks />
     </div>
   );
 }

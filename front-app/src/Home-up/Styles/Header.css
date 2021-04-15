@@ -1,0 +1,53 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 100px;
+  background-color: white;
+}
+
+.headerLeft{
+  display: flex;
+  align-items: center;
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.headerSearch {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.headerSearch{
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.logo {
+  height: 30px;
+  width: auto;
+}
+
+.headerSearch > input {
+  width: 500px;
+  height: 35px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.inputContainer {
+  font-size: large;
+  color: gray;
+}
+
+.inputButton {
+  background-color: orange !important;
+  color: white !important;
+  font-weight: 500;
+}

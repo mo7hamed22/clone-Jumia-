@@ -41,9 +41,8 @@ function TableList() {
   },[])
 
   let history = useHistory();
-  const addNewUser = () =>{
-      history.push('/admin/adduser')
-      
+  const gotToAddUser = () =>{
+      history.push('/admin/adduser')      
   }
   
   return (
@@ -57,7 +56,7 @@ function TableList() {
       <Container fluid>
         <Row>
           <Col lg="12" className="mb-3">
-            <Button onClick={addNewUser} className="btn float-right btn-sm btn-outline-info">Add new <i className="fas fa-plus"></i></Button>
+            <Button onClick={gotToAddUser} className="btn float-right btn-sm btn-outline-info">Add new <i className="fas fa-plus"></i></Button>
           </Col>
         </Row>
       <Row>
