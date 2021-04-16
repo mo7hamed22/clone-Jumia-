@@ -31,9 +31,9 @@ function Sidebar({ color, image, routes }) {
               />
             </div>
           </a>
-          {/* <a className="simple-text" href="http://www.creative-tim.com">
+          <a className="simple-text" href="#">
            Jumia Dashboard
-          </a> */}
+          </a>
         </div>
         <Nav>
           {routes.map((prop, key) => {

@@ -23,7 +23,7 @@ const loaderClass = {
   textAlign: "center",
 };
 
-function TableList() {
+function Users() {
   const [users, setUsers] = React.useState([]);
   const [spinner, setSpinner] = React.useState(true);
   const handelDelete = (email) => {
@@ -159,4 +159,4 @@ function TableList() {
   );
 }
 
-export default TableList;
+export default Users;

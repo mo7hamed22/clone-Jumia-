@@ -44,16 +44,17 @@ function AddProduct() {
     };
     notificationAlertRef.current.notificationAlert(options);
   };
-  useEffect(() => {
-    getProducts();
-    console.log(products);
-  }, []);
-  const getProducts = async () => {
-    await productService.getAllProducts().then((data) => {
-      setProducts(data.data);
-      console.log(products);
-    });
-  };
+  // useEffect(() => {
+  //   getProducts();
+  //   console.log(products);
+  // }, []);
+  // const getProducts = async () => {
+  //   await productService.getAllProducts().then((data) => {
+  //     setProducts(data.data);
+  //     console.log(products);
+  //   });
+  // };
+
   const handelAddImage = () => {
     setImage([...image, ""]);
   };
@@ -120,8 +121,7 @@ function AddProduct() {
                   type="text"
                   name="nameAr"
                   placeholder="Enter product nameAr"
-                  onChange={(e) => setNameAr(e.target.value)}
-                  value={products[0].nameEn}
+                  onChange={(e) => setNameAr(e.target.value)}                  
                 />
                 <Form.Text
                   className={submited && !nameAr ? "text-danger" : "d-none"}
