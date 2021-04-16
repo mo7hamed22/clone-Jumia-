@@ -1,0 +1,25 @@
+.rightOptionsContainer {
+  display: flex;
+  align-items: center;
+}
+
+.rightIconDec {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.rightIcon > .MuiSvgIcon-root {
+  color: orange;
+  padding: 5px;
+  font-size: 30px;
+}
+
+.rightIconDec > h2 {
+  font-size: 13px;
+  max-height: 1px;
+}
+
+.rightIconDec > p {
+  font-size: 10px;
+}

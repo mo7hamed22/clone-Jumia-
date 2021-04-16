@@ -30,6 +30,7 @@ router.get("/getAll", authenticateToken, checkIsAdmin, (req, resp) => {
   User.find({ isAdmin: { $exists: false } }, (err, data) => {
     if (!err) {
       resp.status(200).send(data);
+      console.log("Users", data);
     } else resp.status(400).send(err);
   });
 });
