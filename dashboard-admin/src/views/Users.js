@@ -36,6 +36,15 @@ function Users() {
         console.log(err);
       }
     );
+    userService.GetAllUsers().then(
+      (data) => {
+        setUsers(data.data);
+        setSpinner(false);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   };
   useEffect(() => {
     userService.GetAllUsers().then(
@@ -44,10 +53,10 @@ function Users() {
         setSpinner(false);
       },
       (err) => {
-        console.log;
+        console.log(err);
       }
     );
-  }, [handelDelete]);
+  }, [setUsers]);
 
   let history = useHistory();
   const gotToAddUser = () => {
