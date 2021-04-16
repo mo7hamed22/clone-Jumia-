@@ -60,7 +60,7 @@ function Products() {
         console.log(err)
       }
     )
-  },[]); //handelDelete,setEditProduct,setProducts -> in need to recall useEffect on delete and at the same time not go inside the infinte loop
+  },[]); //handelDelete, handesetEditProduct, setEditProduct,setProducts -> in need to recall useEffect on delete and at the same time not go inside the infinte loop
 
 
   let history = useHistory();  
@@ -86,6 +86,36 @@ function Products() {
     notificationAlertRef.current.notificationAlert(options);
   };
 
+
+  let handleEditSubmit = (e) =>{
+    e.preventDefault();
+    let id = e.target[0].value;
+    let nameEn = e.target[1].value;
+    let price = e.target[2].value;
+    let brand = e.target[3].value;
+    let discount = e.target[4].value;
+    let quantity = e.target[5].value;
+    let description = e.target[6].value;
+    
+    
+
+    productService.updateProduct({
+      "id":id,
+      "nameEn": nameEn,
+      'price': price,
+      'brand': brand,
+      'discount': discount,
+      'quantity': quantity,
+      'description': description,
+    }).then(
+      (data)=>{      
+        alert('Your product has been updated!');//.log(data);
+      },
+      (err)=>{
+        console.log(err);
+      }
+    )
+  }
 
   return (
     <>
@@ -123,7 +153,7 @@ function Products() {
                      <td>{index+1}</td>
                     <td>{product.nameEn}</td>                    
                     <td><img
-                src={require("assets/img/products/sample.png").default}
+                src={product.image[0]}
                 alt="..." style={{width:'100px'}}
               /></td>
                     <td>{ product.price }</td>
@@ -145,6 +175,8 @@ function Products() {
 
     <Modal size="lg" show={show} onHide={handleClose}>        
         <Modal.Body>
+       <form onSubmit={handleEditSubmit}>
+         <input disabled type="hidden" name="product_id" defaultValue={editProduct._id}/>
           <Row>
             <Col md="7">
           <Form.Group>
@@ -204,6 +236,15 @@ function Products() {
           </Col>
           
           <Col md="5">
+          {/* <Form.Group>
+            <Form.Label>Edit main image</Form.Label>
+            <Form.Control 
+            type="text"
+            name="image[0]"
+            placeholder="Enter image url"
+            defaultValue={editProduct.image[0]}                      
+            />
+          </Form.Group> */}
           <Form.Group>
             <Form.Label>Description</Form.Label>
             <Form.Control as="textarea" rows={12} 
@@ -215,16 +256,16 @@ function Products() {
           </Form.Group>
           </Col>      
         </Row>
-
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+        <Button  variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button type="submit" variant="primary" onClick={handleClose}>
             Save Changes
           </Button>
-        </Modal.Footer>
+        </form>
+
+        </Modal.Body>
+       
       </Modal>
 
   </>

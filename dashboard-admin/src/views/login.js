@@ -21,22 +21,19 @@ import { useHistory } from 'react-router-dom';
         .then(user => {
           if (user.data.token) {
             localStorage.setItem('token', JSON.stringify(user.data.token))
-            localStorage.setItem('userInfo', JSON.stringify(user.data.data))
-            
-            console.log(props);            
-            //history.push('/admin/dashboard')
+            localStorage.setItem('userInfo', JSON.stringify(user.data.data))            
             window.location.href = '/admin/dashboard';   
             setIsLogedin(true)
           } else {
             setIsLogedin(false)
           }
-      })
+      }).catch(err => setIsLogedin(false))
       
     }
   }
     return(
       <Container>
-        <h2 className="text-center">Login</h2>
+        <h2 className="text-center">Login <i className="fas fa-user"></i></h2>
         <Form>
           <Form.Text
             className={submited && !isLogedin ? 'alert-danger h4 p-3 rounded' : 'd-none'}>

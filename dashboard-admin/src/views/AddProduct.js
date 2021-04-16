@@ -14,6 +14,7 @@ import {
 } from "react-bootstrap";
 import { data, event } from "jquery";
 import { productService } from "_services/product_services";
+import { Cats_services } from "_services/cats_services";
 import axios from "axios";
 
 function AddProduct() {
@@ -44,16 +45,24 @@ function AddProduct() {
     };
     notificationAlertRef.current.notificationAlert(options);
   };
-  // useEffect(() => {
-  //   getProducts();
-  //   console.log(products);
-  // }, []);
-  // const getProducts = async () => {
-  //   await productService.getAllProducts().then((data) => {
-  //     setProducts(data.data);
-  //     console.log(products);
-  //   });
-  // };
+
+  const [cats, setCats] = React.useState([]);
+
+  // selecting tree
+  const [selectedCats, setselectedCats] = React.useState([]);
+  const [selectedSubCatArr, setSelectedSubCatArr] = React.useState([]);
+
+  useEffect(() => {       
+    Cats_services.getAllCats().then(
+      data => {            
+        setCats(data.data);         
+        localStorage.setItem('cats', JSON.stringify(data.data))        
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
+  },[]);
 
   const handelAddImage = () => {
     setImage([...image, ""]);
@@ -63,7 +72,7 @@ function AddProduct() {
     setSubmited(true);
     const newImage = image.filter((img) => {
       return img !== "";
-    });
+    });    
     setImage(newImage);
     if (
       (nameEn,
@@ -92,6 +101,31 @@ function AddProduct() {
       console.log(product);
     }
   };
+
+  let handelCatSelect = (e) =>{
+    let allCatsArr = JSON.parse(localStorage.getItem("cats"));
+    for(let i=0; i<allCatsArr.length; i++){
+      if(allCatsArr[i]._id == e.target.value){
+        setselectedCats(allCatsArr[i].subCategory);        
+      }
+    }    
+  }
+
+
+  let handleSubCatSelct = (e) =>{    
+    let allCatsArr = JSON.parse(localStorage.getItem("cats"));
+    for(let i=0; i<allCatsArr.length; i++){
+      var newArr = allCatsArr[i].subCategory.filter(x => x._id === e.target.value).map(x => x.subCatArray);     
+      if(newArr.length != 0){
+        setSelectedSubCatArr(newArr[0]);
+         console.log(newArr[0]);
+      }
+      
+  }
+}
+
+  
+
 
   return (
     <Container>
@@ -236,8 +270,37 @@ function AddProduct() {
           </Col>
 
           <Col lg="4">
-            <h4>category</h4>
+            <h4>Category</h4>
 
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label>Category Name</Form.Label>
+              <Form.Control as="select" custom onChange={handelCatSelect}>                
+                {cats.map((item,index) => <><option value={item._id} key={index}>{item.nameEn}</option></>)}           
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label>Sub Cateogry</Form.Label>
+              <Form.Control as="select" custom onChange={handleSubCatSelct}>    
+              <option disabled selected>- Choose a sub cat -</option>            
+                {selectedCats.map((item,index) => <><option value={item._id} key={index}>{item.subCatName}</option></>)}           
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId="exampleForm.SelectCustom">
+              <Form.Label>sub cats</Form.Label>
+              <Form.Control as="select" custom onChange={handleSubCatSelct}>    
+              <option disabled selected>- Choose a sub cat arr -</option>            
+                {selectedSubCatArr.map((item,index) => <><option value={item} key={index}>{item}</option></>)}           
+              </Form.Control>
+            </Form.Group>
+
+
+            
+
+
+            
+{/* 
             <Form.Group>
               <Form.Label> category Name En</Form.Label>
               <Form.Control
@@ -305,6 +368,8 @@ function AddProduct() {
                 Product nameAr is required.
               </Form.Text>
             </Form.Group>
+          */}
+         
           </Col>
         </Row>
 

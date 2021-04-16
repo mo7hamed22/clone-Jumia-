@@ -28,9 +28,9 @@ router.delete("/delete", authenticateToken, checkIsAdmin, (req, resp) => {
 
 /////////// update user by ID
 
-router.put("/update", authenticateToken, checkIsAdmin, (req, res) => {
-  const { id, ...product } = req.body;
-
+// something went wrong with put method -> later check
+router.post("/update", authenticateToken, checkIsAdmin, (req, res) => {
+  const { id, ...product } = req.body.product;  
   console.log(product, "product", id, "id");
   Products.updateOne({ _id: id }, product)
     .then((data) => {
