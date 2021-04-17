@@ -17,9 +17,9 @@ router.post('/signup',(req,resp)=> {
       resp.status(201).json({token:token})
     }else{
       if(err.keyValue){
-        resp.status(400).json({message:'Cannot register with this Email is already Register'})
+        resp.status(202).send({message:'Cannot register with this Email is already Register'})
       }else{
-        resp.status(400).json({message:'error in creating'})
+        resp.status(404).json({message:'error in creating'})
       }
     }
   })

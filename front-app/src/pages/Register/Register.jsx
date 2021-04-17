@@ -9,6 +9,12 @@ import Col from 'react-bootstrap/Col';
 import MuiPhoneNumber from 'material-ui-phone-number';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
 import axios from 'axios'
 
 
@@ -26,10 +32,36 @@ const validationSchema = yup.object({
     lastName:yup.string('your last Name mUst be Characters').required('last Name Required'),
   
 });
-
+function Alert(propsAlert) {
+  return <MuiAlert elevation={6} variant="filled" {...propsAlert} />;
+}
 export default function Register() {
+ 
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  }));
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [feedbackMsg, setFeedBackMsg] = React.useState("");
+  const [feedBackAlert, setFeedBackAlert] = React.useState("success");
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleClickAlert = () => {
+    setOpenAlert(true);
+  };
 
+  const handleCloseAlert = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
 
+    setOpenAlert(false);
+  };
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -40,6 +72,7 @@ export default function Register() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
+      setOpen(true);
     const {email,firstName,lastName,password,phoneNumber} = values
     const user = {
       email,
@@ -51,12 +84,26 @@ export default function Register() {
       user.phoneNumber=phoneNumber
     }
   
-    console.log(user)
+    // console.log(user)
     axios.post('http://localhost:8080/auth/signup',user).then(data=>{
-  localStorage.setItem('token',data.data.token)
-
+    
+      if(data.data.message){
+        handleClickAlert();
+  setFeedBackMsg('Cannot Sign UP with this Email');
+  setFeedBackAlert("error");
+      }
+     
+else{
+    localStorage.setItem('token',data.data.token)
+  handleClickAlert();
+  setFeedBackMsg("Login Successfully");
+  setFeedBackAlert("success");
+}
+  handleClose();
     }).catch(e=>{
+
       console.log(e,'error')
+      console.log(e.message)
     })
    
     },
@@ -87,6 +134,7 @@ export default function Register() {
        <Row >
          <Col md={6} className='mt-5'>
          <TextField
+   
          fullWidth
          className='form-control'
           id="firstName"
@@ -103,6 +151,7 @@ export default function Register() {
          <Col md={6} className='mt-5' >
           
       <TextField
+        
           fullWidth
           id="lastName"
           name="lastName"
@@ -118,6 +167,7 @@ export default function Register() {
        <Row >
          <Col md={6} className='mt-5'>
          <TextField
+       
          fullWidth
           id="email"
           name="email"
@@ -132,10 +182,9 @@ export default function Register() {
           
 
       <TextField
-    
+       
           fullWidth
           id="password"
-        
           name="password"
           label="password"
           type="password"
@@ -190,6 +239,25 @@ export default function Register() {
         </Button>
           </Col>
         </Row>
+        <Backdrop
+                      className={classes.backdrop}
+                      open={open}
+                      onClick={handleClose}
+                    >
+                      <CircularProgress color="inherit" />
+                    </Backdrop>
+                    <Snackbar
+                      open={openAlert}
+                      autoHideDuration={6000}
+                      onClose={handleCloseAlert}
+                    >
+                      <Alert
+                        onClose={handleCloseAlert}
+                        severity={feedBackAlert}
+                      >
+                        {feedbackMsg}
+                      </Alert>
+                    </Snackbar>
       </form>
 
      
