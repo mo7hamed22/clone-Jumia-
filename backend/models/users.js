@@ -6,6 +6,7 @@ var userSchema = new mongoose.Schema({
     required:true,
     unique:true
   },
+  phoneNumber:String,
   password:{
     type:String,
     required:true
