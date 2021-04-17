@@ -1,17 +1,22 @@
 import axios from "axios";
 export const Cats_services = {
   getAllCats,
+  createCategory,
 };
 
 function getAllCats() {
   return axios.get("http://localhost:8080/category/getAllCategories");
 }
 
-// function createProduct(product) {
-//   let token = JSON.parse(localStorage.getItem("token"));
-//   const header = { headers: { Authorization: `Bearer ${token}` } };
-//   return axios.post("http://localhost:8080/product/add", product, header);
-// }
+function createCategory(nameEn, nameAr, icon, subCatsArr) {
+  let token = JSON.parse(localStorage.getItem("token"));
+  const header = { headers: { Authorization: `Bearer ${token}` } };
+  return axios.post(
+    "http://localhost:8080/product/add",
+    { nameEn, nameAr, icon, subCatsArr },
+    header
+  );
+}
 
 // function deleteProduct(id) {
 //   let token = JSON.parse(localStorage.getItem("token"));
