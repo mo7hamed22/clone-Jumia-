@@ -8,7 +8,7 @@ import Nav from "../../Component/CategoryItems/CategoryItems";
 function TopSection() {
   return (
     <div className="topSectionContainer">
-      <LeftTop />
+      <LeftTop  />
       {/* <Nav /> */}
       <MiddleTop />
       <RightTop />

@@ -6,6 +6,7 @@ import Header from "./Home-up/Components//Header";
 import MiddleImage from "./Home-up/Components//MiddleImage";
 import QuickLinks from "./Home-up/Components//QuickLinks";
 import TopSection from "./Home-up/Components//TopSection";
+import Footer from './Component/footer/Footer'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Header />
       <TopSection />
       <QuickLinks />
+      <Footer/>
     </div>
   );
 }

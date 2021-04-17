@@ -3,8 +3,7 @@ import Button from "@material-ui/core/Button";
 import Items from "../CategoryItems/CategoryItems";
 import "./Nav.css";
 export default function FadeMenu() {
-  let icon;
-  const test = "container";
+ 
   const [categories, setCategories] = React.useState();
   useEffect(async () => {
     const data = await fetch("http://localhost:8080/category/getAllCategories");
@@ -12,19 +11,7 @@ export default function FadeMenu() {
     if (categoriesFromDatabase) {
       setCategories(categoriesFromDatabase);
     }
-  }, []);
-
-  const handleHover = (event) => {
-    event.target.classList.add("navCategoryItem");
-  };
-  const cat = [
-    "supermarket",
-    "fashion",
-    "health&Beauty",
-    "mobile",
-    "electronics",
-  ];
-  const handleClose = () => {};
+  },[]);
 
   return (
     <>        <div style={{ margin: "10px" }} className={"navParent"}>
@@ -38,7 +25,7 @@ export default function FadeMenu() {
                   <>
                     <li>
                       <div className="itemName">
-                        <a href="" style={{ textDecoration: "none" }}>
+                        <a href="" style={{ textDecoration: "none" ,color:'#222'}}>
                           <svg
                             viewBox="0 0 24 24"
                             style={{ maxWidth: ".8rem" ,marginRight:"3px"}}

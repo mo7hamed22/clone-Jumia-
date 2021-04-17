@@ -13,15 +13,15 @@ import Baby from "../images/baby.png";
 import Sporting from "../images/sporting.png";
 import Garden from "../images/garden.png";
 import Others from "../images/others.png";
-import Nav from "../../Component/CategoryItems/CategoryItems";
+import Nav from "../../Component/CategoryNav/Nav";
 
 // front-app/src/Component/CategoryItems/CategoryItems.jsx
 
 function LeftTop() {
   return (
-    <div>
+    <div style={{width:'178px'}}>
       <Nav />
-      <h1>Jjjjjjjj</h1>
+    
       {/* <LeftTopOption Icon={Supermarket} title="Supermarket" className="leftTarget"/>
       <LeftTopOption Icon={Health} title="Health & Beauty" />
       <LeftTopOption Icon={Home} title="Home & Office" />
