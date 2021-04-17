@@ -31,34 +31,48 @@ function Sidebar({ color, image, routes }) {
               />
             </div>
           </a>
-          {/* <a className="simple-text" href="http://www.creative-tim.com">
+          <a className="simple-text" href="#">
            Jumia Dashboard
-          </a> */}
+          </a>
         </div>
         <Nav>
-          {routes.map((prop, key) => {
-            if (!prop.redirect)
-              return (
-                <li
-                  className={
-                    prop.upgrade
-                      ? "active active-pro"
-                      : activeRoute(prop.layout + prop.path)
-                  }
-                  key={key}
-                >
-                  <NavLink
-                    to={prop.layout + prop.path}
-                    className="nav-link"
-                    activeClassName="active"
-                  >
-                    <i className={prop.icon} />
-                    <p>{prop.name}</p>
-                  </NavLink>
-                </li>
-              );
-            return null;
-          })}
+
+        <li>
+            <NavLink to='/admin/dashboard' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-chart-pie-35' />
+              <p>Dashboard</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to='/admin/categories' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-bullet-list-67' />
+              <p>Categories</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to='/admin/products' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-paper-2' />
+              <p>Products</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to='/admin/users/all' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-notes' />
+              <p>Users</p>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to='/admin/edit' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-circle-09' />
+              <p>Admin profile</p>
+            </NavLink>
+          </li>
+           
+         
         </Nav>
       </div>
     </div>

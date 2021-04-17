@@ -1,7 +1,8 @@
 import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
-import TableList from "views/Users.js";
+import Users from "views/Users.js";
 import Products from "views/Products.js";
+import Categories from "views/Categories.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import AddUser from "views/AddUSer";
@@ -17,7 +18,14 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/Products",
+    path: "/categories",
+    name: "Categories",
+    icon: "nc-icon nc-bullet-list-67",
+    component: Categories,
+    layout: "/admin",
+  },
+  {
+    path: "/products",
     name: "Products",
     icon: "nc-icon nc-paper-2",
     component: Products,
@@ -34,7 +42,7 @@ const dashboardRoutes = [
     path: "/users/all",
     name: "Users",
     icon: "nc-icon nc-notes",
-    component: TableList,
+    component: Users,
     layout: "/admin",
   },
   
@@ -54,13 +62,6 @@ const dashboardRoutes = [
     component: Icons,
     layout: "/admin",
   },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   icon: "nc-icon nc-pin-3",
-  //   component: Maps,
-  //   layout: "/admin",
-  // },
   {
     path: "/notifications",
     name: "Notifications",
