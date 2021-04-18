@@ -10,16 +10,24 @@ class NotFoundView extends Component {
   render() {
     return (
       <div className="container text-center p-5">
-        <div className="display-1">
-          <IconAlertTriangleFill className="i-va text-warning" />
-          404
-        </div>
-        <h1 className="mb-3">Oops... Page Not Found!</h1>
-        <div className="row justify-content-md-center">
-          <div className="col-md-6">
-            <Search />
+        <div className="row">
+          <div className="col-md-6 text-left">
+           <div className="display-1">
+              <IconAlertTriangleFill className="i-va text-warning" />
+              404
+            </div>
+            <h1 className="mb-3">Oops... Page Not Found!</h1>
+            <div className="row justify-content-md-center">
+              <div className="col-md-6">
+                <a href='/' className="btn btn-lg btn-warning">Go to home</a>
+              </div>
+            </div>
           </div>
+            <div className="col-md-6">
+              <img src="https://www.jumia.com.eg/assets_he/images/people.ec5b815c.svg"/>
+            </div>
         </div>
+        
       </div>
     );
   }
