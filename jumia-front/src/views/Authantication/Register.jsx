@@ -14,6 +14,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
+import { Link } from "react-router-dom";
+
 
 import axios from "axios";
 
@@ -40,7 +42,7 @@ const validationSchema = yup.object({
 function Alert(propsAlert) {
   return <MuiAlert elevation={6} variant="filled" {...propsAlert} />;
 }
-export default function Register() {
+export default function Register(props) {
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -100,6 +102,9 @@ export default function Register() {
             handleClickAlert();
             setFeedBackMsg("Login Successfully");
             setFeedBackAlert("success");
+            setTimeout(()=>{
+              props.history.replace('/');
+            },1500)
           }
           handleClose();
         })
@@ -305,9 +310,9 @@ export default function Register() {
                 }}
               >
                 <h5>Already Have Account</h5>
-                <a href="" style={{ color: "#f68b1e" }}>
+                <Link to="/account/login" style={{ color: "#f68b1e" }}>
                   Login
-                </a>
+                </Link>
               </Col>
             </Row>
           </Col>
@@ -316,3 +321,5 @@ export default function Register() {
     </>
   );
 }
+
+
