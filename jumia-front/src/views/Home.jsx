@@ -37,13 +37,31 @@ class HomeView extends Component {
     IconTools: IconTools,
   };
 
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      cats: []
+    };
+  }
 
   
-  componentDidMount() {
-    alert('data.data')
+  
+  componentDidMount() {    
+    homeServices.getAllCats().then(
+      data=>{
+        console.log(data.data);
+        this.setState({           
+          cats: data.data
+        });
+      },(err)=>{
+        console.log(err);
+      }
+    )
+
     homeServices.getAllProducts().then(
       data => {        
-       console.log(data.data);          
+      //  console.log(data.data);          
       },
       (err) => {
         console.log(err)
@@ -88,18 +106,17 @@ class HomeView extends Component {
     return (
       <React.Fragment>    
            
-        <div className='container mt-2'>
+        <div className='container-fluid mt-2'>
         <div className="row">
           <div className="col-md-2">
-            <TopMenu/>
+            <TopMenu data={this.state.cats}/>
           </div>
           <div className="col-md-10">
           <Banner className="mb-3" id="carouselHomeBanner" data={data.banner} />
           </div>
         </div>
         </div>
-        <br/>
-        
+        <br/>      
 
         <div className="container mb-3">
           <div className="row">
