@@ -34,9 +34,9 @@ function Categories() {
 
   const [show, setShow] = React.useState(false);
   const [subCatName, setSubCatName] = React.useState("");
-  const [subCatType, setSubCatType] = React.useState([""]);
-  const [subCatsArr, setSubCatsArr] = React.useState([
-    { subCatName, subCatType },
+  const [subCatArray, setSubCatArray] = React.useState([""]);
+  const [subCategory, setSubCategory] = React.useState([
+    { subCatName, subCatArray },
   ]);
   const handleClose = (subCatsArr) => {
     setShow(false);
@@ -66,7 +66,6 @@ function Categories() {
   useEffect(() => {
     Cats_services.getAllCats().then(
       (data) => {
-        //console.log(data.data);
         setCats(data.data);
         setSpinner(false);
       },
@@ -74,13 +73,20 @@ function Categories() {
         console.log(err);
       }
     );
-  }, []); //handelDelete, handesetEditProduct, setEditProduct,setCats -> in need to recall useEffect on delete and at the same time not go inside the infinte loop
+  }, [setCats]); //handelDelete, handesetEditProduct, setEditProduct,setCats -> in need to recall useEffect on delete and at the same time not go inside the infinte loop
 
   const handelAddSubCatsArr = () => {
-    setSubCatsArr([...subCatsArr, { subCatName: "", subCatArray: [""] }]);
+    setSubCategory([...subCategory, { subCatName: "", subCatArray: [""] }]);
   };
-  const handelAddType = () => {
-    setSubCatType([...subCatType, ""]);
+  const handelAddType = (index) => {
+    const newCat = [...subCategory];
+    newCat[index].subCatArray.push("");
+    setSubCategory(newCat);
+  };
+  const handelDeleteType = (index, indextype) => {
+    const newCat = [...subCategory];
+    newCat[index].subCatArray.splice(indextype, 1);
+    setSubCategory(newCat);
   };
 
   const notify = () => {
@@ -97,12 +103,25 @@ function Categories() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-
-    Cats_services.createCategory({
-      nameEn,nameAr,icon,subCatsArr
-    }).then(
+    let category = {
+      nameEn,
+      nameAr,
+      icon,
+      subCategory,
+    };
+    console.log(category);
+    Cats_services.createCategory(category).then(
       (data) => {
-        alert("Your product has been updated!"); //.log(data);
+        alert("Your product has been updated!");
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    Cats_services.getAllCats().then(
+      (data) => {
+        setCats(data.data);
+        setSpinner(false);
       },
       (err) => {
         console.log(err);
@@ -207,29 +226,42 @@ function Categories() {
               </Col>
 
               <Col lg="4">
-                {subCatsArr.map((item, index) => (
+                {subCategory.map((item, index) => (
                   <Form.Group key={index}>
                     <Form.Label>Sub Category Name</Form.Label>
                     <Form.Control
                       type="text"
                       placeholder="subCatName"
-                      onChange={(e) => setSubCatName(e.target.value)}
+                      id="subCatName"
+                      onChange={(e) => {
+                        const newSubCat = [...subCategory];
+                        newSubCat[index].subCatName = e.target.value;
+                        setSubCategory(newSubCat);
+                      }}
                     />
-                    {subCatType.map((type, index) => (
-                      <Form.Group>
+                    {item.subCatArray.map((type, x) => (
+                      <Form.Group key={index}>
                         <Form.Label>Sub Category Type</Form.Label>
                         <Form.Control
                           type="text"
                           placeholder="subCatType"
-                          onBlur={(e) => {
-                            const newType = [...subCatType];
-                            newType[index] = e.target.value;
-                            setSubCatType(newType);
+                          onChange={(e) => {
+                            const newType = [...subCategory];
+                            newType[index].subCatArray[x] = e.target.value;
+                            setSubCategory(newType);
                           }}
                         />
+                        <Button
+                          variant="danger"
+                          onClick={() => handelDeleteType(index, x)}
+                        >
+                          Remove This Type
+                        </Button>
                       </Form.Group>
                     ))}
-                    <Button onClick={handelAddType}>Add Type</Button>
+                    <Button onClick={() => handelAddType(index)}>
+                      Add Type
+                    </Button>
                   </Form.Group>
                 ))}
                 <Button onClick={handelAddSubCatsArr}>Add Sub Category</Button>

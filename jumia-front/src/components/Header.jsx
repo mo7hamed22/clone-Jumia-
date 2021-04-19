@@ -51,10 +51,14 @@ const Header = () => {
                     <Link className="dropdown-item" to="/account/profile">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
+                  </li>  <li>
+                    <Link className="dropdown-item" to="/account/login">
+                     Login
+                    </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/star/zone">
-                      <IconStarFill className="text-warning" /> Star Zone
+                    <Link className="dropdown-item" to="account/signup">
+                      <IconStarFill className="text-warning" /> Create Account
                     </Link>
                   </li>
                   <li>

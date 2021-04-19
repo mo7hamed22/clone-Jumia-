@@ -1,63 +1,43 @@
 import React, { useEffect } from "react";
-import {productService} from '../_services/product_services';
-import {Cats_services} from '../_services/cats_services';
+import { productService } from "../_services/product_services";
+import { Cats_services } from "../_services/cats_services";
 import { userService } from "_services/user.services";
 
-import {  
-  Card,  
-  Table,
-  Container,  
-  Row,
-  Col,  
-} from "react-bootstrap";
-
-
-
+import { Card, Table, Container, Row, Col } from "react-bootstrap";
 
 function Dashboard() {
-
   const [products, setProducts] = React.useState([]);
-const [cats, setCats] = React.useState([]);
-const [users, setUsers] = React.useState([]);
+  const [cats, setCats] = React.useState([]);
+  const [users, setUsers] = React.useState([]);
 
+  useEffect(() => {
+    productService.getAllProducts().then(
+      (data) => {
+        setProducts(data.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
+    Cats_services.getAllCats().then(
+      (data) => {
+        setCats(data.data);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
-useEffect(() => {     
-
-  productService.getAllProducts().then(
-    data => {        
-      setProducts(data.data);          
-    },
-    (err) => {
-      console.log(err)
-    }
-  )
-
-  Cats_services.getAllCats().then(
-    data => {            
-      setCats(data.data);            
-    },
-    (err) => {
-      console.log(err)
-    }
-  )
-
-
-  userService.GetAllUsers().then(
-    (data) => {
-      setUsers(data.data);      
-    },
-    (err) => {
-      console.log;
-    }
-  );
-
-
-
-},[]); 
-
-
-
+    userService.GetAllUsers().then(
+      (data) => {
+        setUsers(data.data);
+      },
+      (err) => {
+        console.log;
+      }
+    );
+  }, []);
 
   return (
     <>
@@ -140,12 +120,11 @@ useEffect(() => {
                 </div>
               </Card.Footer>
             </Card>
-          </Col>  
-
+          </Col>
 
           <Col lg="12">
             <h4>Recent 5 Users</h4>
-          <Table striped bordered hover>
+            <Table striped bordered hover>
               <thead>
                 <tr>
                   <th>#</th>
@@ -155,23 +134,21 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody>
-                {users.slice(0, 5).map((user,index)=><tr>
-                  <td>{index+1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.age}</td>
-                  <td>{user.email}</td>
-                </tr>)}
-
-                
+                {users.slice(0, 5).map((user, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.name}</td>
+                    <td>{user.age}</td>
+                    <td>{user.email}</td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
 
-          
-          
           <Col lg="12">
             <h4>Recent 5 Products</h4>
-          <Table striped bordered hover>
+            <Table striped bordered hover>
               <thead>
                 <tr>
                   <th>#</th>
@@ -181,23 +158,18 @@ useEffect(() => {
                 </tr>
               </thead>
               <tbody>
-                {products.slice(0, 5).map((product,index)=><tr>
-                  <td>{index+1}</td>
-                  <td>{product.nameEn}</td>
-                  <td>{product.price}$</td>
-                  <td>{product.quantity}</td>
-                </tr>)}
-
-                
+                {products.slice(0, 5).map((product, index) => (
+                  <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{product.nameEn}</td>
+                    <td>{product.price}$</td>
+                    <td>{product.quantity}</td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </Col>
-
-        
-          
         </Row>
-        
-
       </Container>
     </>
   );

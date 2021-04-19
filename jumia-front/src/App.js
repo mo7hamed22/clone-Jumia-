@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
 const HomeView = lazy(() => import("./views/Home"));
-const SignInView = lazy(() => import("./views/account/SignIn"));
-const SignUpView = lazy(() => import("./views/account/SignUp"));
+// const SignInView = lazy(() => import("./views/account/SignIn"));
+// const SignUpView = lazy(() => import("./views/account/SignUp"));
 const ForgotPasswordView = lazy(() => import("./views/account/ForgotPassword"));
 const OrdersView = lazy(() => import("./views/account/Orders"));
 const WishlistView = lazy(() => import("./views/account/Wishlist"));
@@ -27,6 +27,9 @@ const ContactUsView = lazy(() => import("./views/pages/ContactUs"));
 const SupportView = lazy(() => import("./views/pages/Support"));
 const BlogView = lazy(() => import("./views/blog/Blog"));
 const BlogDetailView = lazy(() => import("./views/blog/Detail"));
+const LoginView = lazy(() => import("./views/Authantication/Login"));
+const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
+
 
 function App() {
   return (
@@ -41,8 +44,8 @@ function App() {
         >
           <Switch>
             <Route exact path="/" component={HomeView} />
-            <Route exact path="/account/signin" component={SignInView} />
-            <Route exact path="/account/signup" component={SignUpView} />
+            {/* <Route exact path="/account/signin" component={SignInView} />
+            */}
             <Route
               exact
               path="/account/forgotpassword"
@@ -51,6 +54,7 @@ function App() {
             <Route exact path="/account/profile" component={MyProfileView} />
             <Route exact path="/account/orders" component={OrdersView} />
             <Route exact path="/account/wishlist" component={WishlistView} />
+         
             <Route
               exact
               path="/account/notification"
@@ -66,6 +70,8 @@ function App() {
             <Route exact path="/support" component={SupportView} />
             <Route exact path="/blog" component={BlogView} />
             <Route exact path="/blog/detail" component={BlogDetailView} />
+            <Route exact path="/account/login" component={LoginView} />
+            <Route exact path="/account/signup" component={SignUpView} />
             <Route exact path="/500" component={InternalServerErrorView} />
             <Route component={NotFoundView} />
           </Switch>
