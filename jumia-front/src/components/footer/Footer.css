@@ -1,0 +1,23 @@
+.bg-darker{
+    background-color: #232323;
+    color: white;
+}
+.bg-darke{
+   background-color: #282828;
+   color: white;
+}
+.f-li{
+    list-style: none;
+    font-size: x-small;
+    color: whitesmoke;
+}
+.search{
+    width: 348px!important;
+    height: 34px!important;
+}
+.btn-outline-light:hover{
+    border-color: #f68b1e!important;
+    color:#f68b1e!important ;
+    outline: 0!important;
+    background-color: #222!important;
+}

@@ -3,6 +3,10 @@
   background-color: #fe9900;
     border-color: #fe9900;
 }
+body::before{
+  content: 'hey';
+  padding: 10px;
+}
 .required:after {
   content: " *";
   color: red;
