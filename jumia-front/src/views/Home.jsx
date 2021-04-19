@@ -12,6 +12,8 @@ import { ReactComponent as IconHdd } from "bootstrap-icons/icons/hdd.svg";
 import { ReactComponent as IconUpcScan } from "bootstrap-icons/icons/upc-scan.svg";
 import { ReactComponent as IconTools } from "bootstrap-icons/icons/tools.svg";
 import TopMenu from "../components/TopMenu";
+
+import {homeServices} from '../services/_home';
 const Support = lazy(() => import("../components/Support"));
 const Banner = lazy(() => import("../components/carousel/Banner"));
 const Carousel = lazy(() => import("../components/carousel/Carousel"));
@@ -21,6 +23,7 @@ const CardImage = lazy(() => import("../components/card/CardImage"));
 const CardDealsOfTheDay = lazy(() =>
   import("../components/card/CardDealsOfTheDay")
 );
+
 
 class HomeView extends Component {
   components = {
@@ -33,6 +36,20 @@ class HomeView extends Component {
     IconUpcScan: IconUpcScan,
     IconTools: IconTools,
   };
+
+
+  
+  componentDidMount() {
+    alert('data.data')
+    homeServices.getAllProducts().then(
+      data => {        
+       console.log(data.data);          
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
+  }
 
   render() {
     const iconProducts = data.iconProducts;
@@ -64,6 +81,9 @@ class HomeView extends Component {
       </div>
     ));
 
+  
+    
+    
     
     return (
       <React.Fragment>    
