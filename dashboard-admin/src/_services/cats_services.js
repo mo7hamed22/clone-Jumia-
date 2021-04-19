@@ -8,12 +8,12 @@ function getAllCats() {
   return axios.get("http://localhost:8080/category/getAllCategories");
 }
 
-function createCategory(nameEn, nameAr, icon, subCatsArr) {
+function createCategory(category) {
   let token = JSON.parse(localStorage.getItem("token"));
   const header = { headers: { Authorization: `Bearer ${token}` } };
   return axios.post(
-    "http://localhost:8080/product/add",
-    { nameEn, nameAr, icon, subCatsArr },
+    "http://localhost:8080/category/addCategory",
+    category,
     header
   );
 }
@@ -22,7 +22,7 @@ function createCategory(nameEn, nameAr, icon, subCatsArr) {
 //   let token = JSON.parse(localStorage.getItem("token"));
 //   const config = {
 //     headers: { Authorization: `Bearer ${token}`},
-//   };  
+//   };
 //   return axios({
 //     method: "delete",
 //     url: "http://localhost:8080/product/delete",
@@ -31,11 +31,11 @@ function createCategory(nameEn, nameAr, icon, subCatsArr) {
 //   });
 // }
 
-// function updateProduct(product) {  
+// function updateProduct(product) {
 //   let token = JSON.parse(localStorage.getItem("token"));
 //   const config = {
 //     headers: { Authorization: `Bearer ${token}`},
-//   };  
+//   };
 
 //   return axios({
 //     method: "post",
@@ -44,5 +44,4 @@ function createCategory(nameEn, nameAr, icon, subCatsArr) {
 //     headers: { Authorization: `Bearer ${token}`}
 //   });
 
- 
 // }

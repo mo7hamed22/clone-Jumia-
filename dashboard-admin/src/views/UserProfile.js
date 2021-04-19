@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // react-bootstrap components
 import {
@@ -12,13 +12,54 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-
+import { userService } from "_services/user.services";
 function User() {
-
-
   let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+  const [userEffect, setUserEffect] = React.useState(
+    localStorage.getItem("userInfo")
+  );
+  const [id, setId] = React.useState(userInfo._id);
+  const [name, setName] = React.useState(userInfo.name);
+  const [email, setEmail] = React.useState(userInfo.email);
+  const [age, setAge] = React.useState(userInfo.age);
+  const [cart, setCart] = React.useState(userInfo.cart);
 
+  useEffect(() => {
+    let userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    userService.findUser(userInfo).then((data) => {
+      setUserEffect(data.data);
+    });
+  }, [setUserEffect]);
 
+  const handelUpdata = (e) => {
+    e.preventDefault();
+    let user = {
+      name,
+      email,
+      age,
+      id,
+      cart,
+    };
+    console.log(user);
+    userService.UpdateUser(user).then(
+      (data) => {
+        if (data.data == "User Updated") {
+          userService.findUser(user).then(
+            (data) => {
+              setUserEffect(data.data);
+              localStorage.setItem("userInfo", JSON.stringify(data.data));
+            },
+            (err) => {
+              console.log(err);
+            }
+          );
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  };
 
   return (
     <>
@@ -30,15 +71,17 @@ function User() {
                 <Card.Title as="h4">Edit Profile</Card.Title>
               </Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={handelUpdata}>
                   <Row>
                     <Col className="pr-1" md="12">
                       <Form.Group>
                         <label>User Name</label>
                         <Form.Control
-                          defaultValue={userInfo.name}                          
+                          defaultValue={userEffect.name}
                           placeholder="User name"
                           type="text"
+                          id="name"
+                          onChange={(e) => setName(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -47,9 +90,11 @@ function User() {
                       <Form.Group>
                         <label>User Email</label>
                         <Form.Control
-                          defaultValue={userInfo.email}                          
+                          defaultValue={userEffect.email}
                           placeholder="User Emial"
                           type="email"
+                          id="email"
+                          onChange={(e) => setEmail(e.target.value)}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -58,23 +103,11 @@ function User() {
                       <Form.Group>
                         <label>User Age</label>
                         <Form.Control
-                          defaultValue={userInfo.age}                          
+                          defaultValue={userEffect.age}
                           placeholder="User age"
                           type="text"
-                        ></Form.Control>
-                      </Form.Group>
-                    </Col>
-                  </Row>
-                 
-                  <Row>
-                    <Col md="12">
-                      <Form.Group>
-                        <label>About Me</label>
-                        <Form.Control
-                          cols="80"
-                          placeholder="My name is ...."                          
-                          rows="4"
-                          as="textarea"
+                          id="age"
+                          onChange={(e) => setAge(parseInt(e.target.value))}
                         ></Form.Control>
                       </Form.Group>
                     </Col>
@@ -110,15 +143,11 @@ function User() {
                       className="avatar border-gray"
                       src={require("assets/img/faces/face-3.jpg").default}
                     ></img>
-                    <h5 className="title">Mike Andrew</h5>
+                    <h5 className="title">{userEffect.name}</h5>
                   </a>
-                  <p className="description">michael24</p>
+                  <p className="description">{userEffect.age}</p>
                 </div>
-                <p className="description text-center">
-                  "Lamborghini Mercy <br></br>
-                  Your chick she so thirsty <br></br>
-                  I'm in that two seat Lambo"
-                </p>
+                <p className="description text-center">{userEffect.email}</p>
               </Card.Body>
               <hr></hr>
               <div className="button-container mr-auto ml-auto">
