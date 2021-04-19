@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
-import TopMenu from "./components/TopMenu";
 import Header from "./components/Header";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
