@@ -41,7 +41,9 @@ class HomeView extends Component {
     super(props);
  
     this.state = {
-      cats: []
+      cats: [],
+      products: [],
+      suerpMarkets: []  
     };
   }
 
@@ -54,14 +56,31 @@ class HomeView extends Component {
         this.setState({           
           cats: data.data
         });
+        //  
+        homeServices.getByCatName().then(
+          data => {     
+            this.setState({           
+              suerpMarkets: data.data[0]
+            });      
+          //console.log('supermaekrt',data.data[0]);          
+          },
+          (err) => {
+            console.log(err)
+          }
+        )
+        // 
+
       },(err)=>{
         console.log(err);
       }
     )
 
     homeServices.getAllProducts().then(
-      data => {        
-      //  console.log(data.data);          
+      data => {     
+        this.setState({           
+          products: data.data
+        });   
+      //console.log('prod');          
       },
       (err) => {
         console.log(err)
@@ -74,7 +93,7 @@ class HomeView extends Component {
     const rows = [...Array(Math.ceil(iconProducts.length / 4))];
     // chunk the products into the array of rows
     const productRows = rows.map((row, idx) =>
-      iconProducts.slice(idx * 4, idx * 4 + 4)
+      iconProducts.slice(idx * 40, idx * 40 + 40)
     );
     // map the rows as div.row
     const carouselContent = productRows.map((row, idx) => (
@@ -163,9 +182,54 @@ class HomeView extends Component {
             </div> 
           </div>
         </div>
-         */}
+         */}        
+          {/* <div>
+      {this.state.products.filter(product => product.product_cat.main == 'supermarket').map(filteredPerson => (
+        <li>
+          {filteredPerson.nameEn}
+        </li>
+      ))}
+    </div> */}
+
+         {/* {this.state.products.map((product=><b>{product.product_cat.main}</b>))} */}
 
          {/* Slider */}
+
+        <div className="container">
+            <div className="row">
+            <Slider data={this.state.suerpMarkets}/>
+            </div>
+        </div>
+
+
+        <div className="container bg-light mb-3">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Supermarket products</h4>
+                </div>
+                
+                {this.state.suerpMarkets.map((item=> 
+                <div className="col-md-3 mt-1">
+                <Link className="text-decoration-none" to="/product/detail">
+                    <div className="card text-center">
+                        <div className="card-body">
+                            <img src={item.image} style={{width:'100px'}}/>
+                            <h6 className="card-title text-capitalize">{item.nameEn}</h6>
+                            <div className="card-text text-success"> {item.brand}</div>
+                            <small className="text-muted">{item.brand}</small>
+                        </div>
+                    </div>
+                </Link>
+            </div>))}                
+               
+                </div>
+            </div>
+          </div>
+        </div>
+
+
         <div className="container bg-light mb-3">
           <div className="row">
             <div className="col-md-12">

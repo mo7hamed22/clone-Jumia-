@@ -3,6 +3,7 @@ export const homeServices = {
   getAllProducts,
   getAllCats,
   getProduct,
+  getByCatName
 };
 
 function getAllProducts() {
@@ -12,9 +13,14 @@ function getAllProducts() {
 function getProduct(nameEn) {
   return axios.post("http://localhost:8080/product/get-product",{nameEn:nameEn});
 }
+ 
 
 function getAllCats() {
   return axios.get("http://localhost:8080/category/getAllCategories");
+}
+
+function getByCatName() {
+  return axios.get("http://localhost:8080/product/getbycat");
 }
 
 

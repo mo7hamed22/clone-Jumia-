@@ -4,4 +4,5 @@ import {productReducer} from './productDetails'
 export default combineReducers({
   form: formReducer,
   productReducer
+  
 });

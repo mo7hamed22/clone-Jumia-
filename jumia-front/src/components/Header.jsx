@@ -11,8 +11,9 @@ import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.
 import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
-
-const Header = () => {
+import {connect} from 'react-redux'
+const Header = (props) => {
+  console.log(props,'from header')
   return (
     <React.Fragment>
       <div className="reg" style={{width: '100%',background: '#feb800',textAlign: 'center'}}>
@@ -57,7 +58,7 @@ const Header = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="account/signup">
+                    <Link className="dropdown-item" to="/account/signup">
                       <IconStarFill className="text-warning" /> Create Account
                     </Link>
                   </li>
@@ -120,7 +121,7 @@ const Header = () => {
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                    2
+                  {props.totalItem >0?props.totalItem:null}
                   </div>
                 </Link>
               </div>
@@ -132,4 +133,9 @@ const Header = () => {
     </React.Fragment>
   );
 };
-export default Header;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    totalItem: state.items
+  }
+}
+export default connect(mapStateToProps)(Header);
