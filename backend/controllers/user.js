@@ -50,14 +50,13 @@ router.put("/update", authenticateToken, checkIsAdmin, (req, res) => {
 });
 
 ////////////// find user by email
-router.get("/get-user", authenticateToken, checkIsAdmin, (req, res) => {
+router.post("/get-user", authenticateToken, checkIsAdmin, (req, res) => {
+  console.log(req.body);
   const { email } = req.body;
-  User.findOne({ email: email }).then((err, data) => {
-    if (!err) {
-      res.status(200).send(data);
-    } else {
-      res.status(404).send(err);
-    }
+  console.log({ email: email }, "userEmail");
+  User.findOne({ email: email }).then((data) => {
+    console.log("done");
+    res.status(200).send(data);
   });
 });
 

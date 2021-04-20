@@ -5,6 +5,8 @@ export const userService = {
   AddUser,
   GetAllUsers,
   DeleteUser,
+  UpdateUser,
+  findUser,
 };
 function LogIn(email, password) {
   return axios.post("http://localhost:8080/auth/login", { email, password });
@@ -36,6 +38,26 @@ function DeleteUser(email) {
     method: "delete",
     url: "http://localhost:8080/user/delete",
     data: { email: email },
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+function UpdateUser(user) {
+  let token = JSON.parse(localStorage.getItem("token"));
+
+  return axios({
+    method: "PUT",
+    url: "http://localhost:8080/user/update",
+    data: { ...user },
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+function findUser(user) {
+  let token = JSON.parse(localStorage.getItem("token"));
+  return axios({
+    method: "post",
+    url: "http://localhost:8080/user/get-user",
+    data: { ...user },
     headers: { Authorization: `Bearer ${token}` },
   });
 }

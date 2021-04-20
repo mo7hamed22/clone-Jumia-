@@ -45,6 +45,7 @@ const Header = (props) => {
                   </div>
                 </Link>
               </div>
+             
               <div className="btn-group">
                 <button
                   type="button"
@@ -104,6 +105,8 @@ const Header = (props) => {
                 </ul>
               </div>     
 
+              
+
               <div className="btn-group">
                 <button
                   type="button"
@@ -123,6 +126,15 @@ const Header = (props) => {
                 </ul>
               </div>     
 
+              <div className="position-relative d-inline mr-3">
+                <Link to="/cart" className="btn btn-warning">
+                  <IconCart3 className="i-va" />
+                  <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
+                    2
+                  </div>
+                </Link>
+              </div>
+              
             </div>
           </div>
         </div>

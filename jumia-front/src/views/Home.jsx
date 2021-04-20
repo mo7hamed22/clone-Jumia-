@@ -12,6 +12,8 @@ import { ReactComponent as IconHdd } from "bootstrap-icons/icons/hdd.svg";
 import { ReactComponent as IconUpcScan } from "bootstrap-icons/icons/upc-scan.svg";
 import { ReactComponent as IconTools } from "bootstrap-icons/icons/tools.svg";
 import TopMenu from "../components/TopMenu";
+
+import {homeServices} from '../services/_home';
 const Support = lazy(() => import("../components/Support"));
 const Banner = lazy(() => import("../components/carousel/Banner"));
 const Carousel = lazy(() => import("../components/carousel/Carousel"));
@@ -21,6 +23,7 @@ const CardImage = lazy(() => import("../components/card/CardImage"));
 const CardDealsOfTheDay = lazy(() =>
   import("../components/card/CardDealsOfTheDay")
 );
+
 
 class HomeView extends Component {
   components = {
@@ -34,12 +37,63 @@ class HomeView extends Component {
     IconTools: IconTools,
   };
 
+  constructor(props) {
+    super(props);
+ 
+    this.state = {
+      cats: [],
+      products: [],
+      suerpMarkets: []  
+    };
+  }
+
+  
+  
+  componentDidMount() {    
+    homeServices.getAllCats().then(
+      data=>{
+        console.log(data.data);
+        this.setState({           
+          cats: data.data
+        });
+        //  
+        homeServices.getByCatName().then(
+          data => {     
+            this.setState({           
+              suerpMarkets: data.data[0]
+            });      
+          //console.log('supermaekrt',data.data[0]);          
+          },
+          (err) => {
+            console.log(err)
+          }
+        )
+        // 
+
+      },(err)=>{
+        console.log(err);
+      }
+    )
+
+    homeServices.getAllProducts().then(
+      data => {     
+        this.setState({           
+          products: data.data
+        });   
+      //console.log('prod');          
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
+  }
+
   render() {
     const iconProducts = data.iconProducts;
     const rows = [...Array(Math.ceil(iconProducts.length / 4))];
     // chunk the products into the array of rows
     const productRows = rows.map((row, idx) =>
-      iconProducts.slice(idx * 4, idx * 4 + 4)
+      iconProducts.slice(idx * 40, idx * 40 + 40)
     );
     // map the rows as div.row
     const carouselContent = productRows.map((row, idx) => (
@@ -64,22 +118,24 @@ class HomeView extends Component {
       </div>
     ));
 
+  
+    
+    
     
     return (
       <React.Fragment>    
            
-        <div className='container mt-2'>
+        <div className='container-fluid mt-2'>
         <div className="row">
           <div className="col-md-2">
-            <TopMenu/>
+            <TopMenu data={this.state.cats}/>
           </div>
           <div className="col-md-10">
           <Banner className="mb-3" id="carouselHomeBanner" data={data.banner} />
           </div>
         </div>
         </div>
-        <br/>
-        
+        <br/>      
 
         <div className="container mb-3">
           <div className="row">
@@ -126,9 +182,54 @@ class HomeView extends Component {
             </div> 
           </div>
         </div>
-         */}
+         */}        
+          {/* <div>
+      {this.state.products.filter(product => product.product_cat.main == 'supermarket').map(filteredPerson => (
+        <li>
+          {filteredPerson.nameEn}
+        </li>
+      ))}
+    </div> */}
+
+         {/* {this.state.products.map((product=><b>{product.product_cat.main}</b>))} */}
 
          {/* Slider */}
+
+        <div className="container">
+            <div className="row">
+            <Slider data={this.state.suerpMarkets}/>
+            </div>
+        </div>
+
+
+        <div className="container bg-light mb-3">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Supermarket products</h4>
+                </div>
+                
+                {this.state.suerpMarkets.map((item=> 
+                <div className="col-md-3 mt-1">
+                <Link className="text-decoration-none" to="/product/detail">
+                    <div className="card text-center">
+                        <div className="card-body">
+                            <img src={item.image} style={{width:'100px'}}/>
+                            <h6 className="card-title text-capitalize">{item.nameEn}</h6>
+                            <div className="card-text text-success"> {item.brand}</div>
+                            <small className="text-muted">{item.brand}</small>
+                        </div>
+                    </div>
+                </Link>
+            </div>))}                
+               
+                </div>
+            </div>
+          </div>
+        </div>
+
+
         <div className="container bg-light mb-3">
           <div className="row">
             <div className="col-md-12">
