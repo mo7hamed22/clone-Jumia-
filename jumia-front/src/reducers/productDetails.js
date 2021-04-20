@@ -15,7 +15,15 @@ export const productReducer = (state = count, action) => {
   } else if (action.type === "ADDTOCART") {
     count = 1;
     const product = { ...action.product, quantity: count };
-    
+    const cartList = [product];
+    const cart = localStorage.getItem("cart");
+    if (!cart) {
+      localStorage.setItem("cart", JSON.stringify(cartList));
+    } else {
+      const newCart = [...cart];
+      newCart.push(product);
+    }
+
     return (state = count);
   }
   return state;

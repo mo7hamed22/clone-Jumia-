@@ -44,6 +44,7 @@ function ProductDetailView(props) {
         setQuantity(pro.data.quantity);
       });
   }, [setProduct, setCount, setQuantity]);
+  console.log(props);
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -193,9 +194,14 @@ function ProductDetailView(props) {
                     type="button"
                     className="btn btn-sm btn-primary mr-2 w-100"
                     title="Add to cart"
-                      onClick={() => props.onAddToCart(
-                        { nameEn: product.nameEn, price: product.price, discount: product.discount,image:activeImg }
-                      )}
+                    onClick={() =>
+                      props.onAddToCart({
+                        nameEn: product.nameEn,
+                        price: product.price,
+                        discount: product.discount,
+                        image: activeImg,
+                      })
+                    }
                   >
                     <FontAwesomeIcon icon={faCartPlus} /> Add to cart
                   </button>
