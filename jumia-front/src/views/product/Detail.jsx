@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { data } from "../../data";
 import { homeServices } from "../../services/_home";
+import {useParams} from 'react-router-dom';
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -32,10 +33,12 @@ function ProductDetailView(props) {
   const [activeImg, setActiveImg] = React.useState("");
   const [quantity, setQuantity] = React.useState(0);
   const [count, setCount] = React.useState(0);
+  let {proName} = useParams();
+  console.log(proName);
   useEffect(() => {
     homeServices
       .getProduct(
-        "Samsung Galaxy A21s - 6.5-inch 64GB/4GB Dual SIM Mobile Phone - Black"
+        proName
       )
       .then((pro) => {
         setActiveImg(pro.data.image[0]);
@@ -44,7 +47,6 @@ function ProductDetailView(props) {
         setQuantity(pro.data.quantity);
       });
   }, [setProduct, setCount, setQuantity]);
-  console.log(props);
   return (
     <div className="container-fluid mt-3">
       <div className="row">

@@ -22,6 +22,7 @@ export const productReducer = (state = count, action) => {
     } else {
       const newCart = [...cart];
       newCart.push(product);
+      localStorage.setItem("cart",JSON.stringify(newCart));
     }
 
     return (state = count);
