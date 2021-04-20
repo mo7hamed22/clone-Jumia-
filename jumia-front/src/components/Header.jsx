@@ -135,7 +135,7 @@ const Header = (props) => {
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    totalItem: state.items
+    totalItem: state.cartReducer.items
   }
 }
 export default connect(mapStateToProps)(Header);
