@@ -3,8 +3,14 @@ export const homeServices = {
   getAllProducts,
   getAllCats,
   getProduct,
-  getByCatName
+  getByCatName,
+  getAllSliders
 };
+
+
+function getAllSliders() {
+  return axios.get("http://localhost:8080/settings/get-sliders");
+}
 
 function getAllProducts() {
   return axios.get("http://localhost:8080/product/get-all");
