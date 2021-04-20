@@ -36,15 +36,6 @@ const Header = (props) => {
               <Search />
             </div>
             <div className="col-md-4">
-              <div className="position-relative d-inline mr-3">
-                <Link to="/cart" className="btn btn-warning">
-                  <IconCart3 className="i-va" />
-                  <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                   {props.totalItem >0?props.totalItem:null}
-                  
-                  </div>
-                </Link>
-              </div>
              
               <div className="btn-group">
                 <button
@@ -130,7 +121,7 @@ const Header = (props) => {
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                    2
+                  {props.totalItem >0?props.totalItem:null}
                   </div>
                 </Link>
               </div>
