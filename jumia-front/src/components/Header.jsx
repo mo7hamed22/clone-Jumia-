@@ -10,13 +10,19 @@ import { ReactComponent as IconHeartFill } from "bootstrap-icons/icons/heart-fil
 import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.svg";
 import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
     <React.Fragment>
-      <div className="reg" style={{width: '100%',background: '#feb800',textAlign: 'center'}}>
-        <img src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg" style={{width: '80%'}}/>
+      <div
+        className="reg"
+        style={{ width: "100%", background: "#feb800", textAlign: "center" }}
+      >
+        <img
+          src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg"
+          style={{ width: "80%" }}
+        />
       </div>
 
       <header className="p-3 border-bottom bg-light">
@@ -27,7 +33,7 @@ const Header = () => {
                 <img
                   alt="logo"
                   src="../../jumia-logo.png"
-                  style={{width: '200px'}}
+                  style={{ width: "200px" }}
                 />
               </Link>
             </div>
@@ -35,7 +41,6 @@ const Header = () => {
               <Search />
             </div>
             <div className="col-md-4">
-             
               <div className="btn-group">
                 <button
                   type="button"
@@ -43,17 +48,20 @@ const Header = () => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > Hi Mohamed 
-                   <FontAwesomeIcon icon={faUser} className="text-light" />
+                >
+                  {" "}
+                  Hi Mohamed
+                  <FontAwesomeIcon icon={faUser} className="text-light" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
-                  </li>  <li>
+                  </li>{" "}
+                  <li>
                     <Link className="dropdown-item" to="/account/login">
-                     Login
+                      Login
                     </Link>
                   </li>
                   <li>
@@ -93,9 +101,7 @@ const Header = () => {
                     </Link>
                   </li>
                 </ul>
-              </div>     
-
-              
+              </div>
 
               <div className="btn-group">
                 <button
@@ -104,17 +110,20 @@ const Header = () => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > Help
+                >
+                  {" "}
+                  Help
                   <FontAwesomeIcon icon={faQuestion} className="text-dark" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      <IconPersonBadgeFill />Help Center
+                      <IconPersonBadgeFill />
+                      Help Center
                     </Link>
-                  </li>                  
+                  </li>
                 </ul>
-              </div>     
+              </div>
 
               <div className="position-relative d-inline mr-3">
                 <Link to="/cart" className="btn btn-warning">
@@ -124,7 +133,6 @@ const Header = () => {
                   </div>
                 </Link>
               </div>
-              
             </div>
           </div>
         </div>
