@@ -24,7 +24,7 @@ props.data.map((item=>
     items.push(    
         <div className="card text-center m-3">
             <div className="card-body">
-            <Link className="text-decoration-none" to="/product/detail">
+            <Link className="text-decoration-none" to={`/product/detail/${item.nameEn}`}>
                 <img src={item.image} style={{width:'100px'}}/>
                 <h6 className="card-title text-capitalize">{formatTitle(item.nameEn)}</h6>
                 <div className="card-text text-success"> {item.brand}</div>
