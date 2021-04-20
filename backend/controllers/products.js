@@ -4,14 +4,14 @@ const Products = require("../models/products.js");
 const { authenticateToken, checkIsAdmin } = require("../models/jwt");
 
 router.post("/add", authenticateToken, checkIsAdmin, (req, resp) => {
-  const product  = req.body;
-  Products.create(product,(err,data)=>{
-    if(!err){
-      resp.status(200).send(data)
-    }else{
-      resp.status(404).send(err)
+  const product = req.body;
+  Products.create(product, (err, data) => {
+    if (!err) {
+      resp.status(200).send(data);
+    } else {
+      resp.status(404).send(err);
     }
-    })
+  });
 });
 
 ///////////// delete pro  by id
@@ -30,7 +30,7 @@ router.delete("/delete", authenticateToken, checkIsAdmin, (req, resp) => {
 
 // something went wrong with put method -> later check
 router.post("/update", authenticateToken, checkIsAdmin, (req, res) => {
-  const { id, ...product } = req.body.product;  
+  const { id, ...product } = req.body.product;
   console.log(product, "product", id, "id");
   Products.updateOne({ _id: id }, product)
     .then((data) => {
@@ -45,7 +45,7 @@ router.post("/update", authenticateToken, checkIsAdmin, (req, res) => {
 });
 
 ////////////// find product by name
-router.get("/get-product", (req, res) => {
+router.post("/get-product", (req, res) => {
   const productName = req.body.nameEn;
   Products.findOne({ nameEn: productName })
     .then((data) => {
