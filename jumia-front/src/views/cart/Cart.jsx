@@ -74,14 +74,11 @@ const Cart = (props) => {
     const items =
       product &&
       product.reduce((sum, product) => {
-        console.log(sum,'sum')
-        console.log(product.proQuantity,'pro quantity')
+      
         return sum + parseInt(product.proQuantity);
       }, 0);
     props.onIncrementItems(items);
-    console.log(items,con)
-    console.log(props.totalItems)
-    console.log(con)
+  
   };
   const removeItem = (itemIndex) => {
     setProgressShow(false);
@@ -99,8 +96,7 @@ const Cart = (props) => {
     }, 300);
     setCartToLocalStorage(newCart);
     setCart(newCart);
-    console.log(cart,'new cart after remove')
-    console.log(newCart,'this is after state')
+   
     
     setTimeout(() => {
       getItem(newCart,'remove');
@@ -110,7 +106,7 @@ const Cart = (props) => {
   };
   const handleChange = (event, index) => {
     setProgressShow(false);
-    console.log(cart, "before");
+   
     const product = cart[index];
     product.proQuantity = event.target.value;
     const newCart = cart;
