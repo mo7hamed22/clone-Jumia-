@@ -1,49 +1,36 @@
-// import React from "react";
-// import Carousel from "react-multi-carousel";
-// import "react-multi-carousel/lib/styles.css";
+import React from 'react';
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+function Slider(props) {
+const responsive = {
+    0: { items: 1 },
+    568: { items: 2 },
+    1024: { items: 3 },
+};
 
-// function Slider() {
+// const items = [
+//     <div className="item" data-value="1">1</div>,
+//     <div className="item" data-value="2">2</div>,
+//     <div className="item" data-value="3">3</div>,
+//     <div className="item" data-value="4">4</div>,
+//     <div className="item" data-value="5">5</div>,
+// ];
 
-// const responsive = {
-//   superLargeDesktop: {
-//     // the naming can be any, depends on you.
-//     breakpoint: { max: 4000, min: 3000 },
-//     items: 5
-//   },
-//   desktop: {
-//     breakpoint: { max: 3000, min: 1024 },
-//     items: 3
-//   },
-//   tablet: {
-//     breakpoint: { max: 1024, min: 464 },
-//     items: 2
-//   },
-//   mobile: {
-//     breakpoint: { max: 464, min: 0 },
-//     items: 1
-//   }
-// };
-// const spanStyles = {
-// width: "100%",
-// dir: 'ltr'        
-// };
+let items = [];
 
-// return (
-//     <Carousel style={spanStyles} containerClass="carousel-container" responsive={responsive}>
-//   <div>Item 1</div>
-//   <div>Item 2</div>
-//   <div>Item 3</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-//   <div>Item 4</div>
-  
-// </Carousel>
-// )
+props.data.map((item=>
+    items.push(<div className="item" key={item._id} data-value={item._id}>{item.brand}</div>)
+))
 
-// }
+return (
+    <AliceCarousel
+        mouseTracking
+        items={items}
+        responsive={responsive}
+        controlsStrategy="alternate"
+    />
+)
+}
 
-// export default Slider
+export default Slider
+

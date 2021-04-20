@@ -70,4 +70,25 @@ router.get("/get-all", (req, res) => {
     });
 });
 
+
+// get All Products
+router.get("/getbycat/", async (req, res) => {
+  let resArr = [];
+  let cat_name = req.params.cat_name;
+  await  Products.find({"product_cat.main": "supermarket"})  
+  .then((data) => {
+    resArr.push(data);
+      //res.status(200).send(data);
+    })
+
+    await  Products.find({"product_cat.main": "mobiles"})  
+    .then((data) => {
+      resArr.push(data);
+      res.status(200).send(resArr);
+      })
+    .catch((err) => {
+      res.status(404).send(err);
+    });
+});
+
 module.exports = router;
