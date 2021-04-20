@@ -123,7 +123,7 @@ setTimeout(()=>{
                 <Row>
                   <Col md={12} className="mt-5">
                     <TextField
-                      fullWidth
+                      style={{width:'100%'}}
                       id="email"
                       name="email"
                       label="Email"
@@ -137,7 +137,7 @@ setTimeout(()=>{
                   </Col>
                   <Col md={12} className="mt-5">
                     <TextField
-                      fullWidth
+                       style={{width:'100%'}}
                       id="password"
                       name="password"
                       label="password"
@@ -175,9 +175,10 @@ setTimeout(()=>{
                         backgroundColor: "#f68b1e",
                         color: "#ffff",
                         fontWeight: "bold",
+                        width:'100%'
                       }}
                       variant="contained"
-                      fullWidth
+                      
                     >
                       <Row className="w-100">
                         <Col sm={2} className="float-left">
@@ -228,10 +229,11 @@ setTimeout(()=>{
                         backgroundColor: "#40588a",
                         color: "#ffff",
                         fontWeight: "bold",
+                        width:'100%'
             
                       }}
                       variant="contained"
-                      fullWidth
+                      
                     >
                       <Row className="w-100">
                         <Col sm={2} className="float-left">
@@ -290,9 +292,10 @@ setTimeout(()=>{
                     backgroundColor: "#f68b1e",
                     color: "#ffff",
                     fontWeight: "bold",
+                    width:'100%'
                   }}
                   variant="contained"
-                  fullWidth
+                  
                 >
                   <Row className="w-100">
                     <Col sm={3}>
@@ -322,9 +325,10 @@ setTimeout(()=>{
                     backgroundColor: "#40588a",
                     color: "#ffff",
                     fontWeight: "bold",
+                    width:'100%'
                   }}
                   variant="contained"
-                  fullWidth
+                  
                 >
                   <Row className="w-100">
                     <Col sm={3}>
