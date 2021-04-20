@@ -10,7 +10,8 @@ const User = require("./models/users");
 const authController = require("./controllers/auth");
 const userController = require("./controllers/user");
 const categoryController = require("./controllers/category");
-const productController= require('./controllers/products')
+const productController= require('./controllers/products');
+const settings= require('./controllers/settings');
 server.use(bodyParser.json());
 
 mongoose.set("useNewUrlParser", true);
@@ -31,6 +32,7 @@ server.use("/auth", authController);
 server.use("/user", userController);
 server.use("/category", categoryController);
 server.use('/product',productController)
+server.use('/settings',settings)
 
 
 

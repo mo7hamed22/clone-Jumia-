@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import AliceCarousel from 'react-alice-carousel';
+import {formatTitle} from "../../pipes/formatTitle";
 import 'react-alice-carousel/lib/alice-carousel.css';
 function Slider(props) {
 const responsive = {
@@ -19,8 +21,19 @@ const responsive = {
 let items = [];
 
 props.data.map((item=>
-    items.push(<div className="item" key={item._id} data-value={item._id}>{item.brand}</div>)
-))
+    items.push(    
+        <div className="card text-center m-3">
+            <div className="card-body">
+            <Link className="text-decoration-none" to="/product/detail">
+                <img src={item.image} style={{width:'100px'}}/>
+                <h6 className="card-title text-capitalize">{formatTitle(item.nameEn)}</h6>
+                <div className="card-text text-success"> {item.brand}</div>
+                <small className="text-muted">{item.brand}</small>
+            </Link>
+            </div>
+        </div>    
+        )
+        ))
 
 return (
     <AliceCarousel

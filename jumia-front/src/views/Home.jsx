@@ -20,9 +20,7 @@ const Carousel = lazy(() => import("../components/carousel/Carousel"));
 const CardIcon = lazy(() => import("../components/card/CardIcon"));
 const CardLogin = lazy(() => import("../components/card/CardLogin"));
 const CardImage = lazy(() => import("../components/card/CardImage"));
-const CardDealsOfTheDay = lazy(() =>
-  import("../components/card/CardDealsOfTheDay")
-);
+const CardDealsOfTheDay = lazy(() => import("../components/card/CardDealsOfTheDay"));
 
 
 class HomeView extends Component {
@@ -43,13 +41,22 @@ class HomeView extends Component {
     this.state = {
       cats: [],
       products: [],
-      suerpMarkets: []  
+      suerpMarkets: [],
+      sliders: [],
+      fashions: [],
     };
   }
-
-  
   
   componentDidMount() {    
+    homeServices.getAllSliders().then(
+      data=>{
+        this.setState({           
+          sliders: data.data.sliders
+        });
+        //console.log('sliders',data.data.top_image);
+      }
+    )
+
     homeServices.getAllCats().then(
       data=>{
         console.log(data.data);
@@ -60,9 +67,10 @@ class HomeView extends Component {
         homeServices.getByCatName().then(
           data => {     
             this.setState({           
-              suerpMarkets: data.data[0]
+              suerpMarkets: data.data[0],
+              fashions: data.data[1]
             });      
-          //console.log('supermaekrt',data.data[0]);          
+          //console.log('Fashion',data.data[1]);          
           },
           (err) => {
             console.log(err)
@@ -131,7 +139,7 @@ class HomeView extends Component {
             <TopMenu data={this.state.cats}/>
           </div>
           <div className="col-md-10">
-          <Banner className="mb-3" id="carouselHomeBanner" data={data.banner} />
+          <Banner className="mb-3" id="carouselHomeBanner" data={this.state.sliders} />
           </div>
         </div>
         </div>
@@ -166,41 +174,7 @@ class HomeView extends Component {
                 </div>
             </div>
           </div>
-        </div>
-        
-        {/* <div className="container-fluid bg-light mb-3">
-          <div className="row g-3">
-            <div className="col-md-12">
-              <Carousel id="elect-product-category" className="mb-3">
-                {carouselContent}
-              </Carousel>
-              <Support />
-            </div>
-            {/* <div className="col-md-3">
-              <CardLogin className="mb-3" />
-              <CardImage src="../../images/banner/Watches.webp" to="promo" />
-            </div> 
-          </div>
-        </div>
-         */}        
-          {/* <div>
-      {this.state.products.filter(product => product.product_cat.main == 'supermarket').map(filteredPerson => (
-        <li>
-          {filteredPerson.nameEn}
-        </li>
-      ))}
-    </div> */}
-
-         {/* {this.state.products.map((product=><b>{product.product_cat.main}</b>))} */}
-
-         {/* Slider */}
-
-        <div className="container">
-            <div className="row">
-            <Slider data={this.state.suerpMarkets}/>
-            </div>
-        </div>
-
+        </div>                
 
         <div className="container bg-light mb-3">
           <div className="row">
@@ -209,75 +183,13 @@ class HomeView extends Component {
                 <div className="card-header bg-warning">
                     <h4>Supermarket products</h4>
                 </div>
-                
-                {this.state.suerpMarkets.map((item=> 
-                <div className="col-md-3 mt-1">
-                <Link className="text-decoration-none" to="/product/detail">
-                    <div className="card text-center">
-                        <div className="card-body">
-                            <img src={item.image} style={{width:'100px'}}/>
-                            <h6 className="card-title text-capitalize">{item.nameEn}</h6>
-                            <div className="card-text text-success"> {item.brand}</div>
-                            <small className="text-muted">{item.brand}</small>
-                        </div>
-                    </div>
-                </Link>
-            </div>))}                
+                <Slider data={this.state.suerpMarkets}/>            
                
                 </div>
             </div>
           </div>
         </div>
 
-
-        <div className="container bg-light mb-3">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="card p-2">
-                <div className="card-header bg-warning">
-                    <h4>Recommended for you</h4>
-                </div>
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-                </div>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="container bg-light mb-3">
-          <div className="row">
-            <div className="col-md-12">
-              <CardDealsOfTheDay
-                endDate={Date.now() + 1000 * 60 * 60 * 14}
-                title="Recommended for you"
-                to="/"
-              >
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-              </CardDealsOfTheDay>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="container bg-light mb-3">
-          <div className="row">
-            <div className="col-md-12">
-              <CardDealsOfTheDay
-                endDate={Date.now() + 1000 * 60 * 60 * 14}
-                title="Recommended for you"
-                to="/"
-              >
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-              </CardDealsOfTheDay>
-            </div>
-          </div>
-        </div>
 
         <div className="container">
           <div className="row">
@@ -295,56 +207,20 @@ class HomeView extends Component {
         </div>
 
 
-        <div className="container bg-light mb-3">
+        <div className="container bg-light mt-4 mb-3">
           <div className="row">
             <div className="col-md-12">
-              <CardDealsOfTheDay
-                endDate={Date.now() + 1000 * 60 * 60 * 14}
-                title="Recommended for you"
-                to="/"
-              >
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-              </CardDealsOfTheDay>
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Fashions' products</h4>
+                </div>
+                <Slider data={this.state.fashions}/>            
+               
+                </div>
             </div>
           </div>
         </div>
-
-
-        <div className="container bg-light mb-3">
-          <div className="row">
-            <div className="col-md-12">
-              <CardDealsOfTheDay
-                endDate={Date.now() + 1000 * 60 * 60 * 14}
-                title="Recommended for you"
-                to="/"
-              >
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-              </CardDealsOfTheDay>
-            </div>
-          </div>
-        </div>
-
-
-        <div className="container bg-light mb-3">
-          <div className="row">
-            <div className="col-md-12">
-              <CardDealsOfTheDay
-                endDate={Date.now() + 1000 * 60 * 60 * 14}
-                title="Recommended for you"
-                to="/"
-              >
-                <Carousel id="elect-product-category1">
-                  {carouselContent}
-                </Carousel>
-              </CardDealsOfTheDay>
-            </div>
-          </div>
-        </div>
-
+      
         <div className="container">
           <div className="row">
           <div className="col-md-6">
@@ -397,55 +273,6 @@ class HomeView extends Component {
         
 
 
-{/* 
-        <div className="bg-info bg-gradient p-3 text-center mb-3">
-          <h4 className="m-0">Explore Fashion Collection</h4>
-        </div>
-        <div className="container">
-          <div className="row">
-            <div className="col-md-3">
-              <Link to="/" className="text-decoration-none">
-                <img
-                  src="../../images/category/male.webp"
-                  className="img-fluid rounded-circle"
-                  alt="..."
-                />
-                <div className="text-center h6">Men's Clothing</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link to="/" className="text-decoration-none">
-                <img
-                  src="../../images/category/female.webp"
-                  className="img-fluid rounded-circle"
-                  alt="..."
-                />
-                <div className="text-center h6">Women's Clothing</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link to="/" className="text-decoration-none">
-                <img
-                  src="../../images/category/smartwatch.webp"
-                  className="img-fluid rounded-circle"
-                  alt="..."
-                />
-                <div className="text-center h6">Smartwatch</div>
-              </Link>
-            </div>
-            <div className="col-md-3">
-              <Link to="/" className="text-decoration-none">
-                <img
-                  src="../../images/category/footwear.webp"
-                  className="img-fluid rounded-circle"
-                  alt="..."
-                />
-                <div className="text-center h6">Footwear</div>
-              </Link>
-            </div>
-          </div>
-        </div>
-       */}
 
       </React.Fragment>
     );
