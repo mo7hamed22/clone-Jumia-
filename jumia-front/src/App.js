@@ -6,6 +6,8 @@ import Header from "./components/Header";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
 import {connect }from 'react-redux';
+import Search from "./components/Search";
+import searchResult from "./components/searchResult";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
 const HomeView = lazy(() => import("./views/Home"));
@@ -46,12 +48,9 @@ function App(props) {
             if(data.message == 'User Not Found'){
                 console.log(data.message,'offline')
             }  else{
-              
+              console.log(data,'from app')
                  props.setUserName(data)
-              //  initialState.isOnline=true;
-              //  initialState.userCart=data.cart
-              //  initialState.userName=data.name
-              //  console.log(initialState)
+
             }
          })
     
@@ -80,7 +79,7 @@ function App(props) {
           <Switch>
             <Route exact path="/" component={HomeView} />
             {/* <Route exact path="/account/signin" component={SignInView} />
-            */}
+             */}
             <Route
               exact
               path="/account/forgotpassword"
@@ -89,7 +88,7 @@ function App(props) {
             <Route exact path="/account/profile" component={MyProfileView} />
             <Route exact path="/account/orders" component={OrdersView} />
             <Route exact path="/account/wishlist" component={WishlistView} />
-         
+
             <Route
               exact
               path="/account/notification"
@@ -108,6 +107,9 @@ function App(props) {
             <Route exact path="/account/login" component={LoginView} />
             <Route exact path="/account/signup" component={SignUpView} />
             <Route exact path="/500" component={InternalServerErrorView} />
+
+            <Route exact path="/search" component={searchResult} />
+            <Route exact path="/search/searchResult" component={searchResult} />
             <Route component={NotFoundView} />
           </Switch>
         </Suspense>
@@ -116,17 +118,17 @@ function App(props) {
     </BrowserRouter>
   );
 }
-const mapStateToProps = (state, ownProps) => {
-  return {
-    userName: state.cartReducer.userName
-  }
-}
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     userName: state.cartReducer.userInfo
+//   }
+// }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    setUserName: (name) => {
-      dispatch({type:'USER',value:name})
+    setUserName: (data) => {
+      dispatch({type:'USER',value:data})
     }
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(App);
+export default connect(null,mapDispatchToProps)(App);

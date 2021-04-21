@@ -15,6 +15,7 @@ import {connect} from 'react-redux'
 
 const Header = (props) => {
   const [userName,setUserName]=React.useState('')
+  console.log(props)
   React.useEffect(()=>{
 setUserName(props.userName)
 props.getUserInfo()
@@ -27,8 +28,14 @@ console.log(userName)
   }
   return (
     <React.Fragment>
-      <div className="reg" style={{width: '100%',background: '#feb800',textAlign: 'center'}}>
-        <img src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg" style={{width: '80%'}}/>
+      <div
+        className="reg"
+        style={{ width: "100%", background: "#feb800", textAlign: "center" }}
+      >
+        <img
+          src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg"
+          style={{ width: "80%" }}
+        />
       </div>
 
       <header className="p-3 border-bottom bg-light">
@@ -39,7 +46,7 @@ console.log(userName)
                 <img
                   alt="logo"
                   src="../../jumia-logo.png"
-                  style={{width: '200px'}}
+                  style={{ width: "200px" }}
                 />
               </Link>
             </div>
@@ -47,7 +54,6 @@ console.log(userName)
               <Search />
             </div>
             <div className="col-md-4">
-             
               <div className="btn-group">
                 <button
                   type="button"
@@ -70,7 +76,7 @@ console.log(userName)
                   <div className={props.user.name ?'d-none': ''} >
                   <li >
                     <Link className="dropdown-item" to="/account/login">
-                     Login
+                      Login
                     </Link>
                   </li>
                   <li>
@@ -111,9 +117,7 @@ console.log(userName)
                     </Link>
                   </li>
                 </ul>
-              </div>     
-
-              
+              </div>
 
               <div className="btn-group">
                 <button
@@ -122,27 +126,29 @@ console.log(userName)
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > Help
+                >
+                  {" "}
+                  Help
                   <FontAwesomeIcon icon={faQuestion} className="text-dark" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      <IconPersonBadgeFill />Help Center
+                      <IconPersonBadgeFill />
+                      Help Center
                     </Link>
-                  </li>                  
+                  </li>
                 </ul>
-              </div>     
+              </div>
 
               <div className="position-relative d-inline mr-3">
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                  {props.totalItem >0?props.totalItem:null}
+                    {props.totalItem > 0 ? props.totalItem : null}
                   </div>
                 </Link>
               </div>
-              
             </div>
           </div>
         </div>

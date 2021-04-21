@@ -17,7 +17,6 @@ class NotificationView extends Component {
     return (
       <div className="container mb-3">
         <h4 className="my-3">Notification</h4>
-
         <div className="list-group">
           <Link
             to="/"
@@ -66,7 +65,10 @@ class NotificationView extends Component {
             </p>
             <small className="text-muted">Donec id elit non mi porta.</small>
           </Link>
-          <Link to="/" className="list-group-item list-group-item-action bg-success text-white">
+          <Link
+            to="/"
+            className="list-group-item list-group-item-action bg-success text-white"
+          >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">
                 <IconCartCheckFill className="i-va" /> Order Placed
@@ -80,7 +82,10 @@ class NotificationView extends Component {
               diam eget risus varius blandit.
             </p>
           </Link>
-          <Link to="/" className="list-group-item list-group-item-action bg-danger text-white">
+          <Link
+            to="/"
+            className="list-group-item list-group-item-action bg-danger text-white"
+          >
             <div className="d-flex w-100 justify-content-between">
               <h5 className="mb-1">
                 <IconCartxFill className="i-va" /> Order Cancelled
