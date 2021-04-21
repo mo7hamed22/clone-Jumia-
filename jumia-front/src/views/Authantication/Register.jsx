@@ -103,7 +103,8 @@ export default function Register(props) {
             setFeedBackMsg("Login Successfully");
             setFeedBackAlert("success");
             setTimeout(()=>{
-              props.history.replace('/');
+              window.location.replace('/')
+
             },1500)
           }
           handleClose();
