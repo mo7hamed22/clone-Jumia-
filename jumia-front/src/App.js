@@ -5,6 +5,8 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import Header from "./components/Header";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
+import Search from "./components/Search";
+import searchResult from "./components/searchResult";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
 const HomeView = lazy(() => import("./views/Home"));
@@ -30,7 +32,6 @@ const BlogDetailView = lazy(() => import("./views/blog/Detail"));
 const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
-
 function App() {
   return (
     <BrowserRouter>
@@ -45,7 +46,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={HomeView} />
             {/* <Route exact path="/account/signin" component={SignInView} />
-            */}
+             */}
             <Route
               exact
               path="/account/forgotpassword"
@@ -54,7 +55,7 @@ function App() {
             <Route exact path="/account/profile" component={MyProfileView} />
             <Route exact path="/account/orders" component={OrdersView} />
             <Route exact path="/account/wishlist" component={WishlistView} />
-         
+
             <Route
               exact
               path="/account/notification"
@@ -73,6 +74,9 @@ function App() {
             <Route exact path="/account/login" component={LoginView} />
             <Route exact path="/account/signup" component={SignUpView} />
             <Route exact path="/500" component={InternalServerErrorView} />
+
+            <Route exact path="/search" component={searchResult} />
+            <Route exact path="/search/searchResult" component={searchResult} />
             <Route component={NotFoundView} />
           </Switch>
         </Suspense>

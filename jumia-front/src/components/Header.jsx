@@ -10,14 +10,20 @@ import { ReactComponent as IconHeartFill } from "bootstrap-icons/icons/heart-fil
 import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.svg";
 import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
-import {connect} from 'react-redux'
+import { faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 const Header = (props) => {
-  console.log(props,'from header')
+  console.log(props, "from header");
   return (
     <React.Fragment>
-      <div className="reg" style={{width: '100%',background: '#feb800',textAlign: 'center'}}>
-        <img src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg" style={{width: '80%'}}/>
+      <div
+        className="reg"
+        style={{ width: "100%", background: "#feb800", textAlign: "center" }}
+      >
+        <img
+          src="https://eg.jumia.is/cms/ramadan-21/30day/new/sticky-en-desktop.jpg"
+          style={{ width: "80%" }}
+        />
       </div>
 
       <header className="p-3 border-bottom bg-light">
@@ -28,7 +34,7 @@ const Header = (props) => {
                 <img
                   alt="logo"
                   src="../../jumia-logo.png"
-                  style={{width: '200px'}}
+                  style={{ width: "200px" }}
                 />
               </Link>
             </div>
@@ -36,7 +42,6 @@ const Header = (props) => {
               <Search />
             </div>
             <div className="col-md-4">
-             
               <div className="btn-group">
                 <button
                   type="button"
@@ -44,17 +49,20 @@ const Header = (props) => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > Hi Mohamed 
-                   <FontAwesomeIcon icon={faUser} className="text-light" />
+                >
+                  {" "}
+                  Hi Mohamed
+                  <FontAwesomeIcon icon={faUser} className="text-light" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
-                  </li>  <li>
+                  </li>{" "}
+                  <li>
                     <Link className="dropdown-item" to="/account/login">
-                     Login
+                      Login
                     </Link>
                   </li>
                   <li>
@@ -94,9 +102,7 @@ const Header = (props) => {
                     </Link>
                   </li>
                 </ul>
-              </div>     
-
-              
+              </div>
 
               <div className="btn-group">
                 <button
@@ -105,27 +111,29 @@ const Header = (props) => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > Help
+                >
+                  {" "}
+                  Help
                   <FontAwesomeIcon icon={faQuestion} className="text-dark" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      <IconPersonBadgeFill />Help Center
+                      <IconPersonBadgeFill />
+                      Help Center
                     </Link>
-                  </li>                  
+                  </li>
                 </ul>
-              </div>     
+              </div>
 
               <div className="position-relative d-inline mr-3">
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
-                  {props.totalItem >0?props.totalItem:null}
+                    {props.totalItem > 0 ? props.totalItem : null}
                   </div>
                 </Link>
               </div>
-              
             </div>
           </div>
         </div>
@@ -135,7 +143,7 @@ const Header = (props) => {
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    totalItem: state.items
-  }
-}
+    totalItem: state.items,
+  };
+};
 export default connect(mapStateToProps)(Header);
