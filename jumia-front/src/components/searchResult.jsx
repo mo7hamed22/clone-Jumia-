@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ProductDetailView from "../views/product/Detail";
 
-function Heading({ term, searchResult }) {
+function Heading({ searchResult, term }) {
   useEffect(
     () => {
       console.log("searchHHH", searchResult);
@@ -33,18 +33,16 @@ function Heading({ term, searchResult }) {
         ) : (
           searchResult.map((item) => (
             <div className="card col-3 bg-white ">
-              <div className="card-image">
-                <img src={item.image} alt={item.nameEn} width="50%" />
-              </div>
+              <Link to={`/product/detail/${item.nameEn}`}>
+                <div className="card-image">
+                  <img src={item.image} alt={item.nameEn} width="50%" />
+                </div>
+              </Link>
               <h5 className="card-title title ">{item.nameEn}</h5>
               <h6 className=".product_price">
                 {" "}
                 EGP <small>{item.price}</small>
               </h6>
-
-              <Link to={`product/detail/${item.nameEn}`}>
-                <button className=" button  col-6   ">Details</button>
-              </Link>
             </div>
           ))
         )}
@@ -54,8 +52,8 @@ function Heading({ term, searchResult }) {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    searchResult: state.searchResult,
-    term: state.term,
+    searchResult: state.reducer.searchResult,
+    term: state.reducer.term,
   };
 };
 
