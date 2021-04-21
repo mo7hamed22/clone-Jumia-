@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
 import Search from "./components/Search";
+import searchResult from "./components/searchResult";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
 const HomeView = lazy(() => import("./views/Home"));
@@ -74,8 +75,8 @@ function App() {
             <Route exact path="/account/signup" component={SignUpView} />
             <Route exact path="/500" component={InternalServerErrorView} />
 
-            <Route exact path="/search" component={Search} />
-
+            <Route exact path="/search" component={searchResult} />
+            <Route exact path="/search/searchResult" component={searchResult} />
             <Route component={NotFoundView} />
           </Switch>
         </Suspense>
