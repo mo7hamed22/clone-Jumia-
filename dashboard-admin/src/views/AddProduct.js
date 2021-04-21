@@ -26,7 +26,7 @@ function AddProduct() {
   const [description, setDescription] = React.useState("");
   const [discount, setDiscount] = React.useState(0);
   const [image, setImage] = React.useState([""]);
-  const [category, setCategory] = React.useState({ cNameEn: "", cNameAr: "" });
+  const [product_cat, setProduct_cat] = React.useState({ main: "", sub: "",type:"" });
   const [products, setProducts] = React.useState([]);
   const [submited, setSubmited] = React.useState(false);
   const notificationAlertRef = React.useRef(null);
@@ -83,7 +83,7 @@ function AddProduct() {
       brand,
       quantity,
       image,
-      category)
+      product_cat)
     ) {
       const product = {
         nameEn,
@@ -94,7 +94,7 @@ function AddProduct() {
         brand,
         quantity,
         image,
-        category,
+        product_cat,
       };
 
       productService.createProduct(product);
@@ -105,8 +105,8 @@ function AddProduct() {
   let handelCatSelect = (e) =>{
     let allCatsArr = JSON.parse(localStorage.getItem("cats"));
     for(let i=0; i<allCatsArr.length; i++){
-      if(allCatsArr[i]._id == e.target.value){
-        setselectedCats(allCatsArr[i].subCategory);        
+      if(allCatsArr[i].nameEn == e.target.value){
+        setselectedCats(allCatsArr[i].subCategory);  
       }
     }    
   }
@@ -115,9 +115,10 @@ function AddProduct() {
   let handleSubCatSelct = (e) =>{    
     let allCatsArr = JSON.parse(localStorage.getItem("cats"));
     for(let i=0; i<allCatsArr.length; i++){
-      var newArr = allCatsArr[i].subCategory.filter(x => x._id === e.target.value).map(x => x.subCatArray);     
+      var newArr = allCatsArr[i].subCategory.filter(x => x.subCatName === e.target.value).map(x => x.subCatArray);     
       if(newArr.length != 0){
         setSelectedSubCatArr(newArr[0]);
+        setProduct_cat({...product_cat,sub:e.target.value});
          console.log(newArr[0]);
       }
       
@@ -274,8 +275,9 @@ function AddProduct() {
 
             <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label>Category Name</Form.Label>
-              <Form.Control as="select" custom onChange={handelCatSelect}>                
-                {cats.map((item,index) => <><option value={item._id} key={index}>{item.nameEn}</option></>)}           
+              <Form.Control as="select" custom onChange={(e)=>{handelCatSelect(e);setProduct_cat({...product_cat,main:e.target.value}) }}>
+                <option disabled selected>- Choose a Category Name -</option>
+                {cats.map((item,index) => <><option value={item.nameEn} key={index}>{item.nameEn}</option></>)}           
               </Form.Control>
             </Form.Group>
 
@@ -283,13 +285,13 @@ function AddProduct() {
               <Form.Label>Sub Cateogry</Form.Label>
               <Form.Control as="select" custom onChange={handleSubCatSelct}>    
               <option disabled selected>- Choose a sub cat -</option>            
-                {selectedCats.map((item,index) => <><option value={item._id} key={index}>{item.subCatName}</option></>)}           
+                {selectedCats.map((item,index) => <><option value={item.subCatName} key={index}>{item.subCatName}</option></>)}           
               </Form.Control>
             </Form.Group>
 
             <Form.Group controlId="exampleForm.SelectCustom">
               <Form.Label>sub cats</Form.Label>
-              <Form.Control as="select" custom onChange={handleSubCatSelct}>    
+              <Form.Control as="select" custom onChange={(e)=>setProduct_cat({...product_cat,type:e.target.value})}>    
               <option disabled selected>- Choose a sub cat arr -</option>            
                 {selectedSubCatArr.map((item,index) => <><option value={item} key={index}>{item}</option></>)}           
               </Form.Control>
@@ -381,7 +383,7 @@ function AddProduct() {
               type="submit"
               onClick={handelSubmit}
             >
-              Add User
+              Add Product
             </Button>
           </Col>
         </Row>
