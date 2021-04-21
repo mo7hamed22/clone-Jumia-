@@ -52,8 +52,8 @@ function Heading({ searchResult, term }) {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    searchResult: state.reducer.searchResult,
-    term: state.reducer.term,
+    searchResult: state.cartReducer.searchResult,
+    term: state.cartReducer.term,
   };
 };
 

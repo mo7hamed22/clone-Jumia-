@@ -5,6 +5,7 @@ import "bootstrap/dist/js/bootstrap.bundle.js";
 import Header from "./components/Header";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
+import {connect }from 'react-redux';
 import Search from "./components/Search";
 import searchResult from "./components/searchResult";
 //const Header = lazy(() => import("./components/Header"));
@@ -32,7 +33,39 @@ const BlogDetailView = lazy(() => import("./views/blog/Detail"));
 const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
-function App() {
+
+function App(props) {
+
+  try{
+    const token =localStorage.getItem('token')
+       
+    
+          fetch('http://localhost:8080/user/is-login',
+      {  method: "post",
+       headers: { Authorization: `Bearer ${token}` }}
+       ).then(data=>{
+         data.json().then(data=>{
+            if(data.message == 'User Not Found'){
+                console.log(data.message,'offline')
+            }  else{
+              console.log(data,'from app')
+                 props.setUserName(data)
+
+            }
+         })
+    
+       }).catch(e=>{
+     if(e.message == 'User Not Found'){
+         console.log(e.message,'offline')
+     }   
+     })
+    }catch(e){
+        console.log(e,'catching')
+    }
+
+
+
+
   return (
     <BrowserRouter>
       <React.Fragment>
@@ -85,5 +118,17 @@ function App() {
     </BrowserRouter>
   );
 }
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     userName: state.cartReducer.userInfo
+//   }
+// }
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    setUserName: (data) => {
+      dispatch({type:'USER',value:data})
+    }
+  }
+}
 
-export default App;
+export default connect(null,mapDispatchToProps)(App);

@@ -76,7 +76,8 @@ export default function Login(props) {
             localStorage.setItem("token", data.data.token);
 
 setTimeout(()=>{
-  props.history.replace('/');
+  // props.history.replace('/');
+  window.location.replace('/')
 },1500)
 
           } else {

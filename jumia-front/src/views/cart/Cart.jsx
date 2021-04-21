@@ -10,6 +10,7 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
+import{setItems} from '../../Store/actions'
 localStorage.setItem('cart',JSON.stringify([
   {
     productName:'pro1',
@@ -131,12 +132,10 @@ const Cart = (props) => {
     }, 500);
   };
   React.useEffect(() => {
-    
+    console.log(props.userLogin,'user login')
       const cartFromLocalStorage = getCartFromLocalStorage();
         setCart(cartFromLocalStorage);
         getItem(cart,'useEffect');
-    
-  
   }, [setCart, props.totalItems]);
 
  
@@ -346,12 +345,13 @@ const Cart = (props) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onIncrementItems: (items) => dispatch({ type: "ADD_ITEMS", value: items }),
+    onIncrementItems: (items) => dispatch(setItems(items)),
   };
 };
 const mapStateToProps = (state) => {
   return {
-    totalItems: state.items,
+    totalItems: state.cartReducer.items,
+    userLogin:state.cartReducer.isOnline
   };
 };
 

@@ -10,10 +10,22 @@ import { ReactComponent as IconHeartFill } from "bootstrap-icons/icons/heart-fil
 import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.svg";
 import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faQuestion } from "@fortawesome/free-solid-svg-icons";
-import { connect } from "react-redux";
+import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
+import {connect} from 'react-redux'
+
 const Header = (props) => {
-  console.log(props, "from header");
+  const [userName,setUserName]=React.useState('')
+  console.log(props)
+  React.useEffect(()=>{
+setUserName(props.userName)
+props.getUserInfo()
+console.log(userName)
+  },[setUserName,props.totalItem,props.userName,props.userLogin])
+  console.log(props.user,'from header')
+  const logOut=()=>{
+    localStorage.removeItem('token');
+    window.location.href='/'
+  }
   return (
     <React.Fragment>
       <div
@@ -49,18 +61,20 @@ const Header = (props) => {
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                >
-                  {" "}
-                  Hi Mohamed
-                  <FontAwesomeIcon icon={faUser} className="text-light" />
+                > 
+                {props.user.name  ?props.user.name:'login' }
+            
+                {/* {props.userLogin&&props.userLogin } */}
+                   <FontAwesomeIcon icon={faUser} className="text-light" />
                 </button>
                 <ul className="dropdown-menu">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
-                  </li>{" "}
-                  <li>
+                  </li> 
+                  <div className={props.user.name ?'d-none': ''} >
+                  <li >
                     <Link className="dropdown-item" to="/account/login">
                       Login
                     </Link>
@@ -70,6 +84,7 @@ const Header = (props) => {
                       <IconStarFill className="text-warning" /> Create Account
                     </Link>
                   </li>
+                  </div>
                   <li>
                     <Link className="dropdown-item" to="/account/orders">
                       <IconListCheck className="text-primary" /> Orders
@@ -96,8 +111,8 @@ const Header = (props) => {
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
-                    <Link className="dropdown-item" to="/">
+                  <li className={props.user.name?'':'d-none'}>
+                    <Link className="dropdown-item" onClick={logOut}>
                       <IconDoorClosedFill className="text-danger" /> Logout
                     </Link>
                   </li>
@@ -141,9 +156,18 @@ const Header = (props) => {
     </React.Fragment>
   );
 };
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getUserInfo: () => {
+      dispatch({type:'GET_INFO'})
+    }
+  }
+}
 const mapStateToProps = (state, ownProps) => {
   return {
-    totalItem: state.items,
-  };
-};
-export default connect(mapStateToProps)(Header);
+    user: state.cartReducer.userInfo,
+    totalItem:state.cartReducer.items
+ 
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

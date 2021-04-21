@@ -59,5 +59,16 @@ router.post("/get-user", authenticateToken, checkIsAdmin, (req, res) => {
     res.status(200).send(data);
   });
 });
+router.post("/is-login", authenticateToken, (req, res) => {
+  const { token } = req;
+ const {id} = token ;
+  User.findOne({ _id: id }).then((data) => {
+    console.log("done");
+    res.status(200).send(data);
+  }).catch(e=>{
+    res.status(404).send(e)
+  });
 
+ 
+});
 module.exports = router;
