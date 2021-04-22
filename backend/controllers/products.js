@@ -70,27 +70,33 @@ router.get("/get-all", (req, res) => {
     });
 });
 
-
 // get by catName for home view sliders
 router.get("/getbycat/", async (req, res) => {
   let resArr = [];
   let cat_name = req.params.cat_name;
-  await  Products.find({"product_cat.main": "supermarket"})  
-  .then((data) => {
-    resArr.push(data);      
-    })
+  await Products.find({ "product_cat.main": "supermarket" }).then((data) => {
+    resArr.push(data);
+  });
+  await Products.find({ "product_cat.main": "Fashion" }).then((data) => {
+    resArr.push(data);
+  });
 
-    await  Products.find({"product_cat.main": "Fashion"})  
-    .then((data) => {
-      resArr.push(data);      
-      res.status(200).send(resArr);
-      })
-    .catch((err) => {
-      res.status(404).send(err);
-    })
+  await Products.find({ "product_cat.main": "Phones & Tablets" }).then(
+    (data) => {
+      resArr.push(data);
+    }
+  );
+  
+  await Products.find({ "product_cat.main": "Home & Office" }).then((data) => {
+    resArr.push(data);    
+  });
+
+  await Products.find({ "product_cat.main": "Electronics" }).then((data) => {
+    resArr.push(data);
+    res.status(200).send(resArr);
+  });
 
 
-    
 });
 
 module.exports = router;

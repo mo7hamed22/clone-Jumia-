@@ -44,6 +44,9 @@ class HomeView extends Component {
       suerpMarkets: [],
       sliders: [],
       fashions: [],
+      phones: [],
+      homes: [],
+      electronics: []
     };
   }
   
@@ -62,15 +65,17 @@ class HomeView extends Component {
         console.log(data.data);
         this.setState({           
           cats: data.data
-        });
+        }); 
         //  
         homeServices.getByCatName().then(
           data => {     
             this.setState({           
               suerpMarkets: data.data[0],
-              fashions: data.data[1]
-            });      
-          //console.log('Fashion',data.data[1]);          
+              fashions: data.data[1],
+              phones: data.data[2],
+              homes: data.data[3],    
+              electronics: data.data[4]          
+            });                     
           },
           (err) => {
             console.log(err)
@@ -189,7 +194,7 @@ class HomeView extends Component {
             </div>
           </div>
         </div>
-
+{/* 
 
         <div className="container">
           <div className="row">
@@ -204,7 +209,7 @@ class HomeView extends Component {
             </div>
           </div>
           </div>
-        </div>
+        </div> */}
 
 
         <div className="container bg-light mt-4 mb-3">
@@ -233,6 +238,48 @@ class HomeView extends Component {
               <img src="https://eg.jumia.is/cms/ramadan-21/same-day/Floor-Desktop-en_copy.jpg"/>
             </div>
           </div>
+          </div>
+        </div>
+
+        <div className="container bg-light mt-4 mb-3">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Phones & Tablets products</h4>
+                </div>
+                <Slider data={this.state.phones}/>            
+               
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container bg-light mt-4 mb-3">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Home & Office products</h4>
+                </div>
+                <Slider data={this.state.homes}/>            
+               
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="container bg-light mt-4 mb-3">
+          <div className="row">
+            <div className="col-md-12">
+              <div className="card p-2">
+                <div className="card-header bg-warning">
+                    <h4>Electronics products</h4>
+                </div>
+                <Slider data={this.state.electronics}/>            
+               
+                </div>
+            </div>
           </div>
         </div>
 
