@@ -11,7 +11,7 @@ const cart =localStorage.getItem('cart')
 if(cart){
     const products = JSON.parse(cart)
  initialState.items  =  products.reduce((sum,item)=>{
-return sum + parseInt(item.proQuantity)
+return sum + parseInt(item.selectedQuantity)
   },0) }
 
 const cartReducer=(state=initialState,action)=>{
@@ -33,7 +33,15 @@ case 'USER':
 const userInfo = {...action.value};
 console.log(userInfo ,'from reducer')
 return  {...state,userInfo:{...userInfo}}
-
+case 'GET_ITEMS':
+  const cart =localStorage.getItem('cart')
+if(cart){
+    const products = JSON.parse(cart)
+    
+   const allItems  =  products.reduce((sum,item)=>{
+return sum + parseInt(item.proQuantity)
+  },0)
+  return {...state,items:allItems}}
 }
     return state
 }
