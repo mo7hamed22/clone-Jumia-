@@ -32,8 +32,11 @@ function ProductDetailView(props) {
   const [image, setImage] = React.useState([]);
   const [activeImg, setActiveImg] = React.useState("");
   const [quantity, setQuantity] = React.useState(0);
+  const [count,setCount] = React.useState(0);
   let {proName} = useParams();
+  
   useEffect(() => {
+    props.onLoad(proName);
     homeServices
       .getProduct(
         proName
@@ -45,6 +48,7 @@ function ProductDetailView(props) {
         setQuantity(pro.data.quantity);
       });
   }, [setProduct, setQuantity]);
+  console.log(props)
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -76,10 +80,10 @@ function ProductDetailView(props) {
               </div>
 
               <div className="mb-3">
-                <span className="font-weight-bold h5 mr-2">
-                  ${product.price}
-                </span>
-                {/* <del className="small text-muted mr-2">$2000</del> */}
+                <p className="font-weight-bold h5 mr-2">
+                  ${product.price-((product.price*product.discount)/100)}
+                </p>
+                <del className="small text-muted mr-2">${product.price}</del>
                 <span className="rounded p-1 bg-warning  mr-2 small">
                   {product.discount}%
                 </span>
@@ -99,7 +103,7 @@ function ProductDetailView(props) {
                       <button
                         className="btn btn-primary text-white"
                         type="button"
-                        onClick={() => props.onPlus(quantity,product.nameEn,props.count)}
+                        onClick={() => props.onPlus(product.nameEn)}
                       >
                         <FontAwesomeIcon icon={faPlus} />
                       </button>
@@ -118,6 +122,7 @@ function ProductDetailView(props) {
                         nameEn: product.nameEn,
                         price: product.price,
                         discount: product.discount,
+                        prodQuantity:product.quantity,
                         image: activeImg,
                       })
                     }
@@ -266,10 +271,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onPlus: (proQuantity,proName,propCount) => dispatch({ type: "PLUS", quantity: proQuantity, name: proName,newquantity: propCount }),
+    onPlus: (proName) => dispatch({ type: "PLUS", name: proName }),
     onMinus: (proName) => dispatch({ type: "MINUS", name: proName }),
     onAddToCart: (userProduct) =>
       dispatch({ type: "ADDTOCART", product: userProduct }),
+    onLoad:(proName)=> dispatch({type:"LOAD",name:proName}),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailView);
