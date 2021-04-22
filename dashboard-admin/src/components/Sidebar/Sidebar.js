@@ -71,6 +71,14 @@ function Sidebar({ color, image, routes }) {
               <p>Admin profile</p>
             </NavLink>
           </li>
+
+          <hr style={{background: 'white'}} />
+          <li>
+            <NavLink to='/admin/settings' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-chart' />
+              <p>Site Settings</p>
+            </NavLink>
+          </li>
            
          
         </Nav>

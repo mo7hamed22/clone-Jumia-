@@ -8,6 +8,8 @@ import "./App.min.css";
 import {connect }from 'react-redux';
 import Search from "./components/Search";
 import searchResult from "./components/searchResult";
+import ScrollToTop from "./components/ScrollToTop";
+import loader from "./assets/loader.gif";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
 const HomeView = lazy(() => import("./views/Home"));
@@ -32,6 +34,7 @@ const BlogView = lazy(() => import("./views/blog/Blog"));
 const BlogDetailView = lazy(() => import("./views/blog/Detail"));
 const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
+
 
 
 function App(props) {
@@ -68,12 +71,14 @@ function App(props) {
 
   return (
     <BrowserRouter>
+    <ScrollToTop>
       <React.Fragment>
-        <Header />
-        {/* <TopMenu /> */}
+        <Header />        
         <Suspense
           fallback={
-            <div className="text-white text-center mt-3">Loading...</div>
+            <div className="text-white text-center mt-3">
+              <img src={loader}/>
+            </div>
           }
         >
           <Switch>
@@ -115,6 +120,7 @@ function App(props) {
         </Suspense>
         <Footer />
       </React.Fragment>
+      </ScrollToTop>
     </BrowserRouter>
   );
 }
