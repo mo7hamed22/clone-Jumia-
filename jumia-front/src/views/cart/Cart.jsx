@@ -10,40 +10,17 @@ import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-import{setItems} from '../../Store/actions'
-localStorage.setItem('cart',JSON.stringify([
-  {
-    productName:'pro1',
-    proPrice:'200',
-    proQuantity:'1',
-    proImage:'image',
-    quantity:5
-  },{
-    productName:'pro1',
-    proPrice:'300',
-    proQuantity:'5',
-    proImage:'image',
-    quantity:6
-  },{
-    productName:'pro1',
-    proPrice:'400',
-    proQuantity:'3',
-    proImage:'image',
-    quantity:4
-  },{
-    productName:'pro1',
-    proPrice:'500',
-    proQuantity:'7',
-    proImage:'image',
-    quantity:7
-  },
-  ]))
-
-
+import{setItems} from '../../Store/actions';
 const CouponApplyForm = lazy(() =>
   import("../../components/others/CouponApplyForm")
 );
 
+// discount: 6
+// image: "https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/29/870951/2.jpg?5867"
+// nameEn: "Grouhy GLD43SA - 43-inch Full HD LED Smart TV"
+// price: 4599
+// prodQuantity: 6
+// selectedQuantity: 1
 
 const useStyles = makeStyles((theme) => ({
   prefectCenter: {
@@ -71,12 +48,12 @@ const Cart = (props) => {
   const setCartToLocalStorage = (cart) => {
     return localStorage.setItem("cart", JSON.stringify(cart));
   };
-  const getItem = (product,con) => {
+  const getItem = (product) => {
     const items =
       product &&
       product.reduce((sum, product) => {
       
-        return sum + parseInt(product.proQuantity);
+        return sum + parseInt(product.selectedQuantity);
       }, 0);
     props.onIncrementItems(items);
   
@@ -100,7 +77,7 @@ const Cart = (props) => {
    
     
     setTimeout(() => {
-      getItem(newCart,'remove');
+      getItem(newCart);
       clearInterval(timer);
       setProgressShow(true);
     }, 500);
@@ -109,7 +86,7 @@ const Cart = (props) => {
     setProgressShow(false);
    
     const product = cart[index];
-    product.proQuantity = event.target.value;
+    product.selectedQuantity = event.target.value;
     const newCart = cart;
     newCart[index] = product;
     const timer = setInterval(() => {
@@ -126,16 +103,16 @@ const Cart = (props) => {
 
     setTimeout(() => {
       setCartToLocalStorage(newCart);
-      getItem(cart,'handlechange');
+      getItem(cart);
       clearInterval(timer);
       setProgressShow(true);
     }, 500);
+    
   };
   React.useEffect(() => {
-    console.log(props.userLogin,'user login')
       const cartFromLocalStorage = getCartFromLocalStorage();
         setCart(cartFromLocalStorage);
-        getItem(cart,'useEffect');
+        getItem(cart);
   }, [setCart, props.totalItems]);
 
  
@@ -149,7 +126,7 @@ const Cart = (props) => {
   };
   const subTotalPrice = (index) => {
     const product = cart[index];
-    const total = product.proQuantity * product.proPrice;
+    const total = product.selectedQuantity * product.price;
     // Total(total)
     Total(total);
     return total;
@@ -212,7 +189,7 @@ const Cart = (props) => {
                       <div className="d-flex">
                         <div className="col-2 ">
                           <img
-                            src="../../images/products/tshirt_red_480x400.webp"
+                            src={item.image}
                             width="80"
                             alt="..."
                             className="w-100 d-block"
@@ -229,9 +206,7 @@ const Cart = (props) => {
                           <div className="row">
                             <div className="col-12">
                               {" "}
-                              Ideapad 3-15ADA05 Laptop - AMD Ryzen 3-3250U - 8GB
-                              RAM - 1TB HDD - Radeon GPU - 15.6-inch HD -
-                              Windows 10 - Business Black
+                          {item.nameEn}
                             </div>
                             <div
                               className="col-12 m-3"
@@ -260,20 +235,17 @@ const Cart = (props) => {
                     <Select
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
-                      value={item.proQuantity}
+                      value={item.selectedQuantity}
                       onChange={(e) => {
                         handleChange(e, index);
                       }}
                     >
-                      {createSelectItems(item.quantity).map((item) => item)}
-                      {/* <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem> */}
+                      {createSelectItems(item.prodQuantity).map((item) => item)}
                     </Select>
                   </FormControl>
                 </div>
                 <div className="col-2 d-flex justify-content-center ">
-                  {item.proPrice}
+                  {item.price}
                 </div>
                 <div
                   className="col-2 d-flex justify-content-center"

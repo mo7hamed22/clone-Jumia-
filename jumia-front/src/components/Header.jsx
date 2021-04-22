@@ -15,14 +15,15 @@ import {connect} from 'react-redux'
 
 const Header = (props) => {
   const [userName,setUserName]=React.useState('')
-  console.log(props)
+ 
   React.useEffect(()=>{
 setUserName(props.userName)
 props.getUserInfo()
-console.log(userName)
+
   },[setUserName,props.totalItem,props.userName,props.userLogin])
   console.log(props.user,'from header')
-  const logOut=()=>{
+  const logOut=(e)=>{
+    e.preventDefault()
     localStorage.removeItem('token');
     window.location.href='/'
   }
@@ -112,7 +113,7 @@ console.log(userName)
                     <hr className="dropdown-divider" />
                   </li>
                   <li className={props.user.name?'':'d-none'}>
-                    <Link className="dropdown-item" onClick={logOut}>
+                    <Link to='/' className="dropdown-item" onClick={logOut}>
                       <IconDoorClosedFill className="text-danger" /> Logout
                     </Link>
                   </li>

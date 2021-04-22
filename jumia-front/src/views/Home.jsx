@@ -60,7 +60,7 @@ class HomeView extends Component {
 
     homeServices.getAllCats().then(
       (data) => {
-        console.log(data.data);
+       
         this.setState({
           cats: data.data,
         });        

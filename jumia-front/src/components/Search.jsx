@@ -8,7 +8,6 @@ import "./css/heading.css";
 import { ReactComponent as IconSearch } from "bootstrap-icons/icons/search.svg";
 
 const Search = (props) => {
-  console.log("props", props);
   let SearchArray = [];
   const [products, setProducts] = React.useState([]);
 
@@ -20,7 +19,6 @@ const Search = (props) => {
     homeServices.getAllProducts().then(
       (data) => {
         setProducts(data.data);
-        console.log("SearchArray", SearchArray);
       },
       (err) => {
         console.log(err);
@@ -28,7 +26,7 @@ const Search = (props) => {
     );
   }, []);
   SearchArray = [].concat(products);
-  console.log("SearchArray", SearchArray);
+ 
   function search(e) {
     e.preventDefault();
     const filteredContent = products.filter((item) => {
@@ -38,7 +36,7 @@ const Search = (props) => {
         // item.product_cat.toLowerCase().includes(input)
       );
     });
-    console.log("filtered", filteredContent);
+   
     props.searchResult(filteredContent);
     props.setTerm(input);
 

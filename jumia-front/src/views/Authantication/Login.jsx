@@ -11,6 +11,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
+// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import Facebook from './facebook'
+import FacebookLogin from 'react-facebook-login';
 
 import "./Login.css";
 function Alert(propsAlert) {
@@ -108,6 +111,83 @@ setTimeout(()=>{
       email: "required",
     },
   });
+  
+const componentClicked=()=>{
+  console.log('clicked')
+}
+const responseFacebook=(res)=>{
+console.log(res)
+axios.post("http://localhost:8080/auth/login",{
+ 
+     password: res.id,
+     email:res.email
+ 
+}).then(data=>{
+console.log(data,'data')
+if (data.data.token) {
+  handleClickAlert();
+  setFeedBackMsg("Login Successfully");
+  setFeedBackAlert("success");
+  handleClose();
+  localStorage.setItem("token", data.data.token);
+
+setTimeout(()=>{
+// props.history.replace('/');
+window.location.replace('/')
+},1500)
+
+} else {
+  axios.post("http://localhost:8080/auth/signup",{
+        name:res.name,
+       password: res.id,
+       email:res.email
+   
+}).then(data=>{
+    if (data.data.token) {
+      handleClickAlert();
+        setFeedBackMsg("Login Successfully");
+        setFeedBackAlert("success");
+        localStorage.setItem("token", data.data.token);
+      setTimeout(()=>{
+      // props.history.replace('/');
+      window.location.replace('/')
+      },1500)
+      } else {
+        console.log("error in else");
+        console.log(data.data);
+        handleClickAlert();
+      setFeedBackMsg("There are problem with Facebook Login");
+        setFeedBackAlert("error");
+      }
+      })
+      .catch(e=>{
+        console.log(e,'error')
+      })
+    
+  console.log("error in else");
+
+  console.log(data.data);
+}
+})
+.catch(e=>{
+  console.log(e,'error')
+  handleClose();
+handleClickAlert();
+setFeedBackMsg("invalid Username or password");
+setFeedBackAlert("error");
+})
+
+// fetch(,{
+//     method:'POST',
+//  body:{
+//      withFacebook:'true'
+//  }
+// }).then(data=>{
+//     data.json().then(data=>{
+//         console.log(data)
+//     })
+// })
+}
 
   return (
     <>
@@ -224,37 +304,15 @@ setTimeout(()=>{
                 </Row>
                 <Row className="mt-3">
                   <Col sm={12}>
-                    <Button
-                      type="button"
-                      style={{
-                        backgroundColor: "#40588a",
-                        color: "#ffff",
-                        fontWeight: "bold",
-                        width:'100%'
-            
-                      }}
-                      variant="contained"
-                      
-                    >
-                      <Row className="w-100">
-                        <Col sm={2} className="float-left">
-                          <div>
-                            {" "}
-                            <svg
-                              style={{ fill: "#fff" ,width:'65%'}}
-                              viewBox="0 0 24 24"
-                              id="facebook"
-                            > 
-                              <path d="M19.305 2H4.695A2.695 2.695 0 0 0 2 4.695v14.61A2.695 2.695 0 0 0 4.695 22h7.206l.012-7.147h-1.857a.438.438 0 0 1-.438-.436l-.009-2.304c0-.243.196-.44.438-.44h1.854V9.447c0-2.583 1.577-3.99 3.882-3.99h1.89c.243 0 .439.196.439.438v1.943a.438.438 0 0 1-.438.438h-1.16c-1.254 0-1.496.596-1.496 1.47v1.927h2.753c.263 0 .466.23.435.49l-.273 2.304a.438.438 0 0 1-.435.386H15.03L15.018 22h4.287A2.695 2.695 0 0 0 22 19.305V4.695A2.695 2.695 0 0 0 19.305 2z"></path>
-                            </svg>
-                          </div>
-                        </Col>
-                        <Col className="pt-1">
-                          {" "}
-                          <span> Login With Facebook</span>
-                        </Col>
-                      </Row>
-                    </Button>
+ 
+               <FacebookLogin
+    appId="738272283510004"
+    autoLoad={false}
+    fields="name,email,picture"
+    content
+    onClick={componentClicked}
+    callback={responseFacebook} />
+                 
                   </Col>
                 </Row>
               </form>
@@ -320,34 +378,20 @@ setTimeout(()=>{
             </Row>
             <Row className=" mt-2">
               <Col>
-                <Button
-                  type="button"
-                  style={{
-                    backgroundColor: "#40588a",
-                    color: "#ffff",
-                    fontWeight: "bold",
-                    width:'100%'
-                  }}
-                  variant="contained"
-                  
-                >
-                  <Row className="w-100">
-                    <Col sm={3}>
-                      <svg
-                        style={{ fill: "#fff", width: "2rem" }}
-                        viewBox="0 0 24 24"
-                        id="facebook"
-                      >
-                        <path d="M19.305 2H4.695A2.695 2.695 0 0 0 2 4.695v14.61A2.695 2.695 0 0 0 4.695 22h7.206l.012-7.147h-1.857a.438.438 0 0 1-.438-.436l-.009-2.304c0-.243.196-.44.438-.44h1.854V9.447c0-2.583 1.577-3.99 3.882-3.99h1.89c.243 0 .439.196.439.438v1.943a.438.438 0 0 1-.438.438h-1.16c-1.254 0-1.496.596-1.496 1.47v1.927h2.753c.263 0 .466.23.435.49l-.273 2.304a.438.438 0 0 1-.435.386H15.03L15.018 22h4.287A2.695 2.695 0 0 0 22 19.305V4.695A2.695 2.695 0 0 0 19.305 2z"></path>
-                      </svg>
-                    </Col>
+              {/* handleClickAlert();
+  setFeedBackMsg("Login Successfully");
+  setFeedBackAlert("success"); 
+    handleClickAlert();
+            setFeedBackMsg("invalid Username or password");
+            setFeedBackAlert("error");
+  
+  */}
+               <Facebook handleClickAlert={handleClickAlert}  setFeedBackAlert={setFeedBackMsg} setFeedBackAlert={setFeedBackAlert} setFeedBackMsg={setFeedBackMsg}
+               
+               
+               
+               />
 
-                    <Col sm={7}>
-                      {" "}
-                      <div> Login With Facebook</div>
-                    </Col>
-                  </Row>
-                </Button>
               </Col>
             </Row>
           </Col>
