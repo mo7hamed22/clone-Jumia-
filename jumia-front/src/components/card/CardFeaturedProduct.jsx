@@ -16,7 +16,7 @@ const CardFeaturedProduct = (props) => {
             key={idx}
           >
             <div className="col-md-4">
-              <img src={product.img} className="img-fluid" alt="..." />
+              <img src={product.image[0]} className="img-fluid" alt="..." />
             </div>
             <div className="col-md-8">
               <h6 className="text-capitalize mb-1">

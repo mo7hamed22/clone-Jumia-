@@ -31,5 +31,5 @@ function getByCatName() {
 }
 
 function getProductsByType(type) {
-  return axios.get(`http://localhost:8080/product/get-by-category/${type}`);
+  return axios.get("http://localhost:8080/product/get-Product-type/" + type);
 }

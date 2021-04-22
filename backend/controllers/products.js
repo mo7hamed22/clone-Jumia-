@@ -97,4 +97,15 @@ router.get("/getbycat/", async (req, res) => {
   });
 });
 
+router.get("/get-Product-type/:type", (req, resp) => {
+  const type = req.params.type;
+  Products.find({ "product_cat.type": type })
+    .then((product) => {
+      resp.status(200).send(product);
+    })
+    .catch((err) => {
+      resp.status(404).send(err);
+    });
+});
+
 module.exports = router;

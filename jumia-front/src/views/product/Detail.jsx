@@ -34,22 +34,22 @@ function ProductDetailView(props) {
   const [products, setProducts] = React.useState([]);
   const [productType, setProductType] = React.useState("");
   let { proName } = useParams();
-
   useEffect(() => {
     props.onLoad(proName);
     homeServices.getProduct(proName).then((pro) => {
       setActiveImg(pro.data.image[0]);
       setImage(pro.data.image);
       setProduct(pro.data);
-      setProductType(pro.data.product_cat.type);
+      setProductType(product.product_cat);
+      homeServices.getProductsByType(pro.data.product_cat.type).then((data) => {
+        console.log(data);
+        setProducts(data.data);
+      });
     });
-    console.log(productType);
-    homeServices.getProductsByType(productType).then((prods) => {
-      console.log("products", prods.data);
-      setProducts(prods.data);
-    });
+    console.log("products", products);
   }, [setProduct, setProducts]);
-  console.log(products);
+
+  console.log("product-type", productType);
   return (
     <div className="container-fluid mt-3">
       <div className="row">
