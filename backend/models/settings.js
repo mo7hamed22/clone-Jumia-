@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 var siteSchema = new mongoose.Schema({
- sliders: Array
+  gety: String,
+  top_image: Object,
+  social_link: Object,
+  sliders: Array,
 });
 
 module.exports = mongoose.model("Setting", siteSchema);

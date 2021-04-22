@@ -6,7 +6,7 @@ const Item = ({ item, index }) => (
     <Link to={item.to}>
       <img src={item.img} className="img-fluid" alt={item.title} />
       {(item.title || item.description) && (
-        <div className="carousel-caption d-none d-md-block" style={{top: '27%'}}>
+        <div className="carousel-caption d-none d-md-block" style={{top: '38%'}}>
           {item.title && <h5>{item.title}</h5>}
           {item.description && <p>{item.description}</p>}
         </div>
@@ -36,7 +36,7 @@ const Banner = (props) => {
           <Indicator item={props.id} index={index} key={index} />
         ))}
       </ol>
-      <div className="carousel-inner" style={{maxHeight: '300px'}}>
+      <div className="carousel-inner" style={{maxHeight: '350px'}}>
         {props.data.map((item, index) => (
           <Item item={item} index={index} key={index} />
         ))}

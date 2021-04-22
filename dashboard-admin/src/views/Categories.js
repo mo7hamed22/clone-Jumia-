@@ -156,16 +156,14 @@ function Categories() {
               <Card.Body>
                 <Accordion defaultActiveKey="0">
                   {cats.map((item, index) => (
-                    <Card key={index}>
-                      <Card.Header>
+                    <Card key={index}>                      
                         <Accordion.Toggle
                           as={Button}
                           variant="block btn-primary"
                           eventKey={`"${index}"`}
                         >
                           {item.nameEn}
-                        </Accordion.Toggle>
-                      </Card.Header>
+                        </Accordion.Toggle>                      
                       <Accordion.Collapse eventKey={`"${index}"`}>
                         <Card.Body>
                           {item.subCategory.map((row, index) => (
@@ -267,12 +265,13 @@ function Categories() {
                 <Button onClick={handelAddSubCatsArr}>Add Sub Category</Button>
               </Col>
             </Row>
-            <Button variant="secondary" onClick={handleClose}>
+            <hr />            
+            <Button className="btn btn-sm" variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleSubmit}>
+            <Button className="btn btn-sm ml-2" variant="primary"  onClick={handleSubmit}>
               Add Category
-            </Button>
+            </Button>            
           </form>
         </Modal.Body>
       </Modal>

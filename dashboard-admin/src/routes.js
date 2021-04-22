@@ -6,6 +6,7 @@ import Categories from "views/Categories.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
 import AddUser from "views/AddUSer";
+import Settings from "views/Settings";
 import AddProduct from "./views/AddProduct";
 
 const dashboardRoutes = [
@@ -76,6 +77,14 @@ const dashboardRoutes = [
     component: AddUser,
     layout: "/admin",
   },
+  {
+    path: "/settings",
+    name: "Settings",
+    icon: "nc-icon nc-single-02",
+    component: Settings,
+    layout: "/admin",
+  },
+
   
 ];
 

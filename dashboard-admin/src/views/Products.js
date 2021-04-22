@@ -175,7 +175,7 @@ function Products() {
 
     <Modal size="lg" show={show} onHide={handleClose}>        
         <Modal.Body>
-       <form onSubmit={handleEditSubmit}>
+       <form onSubmit={handleEditSubmit}> 
          <input disabled type="hidden" name="product_id" defaultValue={editProduct._id}/>
           <Row>
             <Col md="7">
