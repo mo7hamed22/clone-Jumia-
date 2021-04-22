@@ -11,7 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { data } from "../../data";
 import { homeServices } from "../../services/_home";
-import {useParams} from 'react-router-dom';
+import { useParams } from "react-router-dom";
 const CardFeaturedProduct = lazy(() =>
   import("../../components/card/CardFeaturedProduct")
 );
@@ -31,24 +31,25 @@ function ProductDetailView(props) {
   const [product, setProduct] = React.useState({});
   const [image, setImage] = React.useState([]);
   const [activeImg, setActiveImg] = React.useState("");
-  const [quantity, setQuantity] = React.useState(0);
-  const [count,setCount] = React.useState(0);
-  let {proName} = useParams();
-  
+  const [products, setProducts] = React.useState([]);
+  const [productType, setProductType] = React.useState("");
+  let { proName } = useParams();
+
   useEffect(() => {
     props.onLoad(proName);
-    homeServices
-      .getProduct(
-        proName
-      )
-      .then((pro) => {
-        setActiveImg(pro.data.image[0]);
-        setImage(pro.data.image);
-        setProduct(pro.data);
-        setQuantity(pro.data.quantity);
-      });
-  }, [setProduct, setQuantity]);
-  console.log(props)
+    homeServices.getProduct(proName).then((pro) => {
+      setActiveImg(pro.data.image[0]);
+      setImage(pro.data.image);
+      setProduct(pro.data);
+      setProductType(pro.data.product_cat.type);
+    });
+    console.log(productType);
+    homeServices.getProductsByType(productType).then((prods) => {
+      console.log("products", prods.data);
+      setProducts(prods.data);
+    });
+  }, [setProduct, setProducts]);
+  console.log(products);
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -81,7 +82,7 @@ function ProductDetailView(props) {
 
               <div className="mb-3">
                 <p className="font-weight-bold h5 mr-2">
-                  ${product.price-((product.price*product.discount)/100)}
+                  ${product.price - (product.price * product.discount) / 100}
                 </p>
                 <del className="small text-muted mr-2">${product.price}</del>
                 <span className="rounded p-1 bg-warning  mr-2 small">
@@ -95,7 +96,7 @@ function ProductDetailView(props) {
                       <button
                         className="btn btn-primary text-white"
                         type="button"
-                        onClick={()=>props.onMinus(proName)}
+                        onClick={() => props.onMinus(proName)}
                       >
                         <FontAwesomeIcon icon={faMinus} />
                       </button>
@@ -122,7 +123,7 @@ function ProductDetailView(props) {
                         nameEn: product.nameEn,
                         price: product.price,
                         discount: product.discount,
-                        prodQuantity:product.quantity,
+                        prodQuantity: product.quantity,
                         image: activeImg,
                       })
                     }
@@ -130,7 +131,6 @@ function ProductDetailView(props) {
                     <FontAwesomeIcon icon={faCartPlus} /> Add to cart
                   </button>
                 )}
-
               </div>
               <div>
                 <p className="font-weight-bold mb-2 small">
@@ -259,7 +259,7 @@ function ProductDetailView(props) {
           </div>
         </div>
         <div className="col-md-4">
-          <CardFeaturedProduct data={data.products} />
+          <CardFeaturedProduct data={products} />
           <CardServices />
         </div>
       </div>
@@ -275,7 +275,7 @@ const mapDispatchToProps = (dispatch) => {
     onMinus: (proName) => dispatch({ type: "MINUS", name: proName }),
     onAddToCart: (userProduct) =>
       dispatch({ type: "ADDTOCART", product: userProduct }),
-    onLoad:(proName)=> dispatch({type:"LOAD",name:proName}),
+    onLoad: (proName) => dispatch({ type: "LOAD", name: proName }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetailView);
