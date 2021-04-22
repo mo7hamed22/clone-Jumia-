@@ -8,6 +8,7 @@ import "./App.min.css";
 import {connect }from 'react-redux';
 import Search from "./components/Search";
 import searchResult from "./components/searchResult";
+import ScrollToTop from "./components/ScrollToTop";
 import loader from "./assets/loader.gif";
 //const Header = lazy(() => import("./components/Header"));
 //const TopMenu = lazy(() => import("./components/TopMenu"));
@@ -70,6 +71,7 @@ function App(props) {
 
   return (
     <BrowserRouter>
+    <ScrollToTop>
       <React.Fragment>
         <Header />        
         <Suspense
@@ -118,6 +120,7 @@ function App(props) {
         </Suspense>
         <Footer />
       </React.Fragment>
+      </ScrollToTop>
     </BrowserRouter>
   );
 }
