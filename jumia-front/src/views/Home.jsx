@@ -55,15 +55,14 @@ class HomeView extends Component {
     homeServices.getAllSliders().then((data) => {
       this.setState({
         sliders: data.data.sliders,
-      });      
+      });
     });
 
     homeServices.getAllCats().then(
       (data) => {
-       
         this.setState({
           cats: data.data,
-        });        
+        });
         homeServices.getByCatName().then(
           (data) => {
             this.setState({
@@ -73,11 +72,12 @@ class HomeView extends Component {
               homes: data.data[3],
               electronics: data.data[4],
             });
+            console.log("products", this.state);
           },
           (err) => {
             console.log(err);
           }
-        );        
+        );
       },
       (err) => {
         console.log(err);
@@ -88,7 +88,7 @@ class HomeView extends Component {
       (data) => {
         this.setState({
           products: data.data,
-        });        
+        });
       },
       (err) => {
         console.log(err);
@@ -97,18 +97,24 @@ class HomeView extends Component {
   }
 
   render() {
+    // console.log("products", this.state.products);
+
     const iconProducts = data.iconProducts;
-    const rows = [...Array(Math.ceil(iconProducts.length / 4))];    
+    const rows = [...Array(Math.ceil(iconProducts.length / 4))];
     const productRows = rows.map((row, idx) =>
       iconProducts.slice(idx * 40, idx * 40 + 40)
-    );    
+    );
     const carouselContent = productRows.map((row, idx) => (
       <div className={`carousel-item ${idx === 0 ? "active" : ""}`} key={idx}>
         <div className="row g-3">
           {row.map((product, idx) => {
             const ProductImage = this.components[product.img];
             return (
-              <div key={idx} className="col-md-3">
+              <div
+                key={idx}
+                className="col-md-3"
+                onClick={(e) => setProductCat(e.target.value)}
+              >
                 <CardIcon
                   title={product.title}
                   text={product.text}
@@ -123,6 +129,10 @@ class HomeView extends Component {
         </div>
       </div>
     ));
+    function setProductCat(catNAme) {
+      console.log("catName", catNAme);
+      return catNAme;
+    }
 
     return (
       <React.Fragment>
@@ -136,6 +146,7 @@ class HomeView extends Component {
                 className="mb-3"
                 id="carouselHomeBanner"
                 data={this.state.sliders}
+                onClick={(e) => setProductCat(e.target)}
               />
             </div>
             <div className="col-md-2">

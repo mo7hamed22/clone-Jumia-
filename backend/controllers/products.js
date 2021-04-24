@@ -96,7 +96,7 @@ router.get("/getbycat/", async (req, res) => {
     res.status(200).send(resArr);
   });
 });
-
+//
 router.get("/get-Product-type/:type", (req, resp) => {
   const type = req.params.type;
   Products.find({ "product_cat.type": type })

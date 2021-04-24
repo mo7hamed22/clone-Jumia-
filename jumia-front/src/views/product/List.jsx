@@ -1,4 +1,6 @@
 import React, { lazy, Component } from "react";
+import { homeServices } from "../../services/_home";
+
 import { data } from "../../data";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
@@ -20,7 +22,14 @@ const CardProductList = lazy(() =>
 );
 
 class ProductListView extends Component {
+  constructor(props) {
+    super(props);
+    console.log("subCatNameH", this.props.match.params.subCatName);
+  }
   state = {
+    category: "",
+    mainCat: "",
+    products: [],
     currentProducts: [],
     currentPage: null,
     totalPages: null,
@@ -45,7 +54,32 @@ class ProductListView extends Component {
     this.setState({ view });
   };
 
+  // ====
+  componentDidMount() {
+    homeServices.getAllProducts().then(
+      (data) => {
+        this.setState({ products: data.data });
+        const filteredContent = this.state.products.filter((item, indx) => {
+          console.log("index", indx);
+          console.log("item", item);
+          console.log("item.product_cat.sub", item.product_cat.sub);
+          console.log("this.state.category", this.state.category);
+          return item.product_cat.sub === this.state.category;
+        });
+        console.log("SubProducts", filteredContent);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  // ======
+
   getProducts = () => {
+    this.setState({ category: this.props.match.params.subCatName });
+    this.setState({ mainCat: this.props.match.params.nameEn });
+    console.log("category-mainCat", this.state.mainCat);
+
     let products = data.products;
     products = products.concat(products);
     products = products.concat(products);
@@ -66,7 +100,8 @@ class ProductListView extends Component {
         >
           <div className="container text-center">
             <span className="display-5 px-3 bg-white rounded shadow">
-              T-Shirts
+              {this.state.mainCat}
+              {this.state.category}
             </span>
           </div>
         </div>

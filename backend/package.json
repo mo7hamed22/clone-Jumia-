@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build":"cd jumia-front && npm run build",
+    "install-jumia":"cd jumia-front && npm install",
+    "heroku-postbuild":"npm run install-jumia && npm run build ",
     "start": "nodemon index.js"
+  },
+  "engines": {
+    "node": "10.19.0"
   },
   "author": "",
   "license": "ISC",
