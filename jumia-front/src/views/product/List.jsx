@@ -53,31 +53,7 @@ class ProductListView extends Component {
   onChangeView = (view) => {
     this.setState({ view });
   };
-
-  // ====
-  componentDidMount() {
-    homeServices.getAllProducts().then(
-      (data) => {
-        this.setState({ products: data.data });
-        const filteredContent = this.state.products.filter((item, indx) => {
-          console.log("index", indx);
-          console.log("item", item);
-          console.log("item.product_cat.sub", item.product_cat.sub);
-          console.log("this.state.category", this.state.category);
-          return item.product_cat.sub === this.state.category;
-        });
-        console.log("SubProducts", filteredContent);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-  // ======
-
   getProducts = () => {
-    this.setState({ category: this.props.match.params.subCatName });
-    this.setState({ mainCat: this.props.match.params.nameEn });
     console.log("category-mainCat", this.state.mainCat);
 
     let products = data.products;
@@ -88,6 +64,82 @@ class ProductListView extends Component {
     products = products.concat(products);
     return products;
   };
+
+  // ====
+  componentDidMount() {
+    let _params = this.props.match.params;
+    if (_params.type) {
+      console.log("Type", _params.type);
+      homeServices.getProductsByType(this.props.match.params.type).then(
+        (data) => {
+          console.log("MainProductsType", data);
+          this.setState({
+            products: data.data,
+          });
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else if (_params.subCatName) {
+      homeServices.getProductsByType(this.props.match.params.type).then(
+        (data) => {
+          this.setState({
+            products: data.data,
+          });
+          console.log("MainProducts", this.state.products);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      homeServices.getProductsByType(this.props.match.params.main).then(
+        (data) => {
+          console.log("MainProductmain", data);
+
+          this.setState({
+            products: data.data,
+          });
+          console.log("MainProducts", this.state.products);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+
+    console.log("ParmasMatch", this.props.match.params);
+    this.setState({ category: this.props.match.params.subCatName });
+    this.setState({ mainCat: this.props.match.params.nameEn });
+    homeServices.getAllProducts().then(
+      (data) => {
+        this.setState({ products: data.data });
+        const filteredContent = this.state.products.filter((item, indx) => {
+          // console.log("item", item);console.log("index", indx);
+          // console.log("item.product_cat.sub", item.product_cat.sub);
+          // console.log("this.state.category", this.state.category);
+          return item.product_cat.sub === this.state.category;
+        });
+        // console.log("SubProducts", filteredContent);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+    homeServices.getProductsByMainCat(this.props.match.params.subCatName).then(
+      (data) => {
+        this.setState({
+          products: data.data,
+        });
+        console.log("MainProducts", this.state.products);
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+  // ======
 
   render() {
     return (

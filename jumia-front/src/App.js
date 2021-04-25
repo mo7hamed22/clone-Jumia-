@@ -92,11 +92,20 @@ function App(props) {
                 path="/account/notification"
                 component={NotificationView}
               />
+              <Route exact path="/category/:main" component={ProductListView} />
+              {/*======  */}
               <Route
                 exact
-                path="/category/:subCatName"
+                path="/category/:main/:subCatName"
                 component={ProductListView}
               />
+              <Route
+                exact
+                path="/category/:main/:subCatName/:type"
+                component={ProductListView}
+              />
+              {/* ======= */}
+
               <Route
                 exact
                 path="/product/detail/:proName"
