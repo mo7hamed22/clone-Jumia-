@@ -31,12 +31,11 @@ const TopMenu = (props) => {
           <li
             key={index}
             className={`${item.subCategory ? "contain-submenu" : ""}`}
-          >
-            <svg dangerouslySetInnerHTML={{ __html: item.icon }} />
-
+          >             
             <Link to={`/category/${item.nameEn}`}>
                       {item.nameEn}
                     </Link>
+                    <svg dangerouslySetInnerHTML={{ __html: item.icon }} />
             <ul className="submenu-1">
               {item.subCategory &&
                 item.subCategory.map((sub, index) => (
@@ -45,7 +44,7 @@ const TopMenu = (props) => {
                     key={index}
                     className={`${sub.subCatArray ? "contain-submenu" : ""}`}
                   >
-                    <Link to={`/category/${sub.subCatName}`}>
+                    <Link to={`/category/${item.nameEn}/${sub.subCatName}`}>
                       {sub.subCatName}
                     </Link>
 

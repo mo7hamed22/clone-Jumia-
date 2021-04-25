@@ -6,6 +6,8 @@ export const homeServices = {
   getByCatName,
   getAllSliders,
   getProductsByType,
+
+  getSiteSettings,
 };
 
 function getAllSliders() {
@@ -32,4 +34,8 @@ function getByCatName() {
 
 function getProductsByType(type) {
   return axios.get("http://localhost:8080/product/get-Product-type/" + type);
+}
+
+function getSiteSettings() {
+  return axios.get("http://localhost:8080/settings/get-settings");
 }

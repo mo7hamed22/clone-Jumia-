@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 export default function Footer() {
@@ -79,7 +80,7 @@ export default function Footer() {
               <ul className="p-0">
                 <li className="f-li"></li>
                 <li className="f-li">Help Center</li>
-                <li className="f-li">Contact us</li>
+                <li className="f-li"><Link to="/contact-us">Contact us</Link></li>
                 <li className="f-li">How to buy on Jumia?</li>
                 <li className="f-li">How to pay on Jumia?</li>
                 <li className="f-li">Delivery timelines</li>
