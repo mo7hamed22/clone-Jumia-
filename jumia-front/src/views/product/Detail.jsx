@@ -41,9 +41,11 @@ function ProductDetailView(props) {
       setImage(pro.data.image);
       setProduct(pro.data);
       setProductType(product.product_cat);
-      homeServices.getProductsByType(pro.data.product_cat.main).then((data) => {
-        setProducts(data.data);
-      });
+      homeServices
+        .getProductsByMainCat(pro.data.product_cat.main)
+        .then((data) => {
+          setProducts(data.data);
+        });
     });
     console.log("props detail", props);
   }, [setProduct, setProducts]);
