@@ -36,9 +36,7 @@ const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
 function App(props) {
-  try {
-    const token = localStorage.getItem("token");
-
+ 
   try{
     const token =localStorage.getItem('token')
        
