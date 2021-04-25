@@ -43,25 +43,26 @@ function App(props) {
     const token =localStorage.getItem('token')
        
     
+         if(token){
           fetch('http://localhost:8080/user/is-login',
-      {  method: "post",
-       headers: { Authorization: `Bearer ${token}` }}
-       ).then(data=>{
-         data.json().then(data=>{
-            if(data.message == 'User Not Found'){
-                console.log(data.message,'offline')
-            }  else{
-              console.log(data,'from app')
-                 props.setUserName(data)
-
-            }
-         })
+          {  method: "post",
+           headers: { Authorization: `Bearer ${token}` }}
+           ).then(data=>{
+             data.json().then(data=>{
+                if(data.message == 'User Not Found'){
+                    console.log(data.message,'offline')
+                }  else{
+                     props.setUserName(data)
     
-       }).catch(e=>{
-     if(e.message == 'User Not Found'){
-         console.log(e.message,'offline')
-     }   
-     })
+                }
+             })
+        
+           }).catch(e=>{
+         if(e.message == 'User Not Found'){
+             console.log(e.message,'offline')
+         }   
+         })
+         }
     }catch(e){
         console.log(e,'catching')
     }

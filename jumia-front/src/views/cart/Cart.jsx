@@ -11,6 +11,9 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
 import{setItems} from '../../Store/actions';
+import axios from 'axios';
+import Modal from '@material-ui/core/Modal';
+
 const CouponApplyForm = lazy(() =>
   import("../../components/others/CouponApplyForm")
 );
@@ -21,7 +24,20 @@ const CouponApplyForm = lazy(() =>
 // price: 4599
 // prodQuantity: 6
 // selectedQuantity: 1
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
 
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 const useStyles = makeStyles((theme) => ({
   prefectCenter: {
     display: "flex",
@@ -33,9 +49,19 @@ const useStyles = makeStyles((theme) => ({
     position: "fixed",
     top: "0",
   },
+  paper: {
+    position: 'absolute',
+    width: 800,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 const Cart = (props) => {
+  const [modalStyle] = React.useState(getModalStyle);
+  const [openModal, setOpenModal] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
   const [progressShow, setProgressShow] = React.useState(true);
   let total = 0;
@@ -57,6 +83,13 @@ const Cart = (props) => {
       }, 0);
     props.onIncrementItems(items);
   
+  };
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
   };
   const removeItem = (itemIndex) => {
     setProgressShow(false);
@@ -113,8 +146,42 @@ const Cart = (props) => {
       const cartFromLocalStorage = getCartFromLocalStorage();
         setCart(cartFromLocalStorage);
         getItem(cart);
+  
   }, [setCart, props.totalItems]);
+const toCheckOut=()=>{
+if(props.userLogin){
+  const token= localStorage.getItem('token')
+ console.log(token)
+ console.log(cart)
+if(token){
+  axios({
+    method: "put",
+    url: "http://localhost:8080/user/cart",
+    data: {cart:cart},
+    headers: { Authorization: `Bearer ${token}`}
+  }).then(data=>{
+  props.history.push('/checkout')
+  }).catch(e=>{
+    console.log(e,'error')
+  })}
 
+
+}else{
+
+handleOpenModal()
+}
+}
+const body = (
+  <div style={modalStyle} className={classes.paper}>
+    <h2 id="simple-modal-title">Login To Continue</h2>
+    <p id="simple-modal-description">
+   Please You need Login To Continue to checkout 
+
+   <Link to='/account/login' style={{textDecoration:'none',color:'orangered',marginLeft:'10px'}}>Login</Link>
+    </p>
+  
+  </div>
+);
  
 
   const onSubmitApplyCouponCode = async (values) => {
@@ -126,7 +193,8 @@ const Cart = (props) => {
   };
   const subTotalPrice = (index) => {
     const product = cart[index];
-    const total = product.selectedQuantity * product.price;
+   
+    const total = product.selectedQuantity * (product.price - (product.price * product.discount) / 100);
     // Total(total)
     Total(total);
     return total;
@@ -145,6 +213,46 @@ const Cart = (props) => {
   };
 
   return (
+    <>
+    {props.totalItems == 0? <div className='container'>
+
+<div className="row">
+  <div className="col-12 d-flex justify-content-center">
+  <img src="https://www.jumia.com.eg/images/oshun/cart/empty-cart.png" alt=""/>
+  </div>
+
+</div>
+<div className="row p-3">
+  <div className="col-12 justify-content-center d-flex text-muted">
+    <h2>your car it empty</h2>
+  </div>
+  
+</div>
+<div className="row mt-3 ">
+    <div className="col-12 d-flex justify-content-center">
+ 
+    <Button
+                  type="button"
+                  style={{
+                    backgroundColor: "#f68b1e",
+                    color: "#ffff",
+                    fontWeight: "bold",
+                    width:'300px',
+                    marginLeft:'10px'
+                  }}
+                  variant="contained"
+               onClick={()=>props.history.push('/')}
+                >
+                  {" "}
+                 Continue to Shipping
+                </Button>
+    </div>
+  </div>
+    </div> :
+
+
+
+
     <div style={{ backgroundColor: "rgb(239, 239, 239)" }}>
       <div className={classes.root}>
         <LinearProgress
@@ -206,7 +314,12 @@ const Cart = (props) => {
                           <div className="row">
                             <div className="col-12">
                               {" "}
+                              <Link to={`/product/detail/${item.nameEn}`}
+                              style={{textDecoration:'none',color:'orangered'}}
+                              >
+                              
                           {item.nameEn}
+                              </Link>
                             </div>
                             <div
                               className="col-12 m-3"
@@ -244,8 +357,12 @@ const Cart = (props) => {
                     </Select>
                   </FormControl>
                 </div>
-                <div className="col-2 d-flex justify-content-center ">
-                  {item.price}
+                <div className="col-2 d-flex justify-content-center flex-column">
+               <p> EGP{item.price - (item.price * item.discount) / 100}   <span 
+               
+               className='rounded p-1 bg-warning  mr-2 small'
+               > {item.discount}%</span></p>
+               <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> EGP {item.price}</p>
                 </div>
                 <div
                   className="col-2 d-flex justify-content-center"
@@ -268,7 +385,7 @@ const Cart = (props) => {
             <div>
               <h2 style={{ fontWeight: "bold" }}>
                 {" "}
-                Total: EGP <span style={{ color: "orangered" }}>{total}</span>
+                Total: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
               </h2>
             </div>
           </div>
@@ -276,6 +393,7 @@ const Cart = (props) => {
             <div className="col d-flex justify-content-end">
              
                 <Button
+                onClick={toCheckOut}
                   type="button"
                   style={{
                     backgroundColor: "#f68b1e",
@@ -307,11 +425,21 @@ const Cart = (props) => {
                   {" "}
                  Continue to Shipping
                 </Button>
+                <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+      {body}
+      </Modal>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>}
+    
+    </>
   );
 };
 
