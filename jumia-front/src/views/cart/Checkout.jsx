@@ -1,17 +1,18 @@
-import React, { Component } from "react";
+import React from "react";
 import { ReactComponent as IconEnvelope } from "bootstrap-icons/icons/envelope.svg";
 import { ReactComponent as IconTruck } from "bootstrap-icons/icons/truck.svg";
 import { ReactComponent as IconReceipt } from "bootstrap-icons/icons/receipt.svg";
 import { ReactComponent as IconCreditCard2Front } from "bootstrap-icons/icons/credit-card-2-front.svg";
 import { ReactComponent as IconCart3 } from "bootstrap-icons/icons/cart3.svg";
+import { connect } from "react-redux";
 
-const CheckoutView = () => {
+const CheckoutView = (props) => {
   const [countries, setCountries] = React.useState([]);
   const [token, setToken] = React.useState("");
   const [states, setSates] = React.useState([]);
   const [city, setCity] = React.useState([]);
+  const [userCart, setUserCart]=React.useState([]);
   const getCountry = (e) => {
-   
     fetch(`https://www.universal-tutorial.com/api/states/${e.target.value}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -72,7 +73,25 @@ const CheckoutView = () => {
       .catch((e) => {
         console.log(e);
       });
+try{
+  const token = localStorage.getItem('token')
+  if(token){
+    fetch('http://localhost:8080/user/get-cart',{
+   
+     headers: { Authorization: `Bearer ${token}`}
+    }).then(data=>data.json().then(data=>{
+      console.table(data)
+      setUserCart(data.cart)
+    })).catch(e=>{
+      console.log(e)
+    })
+  }
+}catch(e){
+console.log(e)
+}
+
   }, []);
+
   return (
     <React.Fragment>
       <div className="bg-secondary border-top p-4 text-white mb-3">
@@ -350,40 +369,29 @@ const CheckoutView = () => {
             <div className="card">
               <div className="card-header">
                 <IconCart3 className="i-va" /> Cart{" "}
-                <span className="badge bg-secondary float-right">3</span>
+                <span className="badge bg-secondary float-right">{props.items}</span>
               </div>
               <ul className="list-group list-group-flush">
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                  <div>
-                    <h6 className="my-0">Product name</h6>
-                    <small className="text-muted">Brief description</small>
-                  </div>
-                  <span className="text-muted">$150</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                  <div>
-                    <h6 className="my-0">Second product</h6>
-                    <small className="text-muted">Brief description</small>
-                  </div>
-                  <span className="text-muted">$12</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between lh-sm">
-                  <div>
-                    <h6 className="my-0">Third item</h6>
-                    <small className="text-muted">Brief description</small>
-                  </div>
-                  <span className="text-muted">$50</span>
-                </li>
-                <li className="list-group-item d-flex justify-content-between bg-light">
-                  <div className="text-success">
-                    <h6 className="my-0">Promo code</h6>
-                    <small>EXAMPLECODE</small>
-                  </div>
-                  <span className="text-success">−$50</span>
-                </li>
+               {userCart&&userCart.map((item,index)=>{
+                 return (<li key={index} className="list-group-item d-flex justify-content-between lh-sm">
+                 <div>
+                   <h6 className="my-0">{item.nameEn}</h6>
+                   <div style={{width:'100px'}}>
+                     <img className='d-block w-100 ' src={item.image} alt="item"/>
+                   </div>
+                   <small className="text-muted">
+
+                   </small>
+                 </div>
+                 <span className="text-muted">EGP {(item.price- (item.price * item.discount )/100)}</span>
+               </li>)
+               })}
+               
                 <li className="list-group-item d-flex justify-content-between">
                   <span>Total (USD)</span>
-                  <strong>$162</strong>
+                  <strong>{userCart&&userCart.reduce((sum,next)=>{
+   return sum + ((next.price- (next.price * next.discount )/100)*next.selectedQuantity)
+                  },0)}</strong>
                 </li>
               </ul>
             </div>
@@ -393,5 +401,16 @@ const CheckoutView = () => {
     </React.Fragment>
   );
 };
-
-export default CheckoutView;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    items: state.cartReducer.items
+  }
+}
+// const mapDispatchToProps = (dispatch, ownProps) => {
+//   return {
+//     dispatch1: () => {
+//       dispatch(actionCreator)
+//     }
+//   }
+// }
+export default connect(mapStateToProps)(CheckoutView);

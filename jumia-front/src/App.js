@@ -36,31 +36,37 @@ const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
 function App(props) {
-  try {
-    const token = localStorage.getItem("token");
+ 
+  try{
+    const token =localStorage.getItem('token')
+       
+    
+         if(token){
+          fetch('http://localhost:8080/user/is-login',
+          {  method: "post",
+           headers: { Authorization: `Bearer ${token}` }}
+           ).then(data=>{
+             data.json().then(data=>{
+                if(data.message == 'User Not Found'){
+                    console.log(data.message,'offline')
+                }  else{
+                     props.setUserName(data)
+    
+                }
+             })
+        
+           }).catch(e=>{
+         if(e.message == 'User Not Found'){
+             console.log(e.message,'offline')
+         }   
+         })
+         }
+    }catch(e){
+        console.log(e,'catching')
+    }
 
-    fetch("http://localhost:8080/user/is-login", {
-      method: "post",
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then((data) => {
-        data.json().then((data) => {
-          if (data.message == "User Not Found") {
-            console.log(data.message, "offline");
-          } else {
-            console.log(data, "from app");
-            props.setUserName(data);
-          }
-        });
-      })
-      .catch((e) => {
-        if (e.message == "User Not Found") {
-          console.log(e.message, "offline");
-        }
-      });
-  } catch (e) {
-    console.log(e, "catching");
-  }
+
+
 
   return (
     <BrowserRouter>
@@ -92,11 +98,20 @@ function App(props) {
                 path="/account/notification"
                 component={NotificationView}
               />
+              <Route exact path="/category/:main" component={ProductListView} />
+              {/*======  */}
               <Route
                 exact
-                path="/category/:subCatName"
+                path="/category/:main/:subCatName"
                 component={ProductListView}
               />
+              <Route
+                exact
+                path="/category/:main/:subCatName/:type"
+                component={ProductListView}
+              />
+              {/* ======= */}
+
               <Route
                 exact
                 path="/product/detail/:proName"
