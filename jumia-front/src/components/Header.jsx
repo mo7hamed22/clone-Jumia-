@@ -21,7 +21,7 @@ setUserName(props.userName)
 props.getUserInfo()
 
   },[setUserName,props.totalItem,props.userName,props.userLogin])
-  console.log(props.user,'from header')
+  
   const logOut=(e)=>{
     e.preventDefault()
     localStorage.removeItem('token');

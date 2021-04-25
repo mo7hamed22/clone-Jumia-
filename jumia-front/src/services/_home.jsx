@@ -8,6 +8,8 @@ export const homeServices = {
   getProductsByType,
   addReview,
   getProductReview,
+  getSiteSettings,
+  getProductsByMainCat,
 };
 
 function getAllSliders() {
@@ -49,4 +51,11 @@ function addReview(productID, userName, rating, reviewText, createdAt) {
 function getProductReview(proID) {
   console.log("proId form Home Serves", proID);
   return axios.get(`http://localhost:8080/review/product-review/${proID}`);
+}
+function getSiteSettings() {
+  return axios.get("http://localhost:8080/settings/get-settings");
+}
+
+function getProductsByMainCat(mainCta) {
+  return axios.get(`http://localhost:8080/product/subCategory/${mainCta}`);
 }

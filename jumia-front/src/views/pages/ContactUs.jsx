@@ -1,22 +1,69 @@
 import React, { lazy, Component } from "react";
 import { ReactComponent as IconEnvelopeFill } from "bootstrap-icons/icons/envelope-fill.svg";
 import { ReactComponent as IconHouseFill } from "bootstrap-icons/icons/house-fill.svg";
+import { homeServices } from "../../services/_home";
 import { ReactComponent as IconTelephoneFill } from "bootstrap-icons/icons/telephone-fill.svg";
-
+import contactTop from "../../assets/contact-top.jpg";
 const ContactUsForm = lazy(() => import("../../components/ContactUsForm"));
+
 
 class ContactUsView extends Component {
   onSubmit = async (values) => {
     alert(JSON.stringify(values));
   };
 
+  state = {
+    contacts: [],
+  }
+
+  componentDidMount() {    
+    homeServices.getSiteSettings().then(
+      (data) => {
+        this.setState({ contacts: data.data.contact });       
+        console.log(data.data.contact);    
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+
   render() {
     return (
       <div className="container my-3">
-        <div className="row g-3">
+        <div className="row">
+          <div className="col-md-12">
+            <img src={contactTop} className="img-fluid"/>
+          </div>
+          <div className="col-md-12 mt-2 mb-2">
+            <div className="alert alert-danger text-center">
+            For your payment security DO NOT share your card details with anyone. For confirmation purposes, only the first 6 numbers and last 4 numbers of the card can be shared. NEVER share your expiry or CVV number as per the picture below.
+            </div>
+          </div>
+
+          <div className="col-md-12 text-center text-warning p-3">
+            <h1>Need help placing an order?</h1>
+          </div>
+
+          <div className="col-md-12">
+            <div className="card">
+              <div className="card-body text-center">
+              If you have trouble placing your order, please call us on the following number:
+              <br/>
+          <b>
+              15204
+          <br />
+              Opening hours: Sunday to Thursday 11:00 a.m. to 5:00 p.m.</b>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div className="row g-3 mt-2">
           <div className="col-md-8">
             <div className="card">
-              <div className="card-header">
+              <div className="card-header bg-warning">
                 <IconEnvelopeFill className="i-va" /> Send Message
               </div>
               <div className="card-body">
@@ -26,32 +73,18 @@ class ContactUsView extends Component {
           </div>
           <div className="col-md-4">
             <div className="card mb-3">
-              <div className="card-header">
-                <IconHouseFill className="i-va" /> Address
+              <div className="card-header bg-warning">
+                 Contact info
               </div>
-              <div className="card-body">
-                <h6 className="card-title border-bottom border-dark pb-2">Head Office</h6>
+              <div className="card-body">                
                 <address>
-                  <strong>Twitter, Inc.</strong>
+                  <i className="fa fa-envelope"/> {this.state.contacts.email}
                   <br />
-                  1355 Market St, Suite 900
+                  <i className="fa fa-fax"/> {this.state.contacts.fax}
                   <br />
-                  San Francisco, CA 94103
-                  <br />
-                  <IconTelephoneFill className="i-va" />{" "}
-                  <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
-                <h6 className="card-title border-bottom border-dark pb-2">Development Office</h6>
-                <address>
-                  <strong>Twitter, Inc.</strong>
-                  <br />
-                  1355 Market St, Suite 900
-                  <br />
-                  San Francisco, CA 94103
-                  <br />
-                  <IconTelephoneFill className="i-va" />{" "}
-                  <abbr title="Phone">P:</abbr> (123) 456-7890
-                </address>
+                  <i className="fa fa-phone"/> {this.state.contacts.phone}
+                  <br />                  
+                </address>               
               </div>
             </div>
             <div className="card">

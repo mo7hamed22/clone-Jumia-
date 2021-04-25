@@ -5,6 +5,7 @@ const initialState={
     userInfo:'',
     searchResult: [],
     term: null,
+    isOnline:false
 }
 
 const cart =localStorage.getItem('cart')
@@ -31,8 +32,8 @@ case "SET_TERM":
   };
 case 'USER':
 const userInfo = {...action.value};
-console.log(userInfo ,'from reducer')
-return  {...state,userInfo:{...userInfo}}
+
+return  {...state,userInfo:{...userInfo},isOnline:true}
 case 'GET_ITEMS':
   const cart =localStorage.getItem('cart')
 if(cart){

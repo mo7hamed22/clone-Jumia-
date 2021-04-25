@@ -13,8 +13,8 @@ const productController = require("./controllers/products");
 const settings = require("./controllers/settings");
 const review = require("./controllers/review");
 
+let _port = process.env.PORT || 8080;
 server.use(bodyParser.json());
-
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useCreateIndex", true);
@@ -38,12 +38,13 @@ server.use("/review", review);
 
 mongoose
   .connect(
-    "mongodb+srv://moa:UR-G2jjYfemjEvf@mycluster0.pdrla.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    process.env.MONGODB_URI ||
+      "mongodb+srv://moa:UR-G2jjYfemjEvf@mycluster0.pdrla.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     console.log("done");
-    server.listen(8080, () => {
+    server.listen(_port, () => {
       console.log("server is up and running on port 8080");
     });
   })
