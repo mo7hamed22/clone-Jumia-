@@ -1,4 +1,3 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -10,8 +9,10 @@ const User = require("./models/users");
 const authController = require("./controllers/auth");
 const userController = require("./controllers/user");
 const categoryController = require("./controllers/category");
-const productController= require('./controllers/products');
-const settings= require('./controllers/settings');
+const productController = require("./controllers/products");
+const settings = require("./controllers/settings");
+const review = require("./controllers/review");
+
 server.use(bodyParser.json());
 
 mongoose.set("useNewUrlParser", true);
@@ -31,24 +32,21 @@ server.use((req, res, next) => {
 server.use("/auth", authController);
 server.use("/user", userController);
 server.use("/category", categoryController);
-server.use('/product',productController)
-server.use('/settings',settings)
+server.use("/product", productController);
+server.use("/settings", settings);
+server.use("/review", review);
 
-
-
-
-
-
-
-
-mongoose.connect("mongodb+srv://moa:UR-G2jjYfemjEvf@mycluster0.pdrla.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {useNewUrlParser: true, useUnifiedTopology: true}).then(()=>{
-console.log('done')
-server.listen(8080,()=>{
-  console.log("server is up and running on port 8080");
-})
-}).catch(e=>{
-  console.log(e,'dont');
-})
-
-
-
+mongoose
+  .connect(
+    "mongodb+srv://moa:UR-G2jjYfemjEvf@mycluster0.pdrla.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
+  .then(() => {
+    console.log("done");
+    server.listen(8080, () => {
+      console.log("server is up and running on port 8080");
+    });
+  })
+  .catch((e) => {
+    console.log(e, "dont");
+  });

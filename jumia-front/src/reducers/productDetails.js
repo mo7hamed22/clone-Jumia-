@@ -1,5 +1,12 @@
 var count = 0;
-export const productReducer = (state = count, action) => {
+const initialState = {
+  items: 0,
+  userInfo: "",
+  searchResult: [],
+  term: null,
+  count: count,
+};
+export const productReducer = (state = initialState, action) => {
   var cart = JSON.parse(localStorage.getItem("cart"));
   if (action.type === "PLUS") {
     const newCart = [...cart];
@@ -13,7 +20,7 @@ export const productReducer = (state = count, action) => {
       }
     });
     localStorage.setItem("cart", JSON.stringify(newCart));
-    return (state = count);
+    return (state = { ...state, count: count });
   } else if (action.type === "MINUS") {
     const newCart = [...cart];
     newCart.find((product, index, arr) => {
@@ -27,7 +34,7 @@ export const productReducer = (state = count, action) => {
       }
     });
     localStorage.setItem("cart", JSON.stringify(newCart));
-    return (state = count);
+    return (state = { ...state, count: count });
   } else if (action.type === "ADDTOCART") {
     count = 1;
     const product = { ...action.product, selectedQuantity: count };
@@ -40,7 +47,7 @@ export const productReducer = (state = count, action) => {
       localStorage.setItem("cart", JSON.stringify(newCart));
     }
 
-    return (state = count);
+    return (state = { ...state, count: count });
   } else if (action.type === "LOAD") {
     if (cart) {
       cart.find((product) => {
@@ -51,7 +58,7 @@ export const productReducer = (state = count, action) => {
         }
       });
     }
-    return (state = count);
+    return (state = { ...state, count: count });
   }
   return state;
 };

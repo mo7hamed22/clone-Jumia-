@@ -41,15 +41,12 @@ function ProductDetailView(props) {
       setImage(pro.data.image);
       setProduct(pro.data);
       setProductType(product.product_cat);
-      homeServices.getProductsByType(pro.data.product_cat.type).then((data) => {
-        console.log(data);
+      homeServices.getProductsByType(pro.data.product_cat.main).then((data) => {
         setProducts(data.data);
       });
     });
-    console.log("products", products);
+    console.log("props detail", props);
   }, [setProduct, setProducts]);
-
-  console.log("product-type", productType);
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -132,18 +129,6 @@ function ProductDetailView(props) {
                   </button>
                 )}
               </div>
-              <div>
-                <p className="font-weight-bold mb-2 small">
-                  Product Highlights
-                </p>
-                <ul className="small">
-                  <li>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  </li>
-                  <li>Etiam ullamcorper nibh eget faucibus dictum.</li>
-                  <li>Cras consequat felis ut vulputate porttitor.</li>
-                </ul>
-              </div>
             </div>
           </div>
           <div className="row">
@@ -194,17 +179,6 @@ function ProductDetailView(props) {
                   >
                     Shipping & Returns
                   </a>
-                  <a
-                    className="nav-link"
-                    id="nav-size-chart-tab"
-                    data-toggle="tab"
-                    href="#nav-size-chart"
-                    role="tab"
-                    aria-controls="nav-size-chart"
-                    aria-selected="false"
-                  >
-                    Size Chart
-                  </a>
                 </div>
               </nav>
               <div className="tab-content p-3 small" id="nav-tabContent">
@@ -214,7 +188,7 @@ function ProductDetailView(props) {
                   role="tabpanel"
                   aria-labelledby="nav-details-tab"
                 >
-                  <Details />
+                  <Details description={product.description} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -222,9 +196,7 @@ function ProductDetailView(props) {
                   role="tabpanel"
                   aria-labelledby="nav-randr-tab"
                 >
-                  {Array.from({ length: 5 }, (_, key) => (
-                    <RatingsReviews key={key} />
-                  ))}
+                  <RatingsReviews productID={product._id} />
                 </div>
                 <div
                   className="tab-pane fade"
@@ -233,9 +205,7 @@ function ProductDetailView(props) {
                   aria-labelledby="nav-faq-tab"
                 >
                   <dl>
-                    {Array.from({ length: 5 }, (_, key) => (
-                      <QuestionAnswer key={key} />
-                    ))}
+                    <QuestionAnswer />
                   </dl>
                 </div>
                 <div
@@ -245,14 +215,6 @@ function ProductDetailView(props) {
                   aria-labelledby="nav-ship-returns-tab"
                 >
                   <ShippingReturns />
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="nav-size-chart"
-                  role="tabpanel"
-                  aria-labelledby="nav-size-chart-tab"
-                >
-                  <SizeChart />
                 </div>
               </div>
             </div>
@@ -267,7 +229,7 @@ function ProductDetailView(props) {
   );
 }
 const mapStateToProps = (state) => {
-  return { count: state.productReducer };
+  return { count: state.productReducer.count };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -6,6 +6,8 @@ export const homeServices = {
   getByCatName,
   getAllSliders,
   getProductsByType,
+  addReview,
+  getProductReview,
 };
 
 function getAllSliders() {
@@ -32,4 +34,19 @@ function getByCatName() {
 
 function getProductsByType(type) {
   return axios.get("http://localhost:8080/product/get-Product-type/" + type);
+}
+
+function addReview(productID, userName, rating, reviewText, createdAt) {
+  const token = localStorage.getItem("token");
+  return axios({
+    method: "POST",
+    url: "http://localhost:8080/review/add",
+    data: { productID, userName, rating, reviewText, createdAt },
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
+function getProductReview(proID) {
+  console.log("proId form Home Serves", proID);
+  return axios.get(`http://localhost:8080/review/product-review/${proID}`);
 }

@@ -20,8 +20,11 @@ const CardFeaturedProduct = (props) => {
             </div>
             <div className="col-md-8">
               <h6 className="text-capitalize mb-1">
-                <Link to={product.link} className="text-decoration-none">
-                  {product.name}
+                <Link
+                  to={`/product/detail/${product.nameEn}`}
+                  className="text-decoration-none"
+                >
+                  {product.nameEn}
                 </Link>
               </h6>
               <div className="mb-2">
@@ -29,12 +32,13 @@ const CardFeaturedProduct = (props) => {
                   <IconStarFill className="text-warning mr-1" key={key} />
                 ))}
               </div>
-              <span className="font-weight-bold h5">${product.price}</span>
-              {product.originPrice > 0 && (
-                <del className="small text-muted ml-2">
-                  ${product.originPrice}
-                </del>
-              )}
+              <p className="font-weight-bold h5">
+                ${product.price - (product.price * product.discount) / 100}
+              </p>
+              <del className="small text-muted mr-2">${product.price}</del>
+              <span className="rounded p-1 bg-warning  mr-2 small">
+                {product.discount}%
+              </span>
             </div>
           </div>
         ))}

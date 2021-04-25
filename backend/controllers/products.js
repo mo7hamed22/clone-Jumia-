@@ -97,9 +97,9 @@ router.get("/getbycat/", async (req, res) => {
   });
 });
 
-router.get("/get-Product-type/:type", (req, resp) => {
-  const type = req.params.type;
-  Products.find({ "product_cat.type": type })
+router.get("/get-Product-type/:main", (req, resp) => {
+  const main = req.params.main;
+  Products.find({ "product_cat.main": main })
     .then((product) => {
       resp.status(200).send(product);
     })
