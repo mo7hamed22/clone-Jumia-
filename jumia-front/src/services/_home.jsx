@@ -37,13 +37,10 @@ function getProductsByType(type) {
   return axios.get("http://localhost:8080/product/get-Product-type/" + type);
 }
 
-<<<<<<< HEAD
 function getSiteSettings() {
   return axios.get("http://localhost:8080/settings/get-settings");
 }
-=======
-//==main
+
 function getProductsByMainCat(mainCta) {
   return axios.get(`http://localhost:8080/product/subCategory/${mainCta}`);
 }
->>>>>>> 6596b25e07f5ca1c86b7c319c7a058fdcabad9a2
