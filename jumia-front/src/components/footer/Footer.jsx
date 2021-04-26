@@ -36,19 +36,14 @@ export default function Footer() {
                   offers!
                 </small>
               </p>
-              <form className="form-inline my-2 my-lg-0">
+              <form className="form-inline my-lg-0">
                 <input
                   className=" search form-control mr-sm-2"
                   type="search"
-                  placeholder={"enter You Email"}
+                  placeholder='Write your emial'
                   aria-label="Search"
                 />
-                <button type="button" className="btn btn-outline-light mr-2">
-                  Male
-                </button>
-                <button type="button" className="btn btn-outline-light">
-                  Female
-                </button>
+              
               </form>
             </div>
 
@@ -60,12 +55,12 @@ export default function Footer() {
                 <small>Get access to exclusive offers!</small>
               </p>
 
-              <button type="button" className="btn btn-outline-light mr-2">
+              <a target="_blank" href="https://apps.apple.com/app/id925015459?mt=8" className="btn btn-outline-light mr-2">
                 <i className="fab fa-app-store"></i> App Store
-              </button>
-              <button type="button" className="btn btn-outline-light">
+              </a>
+              <a target="_blank" href="https://play.google.com/store/apps/details?id=com.jumia.android&referrer=adjust_reftag%3DcdTxOjM" className="btn btn-outline-light">
                 <i className="fab fa-google-play"> </i> Google Play
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -79,14 +74,13 @@ export default function Footer() {
               </h6>
               <ul className="p-0">
                 <li className="f-li"></li>
-                <li className="f-li">Help Center</li>
+                <li className="f-li"><Link to="/contact-us">Help Ceneter</Link></li>                
                 <li className="f-li"><Link to="/contact-us">Contact us</Link></li>
-                <li className="f-li">How to buy on Jumia?</li>
-                <li className="f-li">How to pay on Jumia?</li>
-                <li className="f-li">Delivery timelines</li>
-                <li className="f-li">Return Policy</li>
-                <li className="f-li">Corporate Services</li>
-                <li className="f-li">Report a Product</li>
+                <li className="f-li"><Link to="/privacy">Privacy</Link></li>
+                <li className="f-li"><Link to="/shp-delivery-policy">Shipping & Delivery Policy</Link></li>                
+                <li className="f-li"><Link to="/shp-delivery-policy">Shipping & Delivery Policy</Link></li>                
+                <li className="f-li"><Link to="/terms-condtions">Terms and Conditions</Link></li>                
+                <li className="f-li"><a href="https://docs.google.com/forms/d/1poBfqrj0bXCtkvJIm_24mLCTdvKJNebDB7-ATHZwRW4/viewform?edit_requested=true">Report a product</a></li>                                               
               </ul>
             </div>
 

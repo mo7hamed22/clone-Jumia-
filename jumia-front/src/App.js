@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.js";
 import Header from "./components/Header";
+import Privacy from "./components/static/privacy.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
-import { connect } from "react-redux";
+import { connect } from "react-redux"; 
 import Search from "./components/Search";
 import searchResult from "./components/searchResult";
 import ScrollToTop from "./components/ScrollToTop";
@@ -134,6 +135,11 @@ function App(props) {
               <Route exact path="/account/signup" component={SignUpView} />
               <Route exact path="/500" component={InternalServerErrorView} />
               <Route exact path="/team" component={Team} />
+
+              <Route exact path="/privacy" component={Privacy} />
+
+              
+
 
               <Route exact path="/search" component={searchResult} />
               <Route

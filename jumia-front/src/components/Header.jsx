@@ -129,7 +129,7 @@ props.getUserInfo()
               <LanguageSwitcher/>
               </div>
 
-              <div className="position-relative d-inline">
+              <div className="position-relative d-inline ml-2">
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">

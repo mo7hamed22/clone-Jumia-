@@ -8,8 +8,16 @@
 }
 .f-li{
     list-style: none;
-    font-size: x-small;
+    font-size: 13px;
     color: whitesmoke;
+}
+.f-li a{
+    color: #eee;
+    text-decoration: none;
+}
+.f-li a:hover{
+    color: #fff;
+    text-decoration: underline;
 }
 .search{
     width: 348px!important;
