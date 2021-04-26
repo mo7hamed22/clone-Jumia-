@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
+import LanguageSwitcher from "../LanguageSwitcher";
+import { useTranslation } from "react-i18next";
+
 import { ReactComponent as IconCart3 } from "bootstrap-icons/icons/cart3.svg";
 import { ReactComponent as IconPersonBadgeFill } from "bootstrap-icons/icons/person-badge-fill.svg";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
@@ -14,6 +17,8 @@ import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
 import {connect} from 'react-redux'
 
 const Header = (props) => {
+  const { t } = useTranslation();
+
   const [userName,setUserName]=React.useState('')
  
   React.useEffect(()=>{
@@ -28,7 +33,7 @@ props.getUserInfo()
     window.location.href='/'
   }
   return (
-    <React.Fragment>
+    <React.Fragment>      
       <div
         className="reg"
         style={{ width: "100%", background: "#feb800", textAlign: "center" }}
@@ -51,10 +56,10 @@ props.getUserInfo()
                 />
               </Link>
             </div>
-            <div className="col-md-5">
+            <div className="col-md-4">
               <Search />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-5">
               <div className="btn-group">
                 <button
                   type="button"
@@ -121,35 +126,21 @@ props.getUserInfo()
               </div>
 
               <div className="btn-group">
-                <button
-                  type="button"
-                  className="btn btn-light border mr-3 dropdown-toggle1"
-                  data-toggle="dropdown"
-                  aria-expanded="false"
-                  aria-label="Profile"
-                >
-                  {" "}
-                  Help
-                  <FontAwesomeIcon icon={faQuestion} className="text-dark" />
-                </button>
-                <ul className="dropdown-menu">
-                  <li>
-                    <Link className="dropdown-item" to="/account/profile">
-                      <IconPersonBadgeFill />
-                      Help Center
-                    </Link>
-                  </li>
-                </ul>
+              <LanguageSwitcher/>
               </div>
 
-              <div className="position-relative d-inline mr-3">
+              <div className="position-relative d-inline">
                 <Link to="/cart" className="btn btn-warning">
                   <IconCart3 className="i-va" />
                   <div className="position-absolute top-0 left-100 translate-middle badge bg-danger rounded-circle">
                     {props.totalItem > 0 ? props.totalItem : null}
                   </div>
                 </Link>
+                
               </div>
+             
+             
+              
             </div>
           </div>
         </div>

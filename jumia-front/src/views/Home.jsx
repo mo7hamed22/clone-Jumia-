@@ -1,6 +1,7 @@
 import React, { lazy, Component } from "react";
 import { Link } from "react-router-dom";
 // import { link45, file, check2all } from "../npm/icon";
+import { useTranslation } from "react-i18next";
 import { data } from "../data";
 import Slider from "./product/slider";
 import { ReactComponent as IconLaptop } from "bootstrap-icons/icons/laptop.svg";
@@ -24,7 +25,7 @@ const CardDealsOfTheDay = lazy(() =>
   import("../components/card/CardDealsOfTheDay")
 );
 
-class HomeView extends Component {
+class HomeViewClass extends Component {
   components = {
     IconLaptop: IconLaptop,
     IconHeadset: IconHeadset,
@@ -97,6 +98,7 @@ class HomeView extends Component {
   }
 
   render() {
+    
     // console.log("products", this.state.products);
 
     const iconProducts = data.iconProducts;
@@ -133,7 +135,7 @@ class HomeView extends Component {
       console.log("catName", catNAme);
       return catNAme;
     }
-
+    
     return (
       <React.Fragment>
         <div className="container-fluid mt-2">
@@ -171,7 +173,7 @@ class HomeView extends Component {
                 />
                 <a href="#">
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                    Offical Stores
+                  {this.props.trans("offical")}
                   </b>
                 </a>
               </div>
@@ -185,7 +187,7 @@ class HomeView extends Component {
                 />
                 <a href="#">
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                    Offical Stores
+                  {this.props.trans("offical")}
                   </b>
                 </a>
               </div>
@@ -198,7 +200,7 @@ class HomeView extends Component {
                 />
                 <a href="#">
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                    Offical Stores
+                  {this.props.trans("offical")}
                   </b>
                 </a>
               </div>
@@ -211,7 +213,7 @@ class HomeView extends Component {
                 />
                 <a href="#">
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                    Offical Stores
+                  {this.props.trans("offical")}
                   </b>
                 </a>
               </div>
@@ -511,5 +513,11 @@ class HomeView extends Component {
     );
   }
 }
+
+const HomeView = () => {  
+  const { t } = useTranslation();
+  return <HomeViewClass trans={t}/>
+}
+
 
 export default HomeView;

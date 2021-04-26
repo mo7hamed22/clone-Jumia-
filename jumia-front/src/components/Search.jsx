@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { homeServices } from "../services/_home";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 import "./css/heading.css";
 
 import { ReactComponent as IconSearch } from "bootstrap-icons/icons/search.svg";
@@ -43,6 +45,9 @@ const Search = (props) => {
     history.push("/search/searchResult");
   }
 
+  const { t } = useTranslation();
+
+  
   return (
     <>
       <form className="">
@@ -56,7 +61,7 @@ const Search = (props) => {
             className="form-control"
             // value={input}
             onChange={(e) => setInput(e.currentTarget.value.toLowerCase())}
-            placeholder="Search for products"
+            placeholder={t("top_search")}
             required
           />
           {!input ? (

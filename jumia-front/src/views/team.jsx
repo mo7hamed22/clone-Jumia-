@@ -1,13 +1,17 @@
 import React, { lazy, Component } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 const Team = () => {
 
+  const { t } = useTranslation();
+
     return (
         
-    <>
+    <>    
         <div className="bg-info bg-gradient p-3 text-center mb-3">
-          <h4 className="m-0">Explore Fashion Collection</h4>
+          <h4 className="m-0"> <strong>{t("app_name")}</strong> </h4>
         </div>
         <div className="container">
           <div className="row">

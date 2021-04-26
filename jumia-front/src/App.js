@@ -27,6 +27,7 @@ const CartView = lazy(() => import("./views/cart/Cart"));
 const CheckoutView = lazy(() => import("./views/cart/Checkout"));
 const DocumentationView = lazy(() => import("./views/Documentation"));
 const NotFoundView = lazy(() => import("./views/pages/404"));
+const Team = lazy(() => import("./views/team"));
 const InternalServerErrorView = lazy(() => import("./views/pages/500"));
 const ContactUsView = lazy(() => import("./views/pages/ContactUs"));
 const SupportView = lazy(() => import("./views/pages/Support"));
@@ -132,6 +133,7 @@ function App(props) {
               <Route exact path="/account/login" component={LoginView} />
               <Route exact path="/account/signup" component={SignUpView} />
               <Route exact path="/500" component={InternalServerErrorView} />
+              <Route exact path="/team" component={Team} />
 
               <Route exact path="/search" component={searchResult} />
               <Route
