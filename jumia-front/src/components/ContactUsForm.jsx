@@ -49,9 +49,9 @@ const ContactUsForm = (props) => {
           <Field
             name="company"
             type="text"
-            label="Company"
+            label="Order"
             component={renderFormGroupField}
-            placeholder="Your company name"
+            placeholder="Your order number"
             icon={IconBuilding}
             required={true}
             validate={[required, maxLength50]}
@@ -100,17 +100,9 @@ const ContactUsForm = (props) => {
             maxLength="1000"
             component={renderFormTextArea}
             validate={maxLength1000}
-            placeholder="What you are looking for?"
+            placeholder="Describe your problem in details"
           />
-        </div>
-        <div className="col-md-12">
-          <Field
-            id="informed"
-            label="Keep me informed via email or phone about its Products and Services."
-            name="informed"
-            component={renderFormCheckbox}
-          />
-        </div>
+        </div>      
       </div>
 
       <button

@@ -21,6 +21,7 @@ const renderFormTextArea = (props) => {
         {...props}
         id={input.name}
         className="form-control"
+        rows="7"
         placeholder={placeholder}
       />
       {tips && <div className="form-text">{tips}</div>}

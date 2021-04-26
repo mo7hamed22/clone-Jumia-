@@ -7,20 +7,22 @@ import contactTop from "../../assets/contact-top.jpg";
 const ContactUsForm = lazy(() => import("../../components/ContactUsForm"));
 
 
+
 class ContactUsView extends Component {
-  onSubmit = async (values) => {
-    alert(JSON.stringify(values));
+  onSubmit = async (values) => {    
+    window.location.href = `mailto:moa.mahfouz@gmail.com?cc=someoneelse@theirsite.com&subject=My order is ${values.company}&body=Hi, my name is ${values.name} I am sending this emial because of ${values.message}`;    
+    this.setState({sending: true});
   };
 
   state = {
     contacts: [],
+    sending: false,
   }
 
   componentDidMount() {    
     homeServices.getSiteSettings().then(
       (data) => {
-        this.setState({ contacts: data.data.contact });       
-        console.log(data.data.contact);    
+        this.setState({ contacts: data.data.contact });               
       },
       (err) => {
         console.log(err);
@@ -30,6 +32,8 @@ class ContactUsView extends Component {
 
 
   render() {
+    const isLoggedIn = this.state.sending;
+
     return (
       <div className="container my-3">
         <div className="row">
@@ -67,7 +71,17 @@ class ContactUsView extends Component {
                 <IconEnvelopeFill className="i-va" /> Send Message
               </div>
               <div className="card-body">
-                <ContactUsForm onSubmit={this.onSubmit} />
+                
+              {isLoggedIn ? (
+              <div className="card p-3">
+                <div className="alert alert-success">
+                  Your mailbox will be opend right now. We will help you as soon as possible.
+                </div>
+              </div>
+            ) : (
+              <ContactUsForm isLoggedIn={false} onSubmit={this.onSubmit} />
+            )}
+                
               </div>
             </div>
           </div>
