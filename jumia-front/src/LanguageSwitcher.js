@@ -5,7 +5,8 @@ function LanguageSwitcher() {
   const { i18n } = useTranslation();
 
   function handleChange(e) {
-    i18n.changeLanguage(e.target.value);    
+    i18n.changeLanguage(e.target.value);
+    localStorage.setItem('cur_lang', e.target.value);
   }
   const { t } = useTranslation();
 

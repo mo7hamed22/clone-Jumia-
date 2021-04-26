@@ -4,11 +4,12 @@ import data from '../localization/data';
 
 
 const resources = data;
+const langFromLocalStorage = localStorage.getItem('cur_lang');
 i18next
   .use(initReactI18next)
   .init({
     resources,
-    lng: "en",
+    lng: langFromLocalStorage || 'en',
 	debug: true,
     interpolation: {
       escapeValue: false,
