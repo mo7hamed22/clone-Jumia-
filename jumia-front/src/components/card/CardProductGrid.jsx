@@ -8,44 +8,34 @@ const CardProductGrid = (props) => {
   const product = props.data;
   return (
     <div className="card">
-      <img src={product.img} className="card-img-top" alt="..." />
-      {product.isNew && (
+      <img src={product.image} className="card-img-top img-fluid"  style={{maxHeight: "220px"}}/>
+      
         <span className="badge bg-success position-absolute mt-2 ml-2">
-          New
+        {product.brand}
         </span>
-      )}
-      {product.isHot && (
+      
+      
         <span className="badge bg-danger position-absolute r-0 mt-2 mr-2">
-          Hot
+          {product.discount} %
         </span>
-      )}
-      {(product.discountPercentage > 0 || product.discountPrice > 0) && (
-        <span
-          className={`rounded position-absolute p-2 bg-warning  ml-2 small ${
-            product.isNew ? "mt-5" : "mt-2"
-          }`}
-        >
-          -
-          {product.discountPercentage > 0
-            ? product.discountPercentage + "%"
-            : "$" + product.discountPrice}
-        </span>
-      )}
+            
       <div className="card-body">
         <h6 className="card-subtitle mb-2">
-          <Link to={product.link} className="text-decoration-none">
-            {product.name}
+          <Link to={`/product/detail/${product.nameEn}`} className="text-decoration-none">
+            {product.nameEn}
           </Link>
         </h6>
         <div className="my-2">
-          <span className="font-weight-bold h5">${product.price}</span>
-          {product.originPrice > 0 && (
-            <del className="small text-muted ml-2">${product.originPrice}</del>
-          )}
+         
+          <span className="font-weight-bold h5">${product.price-(product.price*product.discount)/100}</span>
+          
+            <del className="small text-muted ml-2">${product.price}</del>
+          
           <span className="ml-2">
-            {Array.from({ length: product.star }, (_, key) => (
-              <IconStarFill className="text-warning mr-1" key={key} />
-            ))}
+            <IconStarFill className="text-warning mr-1" />
+            <IconStarFill className="text-warning mr-1" />
+            <IconStarFill className="text-warning mr-1" />
+            <IconStarFill className="text-secondary mr-1" />            
           </span>
         </div>
         <div className="btn-group btn-block" role="group">
@@ -56,13 +46,15 @@ const CardProductGrid = (props) => {
           >
             <FontAwesomeIcon icon={faCartPlus} />
           </button>
-          <button
+          
+          {/* <button
             type="button"
             className="btn btn-sm btn-outline-secondary"
             title="Add to wishlist"
           >
             <FontAwesomeIcon icon={faHeart} />
-          </button>
+          </button> */}
+
         </div>
       </div>
     </div>

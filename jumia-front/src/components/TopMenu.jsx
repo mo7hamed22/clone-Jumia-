@@ -57,8 +57,8 @@ const TopMenu = (props) => {
                             className={`${
                               sub.subCatArray ? "contain-submenu" : ""
                             }`}
-                          >
-                            <Link to="/category">{arr}</Link>
+                          > 
+                            <Link to={`/category/${item.nameEn}/${sub.subCatName}/${arr}`}>{arr}</Link>
                           </li>
                         ))}
                     </ul>

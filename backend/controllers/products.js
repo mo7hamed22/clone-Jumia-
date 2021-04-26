@@ -108,10 +108,35 @@ router.get("/get-Product-type/:type", (req, resp) => {
     });
 });
 
-//===Get Products By subCatName
-router.get("/subCategory/:main", (req, resp) => {
+
+//=== main, sub and type
+router.get("/main/:main", (req, resp) => {
   const main = req.params.main;
-  Products.find({ "product_cat.main": main })
+  Products.find({ "product_cat.main": main})
+    .then((product) => {
+      resp.status(200).send(product);
+    })
+    .catch((err) => {
+      resp.status(404).send(err);
+    });
+});
+
+
+router.get("/sub/:sub", (req, resp) => {
+  const sub = req.params.sub;
+  Products.find({ "product_cat.sub": sub })
+    .then((product) => {
+      resp.status(200).send(product);
+    })
+    .catch((err) => {
+      resp.status(404).send(err);
+    });
+});
+
+
+router.get("/type/:type", (req, resp) => {
+  const type = req.params.type;
+  Products.find({ "product_cat.type": type })
     .then((product) => {
       resp.status(200).send(product);
     })

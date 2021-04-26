@@ -1,18 +1,13 @@
 import React, { lazy, Component } from "react";
 import { homeServices } from "../../services/_home";
-
-import { data } from "../../data";
+import { Link } from "react-router-dom";
+import { data } from "../../data"; // old data
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 const Paging = lazy(() => import("../../components/Paging"));
-const Breadcrumb = lazy(() => import("../../components/Breadcrumb"));
 const FilterCategory = lazy(() => import("../../components/filter/Category"));
 const FilterPrice = lazy(() => import("../../components/filter/Price"));
-const FilterSize = lazy(() => import("../../components/filter/Size"));
 const FilterStar = lazy(() => import("../../components/filter/Star"));
-const FilterColor = lazy(() => import("../../components/filter/Color"));
-const FilterTag = lazy(() => import("../../components/filter/Tag"));
-const FilterClear = lazy(() => import("../../components/filter/Clear"));
 const CardServices = lazy(() => import("../../components/card/CardServices"));
 const CardProductGrid = lazy(() =>
   import("../../components/card/CardProductGrid")
@@ -27,14 +22,15 @@ class ProductListView extends Component {
     console.log("subCatNameH", this.props.match.params.subCatName);
   }
   state = {
-    category: "",
-    mainCat: "",
+    main: '',
+    sub: "",
+    type: "",
     products: [],
     currentProducts: [],
     currentPage: null,
     totalPages: null,
     totalItems: 0,
-    view: "list",
+    view: "grid",
   };
 
   UNSAFE_componentWillMount() {
@@ -53,10 +49,11 @@ class ProductListView extends Component {
   onChangeView = (view) => {
     this.setState({ view });
   };
+
   getProducts = () => {
     console.log("category-mainCat", this.state.mainCat);
 
-    let products = data.products;
+    let products = this.state.products;
     products = products.concat(products);
     products = products.concat(products);
     products = products.concat(products);
@@ -67,12 +64,11 @@ class ProductListView extends Component {
 
   // ====
   componentDidMount() {
-    let _params = this.props.match.params;
-    if (_params.type) {
-      console.log("Type", _params.type);
+    let _params = this.props.match.params;    
+    console.log('sd', _params);
+    if (_params.type) {      
       homeServices.getProductsByType(this.props.match.params.type).then(
-        (data) => {
-          console.log("MainProductsType", data);
+        (data) => {          
           this.setState({
             products: data.data,
           });
@@ -82,24 +78,23 @@ class ProductListView extends Component {
         }
       );
     } else if (_params.subCatName) {
-      homeServices.getProductsByType(this.props.match.params.type).then(
+      homeServices.getProductsBySubCat(this.props.match.params.subCatName).then(
         (data) => {
           this.setState({
             products: data.data,
-          });
-          console.log("MainProducts", this.state.products);
+          });          
         },
         (err) => {
           console.log(err);
         }
       );
     } else {
-      homeServices.getProductsByType(this.props.match.params.main).then(
+      homeServices.getProductsByMainCat(this.props.match.params.main).then(
         (data) => {
-          console.log("MainProductmain", data);
-
+          console.log("MainProductmain", data.data);
           this.setState({
             products: data.data,
+            currentProducts: data.data,
           });
           console.log("MainProducts", this.state.products);
         },
@@ -107,67 +102,55 @@ class ProductListView extends Component {
           console.log(err);
         }
       );
+    }   
+       
+  
+  
+    if(_params.main){
+      this.setState({ main: this.props.match.params.main });
     }
-
-    console.log("ParmasMatch", this.props.match.params);
-    this.setState({ category: this.props.match.params.subCatName });
-    this.setState({ mainCat: this.props.match.params.nameEn });
-    homeServices.getAllProducts().then(
-      (data) => {
-        this.setState({ products: data.data });
-        const filteredContent = this.state.products.filter((item, indx) => {
-          // console.log("item", item);console.log("index", indx);
-          // console.log("item.product_cat.sub", item.product_cat.sub);
-          // console.log("this.state.category", this.state.category);
-          return item.product_cat.sub === this.state.category;
-        });
-        // console.log("SubProducts", filteredContent);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-    homeServices.getProductsByMainCat(this.props.match.params.subCatName).then(
-      (data) => {
-        this.setState({
-          products: data.data,
-        });
-        console.log("MainProducts", this.state.products);
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+    if(_params.subCatName){
+      this.setState({ sub: this.props.match.params.subCatName });
+    }
+    if(_params.type){
+      this.setState({ type: this.props.match.params.type });
+    }
+    
+  
+  
   }
   // ======
 
   render() {
     return (
       <React.Fragment>
-        <div
-          className="p-5 bg-primary bs-cover"
-          style={{
-            backgroundImage: "url(../../images/banner/50-Banner.webp)",
-          }}
-        >
+        <div className="p-5 bg-warning bs-cover">
           <div className="container text-center">
-            <span className="display-5 px-3 bg-white rounded shadow">
-              {this.state.mainCat}
-              {this.state.category}
+            <span className="display-6 px-3 bg-white rounded shadow">
+          {this.state.main}  {this.state.sub}  {this.state.type}
             </span>
           </div>
         </div>
-        <Breadcrumb />
+
+        <nav aria-label="breadcrumb">
+      <ol className="breadcrumb rounded-0">
+        <li className="breadcrumb-item">
+          <Link to="/" title="Home">
+            Home
+          </Link>
+        </li>        
+        <li className="breadcrumb-item active" aria-current="page">
+        {this.state.main}
+        </li>
+      </ol>
+    </nav>
+
         <div className="container-fluid mb-3">
           <div className="row">
             <div className="col-md-3">
+              <FilterPrice />              
+              <FilterStar />            
               <FilterCategory />
-              <FilterPrice />
-              <FilterSize />
-              <FilterStar />
-              <FilterColor />
-              <FilterClear />
-              <FilterTag />
               <CardServices />
             </div>
             <div className="col-md-9">

@@ -9,7 +9,11 @@ export const homeServices = {
   addReview,
   getProductReview,
   getSiteSettings,
+
   getProductsByMainCat,
+  getProductsBySubCat,
+  getProductsByType,
+  
 };
 
 function getAllSliders() {
@@ -34,9 +38,6 @@ function getByCatName() {
   return axios.get("http://localhost:8080/product/getbycat");
 }
 
-function getProductsByType(type) {
-  return axios.get("http://localhost:8080/product/get-Product-type/" + type);
-}
 
 function addReview(productID, userName, rating, reviewText, createdAt) {
   const token = localStorage.getItem("token");
@@ -56,6 +57,19 @@ function getSiteSettings() {
   return axios.get("http://localhost:8080/settings/get-settings");
 }
 
-function getProductsByMainCat(mainCta) {
-  return axios.get(`http://localhost:8080/product/subCategory/${mainCta}`);
+
+// list page
+
+function getProductsByMainCat(cat) {
+  return axios.get(`http://localhost:8080/product/main/${cat}`);
 }
+
+function getProductsBySubCat(cat) {
+  return axios.get(`http://localhost:8080/product/sub/${cat}`);
+}
+
+function getProductsByType(cat) {
+  return axios.get(`http://localhost:8080/product/type/${cat}`);
+}
+
+
