@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"cd jumia-front && npm run build",
-    "install-jumia":"cd jumia-front && npm install",
-    "heroku-postbuild":"npm run install-jumia && npm run build ",
+    "build": "cd jumia-front && npm run build",
+    "install-jumia": "cd jumia-front && npm install",
+    "heroku-postbuild": "npm run install-jumia && npm run build ",
     "start": "nodemon index.js"
   },
   "engines": {
@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.17",
     "negotiator": "^0.6.2",
+    "paypal-rest-sdk": "^1.8.1",
     "raw-body": "^2.4.1",
     "readable-stream": "^3.6.0",
     "readdirp": "^3.6.0"

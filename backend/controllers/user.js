@@ -62,7 +62,19 @@ router.put("/cart", authenticateToken, (req, res) => {
       res.status(401).send(err);
     });
 });
-
+router.put("/orders", authenticateToken, (req, res) => {
+  const {id}=req.token;
+  const user=req.body;
+   User.updateOne({ _id: id }, user)
+     .then((data) => {
+       const userAfterUpdate =
+         data.nModified == 0 ? "user Not Updated" : "User Updated";
+       res.status(200).send(userAfterUpdate);
+     })
+     .catch((err) => {
+       res.status(401).send(err);
+     });
+ });
 ////////////// find user by email
 router.post("/get-user", authenticateToken, checkIsAdmin, (req, res) => {
   console.log(req.body);
@@ -91,4 +103,5 @@ router.get("/get-cart", authenticateToken, (req, res) => {
     res.status(200).send(data);
   });
 });
+
 module.exports = router;
