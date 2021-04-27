@@ -2,6 +2,7 @@ import React, { useEffect, lazy } from "react";
 import { connect } from "react-redux";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactStars from "react-rating-stars-component";
 import {
   faCartPlus,
   faHeart,
@@ -33,6 +34,7 @@ function ProductDetailView(props) {
   const [activeImg, setActiveImg] = React.useState("");
   const [products, setProducts] = React.useState([]);
   const [productType, setProductType] = React.useState("");
+  const [review, setReview] = React.useState([]);
   let { proName } = useParams();
   useEffect(() => {
     props.onLoad(proName);
@@ -47,8 +49,17 @@ function ProductDetailView(props) {
           setProducts(data.data);
         });
     });
+    homeServices.getProductReview(product._id).then((data) => {
+      console.log("review detail", data);
+      setReview(data.data);
+    });
     console.log("props detail", props);
   }, [setProduct, setProducts]);
+  const stars = {
+    size: 30,
+    value: 4,
+    edit: false,
+  };
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -68,14 +79,10 @@ function ProductDetailView(props) {
             </div>
             <div className="col-md-7">
               <h1 className="h5 d-inline mr-2">{product.nameEn}</h1>
-              <div className="mb-3">
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-secondary mr-1" />|{" "}
+              <div className="mb-3 d-flex align-items-center">
+                <ReactStars {...stars} /> &nbsp; | &nbsp;
                 <span className="text-muted small">
-                  42 ratings and 4 reviews
+                  {review.length} ratings
                 </span>
               </div>
 

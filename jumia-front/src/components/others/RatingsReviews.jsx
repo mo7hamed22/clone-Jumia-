@@ -48,6 +48,10 @@ const RatingsReviews = (props) => {
         .then((data) => {
           console.log(data);
         });
+      homeServices.getProductReview(props.productID).then((data) => {
+        console.log(data);
+        setReviews(data.data);
+      });
       console.log("in Side if", {
         productID,
         userName,
