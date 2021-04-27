@@ -1,5 +1,5 @@
 .paypal_btn{
-    -webkit-tap-highlight-color: transparent;
+  
     white-space: nowrap;
     overflow: hidden;
     margin: 0;
@@ -19,7 +19,7 @@
     }
     .paypal_btn:hover{ background: #e05c04; }
     .paypal_btn_logo{
-        -webkit-tap-highlight-color: transparent;
+     
         white-space: nowrap;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
         text-transform: none;
@@ -36,7 +36,7 @@
         height: 30px;
     }
     .paypal_btn_content{
-        -webkit-tap-highlight-color: transparent;
+       
         white-space: nowrap;
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
         text-transform: none;
@@ -83,8 +83,4 @@
         border-bottom-left-radius: 17px;
         border-top-right-radius: 17px;
         border-bottom-right-radius: 17px;
-    }
-
-    .hide{
-        transition: display 3s ease-in-out;
     }
