@@ -12,273 +12,79 @@ const ProfileSiderBar = lazy(() =>
   import("../../components/account/ProfileForm")
 );
 
-class OrdersView extends Component {
-  constructor(props) {
-    super();
-    this.state = {};
-  }
-  render() {
-    return (
-      <div className="container-fluid my-3">
-        <div className="row">
-          <div className="col-md-4">
-            <ProfileSiderBar />
-          </div>
-          <div className="col-md-8">
-            <div className="container mb-3">
-              <h4 className="my-3">Orders</h4>
-              <div className="row g-3">
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="row g-0">
-                      <div className="col-md-3 text-center">
-                        <img
-                          src="../../images/products/tshirt_red_480x400.webp"
-                          className="img-fluid"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="col-md-9">
-                        <div className="card-header">
-                          <div className="small">
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Order ID
-                            </span>
-                            <span className="border bg-white rounded-right px-2 mr-2">
-                              #123456
-                            </span>
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Date
-                            </span>
-                            <span className="border bg-white rounded-right px-2">
-                              25 Sep 20, 12:34 PM
-                            </span>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <h6>
-                            <Link to="/" className="text-decoration-none">
-                              Great product name goes here
-                            </Link>
-                          </h6>
-                          <div className="small">
-                            <span className="text-muted mr-2">Size:</span>
-                            <span className="mr-3">M</span>
-                            <span className="text-muted mr-2">Price:</span>
-                            <span className="mr-3">$1234</span>
-                            <span className="text-muted mr-2">Color:</span>
-                            <span className="mr-3">
-                              <span className="bg-primary px-1 rounded">
-                                &nbsp;&nbsp;&nbsp;
-                              </span>
-                            </span>
-                          </div>
-                          <div className="mt-2"></div>
-                        </div>
-                        <div className="card-footer">
-                          <span className="mr-2">Status:</span>
-                          <span className="text-success">
-                            <FontAwesomeIcon
-                              icon={faCheckCircle}
-                              className="mr-1"
-                            />
-                            Completed
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+const OrdersView = (props) => {
+  const [user, setUser] = React.useState([]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetch("http://localhost:8080/user/is-login", {
+        method: "post",
+        headers: { Authorization: `Bearer ${token}` },
+      })
+        .then((data) => {
+          data.json().then((data) => {
+            if (data.message == "User Not Found") {
+              console.log(data.message, "offline");
+            } else {
+              setUser(data.orders);
+              console.log(user);
+            }
+          });
+        })
+        .catch((e) => {
+          if (e.message == "User Not Found") {
+            console.log(e.message, "offline");
+          }
+        });
+    }
+  }, []);
+
+  return (
+    <div className="container-fluid my-3">
+      <div className="row">
+        <div className="col-md-4">
+          <ProfileSiderBar />
+        </div>
+        <div className="col-md-8">
+          <div className="container mb-3">
+            <h4 className="my-3">Orders</h4>
+            <div className="row g-3">
+              <div className="list-group">
+              {
+                 user&&user.map((order,index)=>{
+                   const address=JSON.parse(order.address)
+                   console.log(address)
+                   return(
+                    
+                     
+                     <a
+                  href="#"
+                  key={index}
+                  className="list-group-item list-group-item-action "
+                >
+                  <div    key={index}
+                   className="d-flex w-100 justify-content-between">
+                    <h5 className="mb-1">Order ID :{order.paymentId}</h5>
+                    <small>Shipping Date :{order.orderDate}</small>
                   </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="row g-0">
-                      <div className="col-md-3 text-center">
-                        <img
-                          src="../../images/products/tshirt_grey_480x400.webp"
-                          className="img-fluid"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="col-md-9">
-                        <div className="card-header">
-                          <div className="small">
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Order ID
-                            </span>
-                            <span className="border bg-white rounded-right px-2 mr-2">
-                              #123456
-                            </span>
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Date
-                            </span>
-                            <span className="border bg-white rounded-right px-2">
-                              25 Sep 20, 12:34 PM
-                            </span>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <h6>
-                            <Link to="/" className="text-decoration-none">
-                              Great product name goes here
-                            </Link>
-                          </h6>
-                          <div className="small">
-                            <span className="text-muted mr-2">Size:</span>
-                            <span className="mr-3">M</span>
-                            <span className="text-muted mr-2">Price:</span>
-                            <span className="mr-3">$1234</span>
-                            <span className="text-muted mr-2">Color:</span>
-                            <span className="mr-3">
-                              <span className="bg-primary px-1 rounded">
-                                &nbsp;&nbsp;&nbsp;
-                              </span>
-                            </span>
-                          </div>
-                          <div className="mt-2"></div>
-                        </div>
-                        <div className="card-footer">
-                          <span className="mr-2">Status:</span>
-                          <span className="text-primary">
-                            <FontAwesomeIcon
-                              icon={faHistory}
-                              className="mr-1"
-                            />
-                            Processing
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="row g-0">
-                      <div className="col-md-3 text-center">
-                        <img
-                          src="../../images/products/tshirt_black_480x400.webp"
-                          className="img-fluid"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="col-md-9">
-                        <div className="card-header">
-                          <div className="small">
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Order ID
-                            </span>
-                            <span className="border bg-white rounded-right px-2 mr-2">
-                              #123456
-                            </span>
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Date
-                            </span>
-                            <span className="border bg-white rounded-right px-2">
-                              25 Sep 20, 12:34 PM
-                            </span>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <h6>
-                            <Link to="/" className="text-decoration-none">
-                              Great product name goes here
-                            </Link>
-                          </h6>
-                          <div className="small">
-                            <span className="text-muted mr-2">Size:</span>
-                            <span className="mr-3">M</span>
-                            <span className="text-muted mr-2">Price:</span>
-                            <span className="mr-3">$1234</span>
-                            <span className="text-muted mr-2">Color:</span>
-                            <span className="mr-3">
-                              <span className="bg-primary px-1 rounded">
-                                &nbsp;&nbsp;&nbsp;
-                              </span>
-                            </span>
-                          </div>
-                          <div className="mt-2"></div>
-                        </div>
-                        <div className="card-footer">
-                          <span className="mr-2">Status:</span>
-                          <span className="text-warning">
-                            <FontAwesomeIcon
-                              icon={faExclamationTriangle}
-                              className="mr-1"
-                            />
-                            Pending
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="card">
-                    <div className="row g-0">
-                      <div className="col-md-3 text-center">
-                        <img
-                          src="../../images/products/tshirt_green_480x400.webp"
-                          className="img-fluid"
-                          alt="..."
-                        />
-                      </div>
-                      <div className="col-md-9">
-                        <div className="card-header">
-                          <div className="small">
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Order ID
-                            </span>
-                            <span className="border bg-white rounded-right px-2 mr-2">
-                              #123456
-                            </span>
-                            <span className="border bg-secondary rounded-left px-2 text-white">
-                              Date
-                            </span>
-                            <span className="border bg-white rounded-right px-2">
-                              25 Sep 20, 12:34 PM
-                            </span>
-                          </div>
-                        </div>
-                        <div className="card-body">
-                          <h6>
-                            <Link to="/" className="text-decoration-none">
-                              Great product name goes here
-                            </Link>
-                          </h6>
-                          <div className="small">
-                            <span className="text-muted mr-2">Size:</span>
-                            <span className="mr-3">M</span>
-                            <span className="text-muted mr-2">Price:</span>
-                            <span className="mr-3">$1234</span>
-                            <span className="text-muted mr-2">Color:</span>
-                            <span className="mr-3">
-                              <span className="bg-primary px-1 rounded">
-                                &nbsp;&nbsp;&nbsp;
-                              </span>
-                            </span>
-                          </div>
-                          <div className="mt-2"></div>
-                        </div>
-                        <div className="card-footer">
-                          <span className="mr-2">Status:</span>
-                          <span className="text-danger">
-                            <FontAwesomeIcon
-                              icon={faTimesCircle}
-                              className="mr-1"
-                            />
-                            Cancelled
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <p className="mb-1">address:{address.address}</p>
+                  <small>Order funds :{order.orderFunds} EGP</small>
+                </a>
+                    
+                   )
+                 })
+               }
+               
+               
               </div>
             </div>
           </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default OrdersView;
