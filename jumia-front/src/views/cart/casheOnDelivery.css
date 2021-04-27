@@ -1,0 +1,70 @@
+body > main > section > div.bg-white.-rad.-shad.-mbm.step.ft-shipping-step.-active > div.cont.brdt{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #555;
+    box-sizing: border-box;
+    border-top: 1px solid #f0f0f0;
+    padding: 16px 46px;
+    line-height: 1.5;
+    font-size: 14px;
+}
+#osh-opc-shipping-form{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #555;
+    line-height: 1.5;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+#shipping-methods{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #555;
+    line-height: 1.5;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+#shipping-methods > div.subt.color-default.-pbm.-fwm.-fs-14{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    line-height: 1.5;
+    box-sizing: border-box;
+    font-weight: 500;
+    padding-bottom: 8px!important;
+    font-size: 14px;
+    color: #000;
+}
+#shipping-methods > div.list.list-options.-mbl{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #555;
+    line-height: 1.5;
+    font-size: 14px;
+    box-sizing: border-box;
+    margin-bottom: 10px!important;
+}
+#shipping-methods > div.list.list-options.-mbl > div.list--item.list--item-options.-ptxl.-pbxl.brdb{
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    direction: ltr;
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    color: #555;
+    line-height: 1.5;
+    font-size: 14px;
+    box-sizing: border-box;
+    padding-top: 16px!important;
+    padding-bottom: 16px!important;
+    border-bottom: 1px solid #f0f0f0;
+
+
+}
