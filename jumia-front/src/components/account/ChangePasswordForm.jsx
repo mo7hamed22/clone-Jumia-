@@ -9,9 +9,9 @@ import { ReactComponent as IconKeyFill } from "bootstrap-icons/icons/key-fill.sv
 const ChangePasswordForm = (props) => {
   const { handleSubmit, submitting, onSubmit, submitFailed } = props;
   return (
-    <div className="card border-info">
-      <h6 className="card-header bg-info text-white">
-        <IconKeyFill /> Change Password
+    <div className="card border-warning">
+      <h6 className="card-header bg-warning text-white">
+        <IconKeyFill /> Change Details
       </h6>
       <div className="card-body">
         <form
@@ -19,7 +19,9 @@ const ChangePasswordForm = (props) => {
           className={`needs-validation ${submitFailed ? "was-validated" : ""}`}
           noValidate
         >
-          <Field
+          <div className="row">
+            <div className="col-md-6">
+            <Field
             name="currentPassword"
             type="password"
             label="Current Password"
@@ -32,7 +34,10 @@ const ChangePasswordForm = (props) => {
             minLength="8"
             className="mb-3"
           />
-          <Field
+            </div>
+
+            <div className="col-md-6">
+            <Field
             name="password"
             type="password"
             label="New Password"
@@ -45,10 +50,16 @@ const ChangePasswordForm = (props) => {
             minLength="8"
             className="mb-3"
           />
-          <Field
-            name="confirmPassword"
+            </div>
+          </div>          
+          
+          
+          <div className="row">
+            <div className="col-md-6">
+            <Field
+            name="currentPassword"
             type="password"
-            label="Confirm New password"
+            label="Current Password"
             component={renderFormGroupField}
             placeholder="******"
             icon={IconShieldLockFill}
@@ -58,12 +69,66 @@ const ChangePasswordForm = (props) => {
             minLength="8"
             className="mb-3"
           />
+            </div>
+
+            <div className="col-md-6">
+            <Field
+            name="password"
+            type="password"
+            label="New Password"
+            component={renderFormGroupField}
+            placeholder="******"
+            icon={IconShieldLockFill}
+            validate={[required, maxLength20, minLength8]}
+            required={true}
+            maxLength="20"
+            minLength="8"
+            className="mb-3"
+          />
+            </div>
+          </div>          
+          
+          <div className="row">
+            <div className="col-md-6">
+            <Field
+            name="currentPassword"
+            type="password"
+            label="Current Password"
+            component={renderFormGroupField}
+            placeholder="******"
+            icon={IconShieldLockFill}
+            validate={[required, maxLength20, minLength8]}
+            required={true}
+            maxLength="20"
+            minLength="8"
+            className="mb-3"
+          />
+            </div>
+
+            <div className="col-md-6">
+            <Field
+            name="password"
+            type="password"
+            label="New Password"
+            component={renderFormGroupField}
+            placeholder="******"
+            icon={IconShieldLockFill}
+            validate={[required, maxLength20, minLength8]}
+            required={true}
+            maxLength="20"
+            minLength="8"
+            className="mb-3"
+          />
+            </div>
+          </div>          
+          
+          
           <button
             type="submit"
-            className="btn btn-info btn-block"
+            className="btn btn-success btn-block"
             disabled={submitting}
           >
-            Submit
+            Edit
           </button>
         </form>
       </div>

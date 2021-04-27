@@ -6,34 +6,26 @@ import { useTranslation } from "react-i18next";
 
 import { ReactComponent as IconCart3 } from "bootstrap-icons/icons/cart3.svg";
 import { ReactComponent as IconPersonBadgeFill } from "bootstrap-icons/icons/person-badge-fill.svg";
-import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
-import { ReactComponent as IconListCheck } from "bootstrap-icons/icons/list-check.svg";
 import { ReactComponent as IconDoorClosedFill } from "bootstrap-icons/icons/door-closed-fill.svg";
-import { ReactComponent as IconHeartFill } from "bootstrap-icons/icons/heart-fill.svg";
-import { ReactComponent as IconBellFill } from "bootstrap-icons/icons/bell-fill.svg";
-import { ReactComponent as IconInfoCircleFill } from "bootstrap-icons/icons/info-circle-fill.svg";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser,faQuestion } from "@fortawesome/free-solid-svg-icons";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 
 const Header = (props) => {
   const { t } = useTranslation();
 
-  const [userName,setUserName]=React.useState('')
- 
-  React.useEffect(()=>{
-setUserName(props.userName)
-props.getUserInfo()
+  const [userName, setUserName] = React.useState("");
 
-  },[setUserName,props.totalItem,props.userName,props.userLogin])
-  
-  const logOut=(e)=>{
-    e.preventDefault()
-    localStorage.removeItem('token');
-    window.location.href='/'
-  }
+  React.useEffect(() => {
+    setUserName(props.userName);
+    props.getUserInfo();
+  }, [setUserName, props.totalItem, props.userName, props.userLogin]);
+
+  const logOut = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    window.location.href = "/";
+  };
   return (
-    <React.Fragment>      
+    <React.Fragment>
       <div
         className="reg"
         style={{ width: "100%", background: "#feb800", textAlign: "center" }}
@@ -67,58 +59,39 @@ props.getUserInfo()
                   data-toggle="dropdown"
                   aria-expanded="false"
                   aria-label="Profile"
-                > 
-                {props.user.name  ?props.user.name:'login' }
-            
-                {/* {props.userLogin&&props.userLogin } */}
-                   <FontAwesomeIcon icon={faUser} className="text-light" />
+                >
+                  <i className="fa fa-user mr-1"></i>
+                  {props.user.name ? props.user.name : " login "}
+
+                  {/* {props.userLogin&&props.userLogin } */}
+                  <i className="fa fa-arrow-down ml-1"></i>
                 </button>
                 <ul className="dropdown-menu">
-                  <li>
+                  <li
+                    style={{ display: "none" }}
+                    className={props.user.name ? "d-block" : ""}
+                  >
                     <Link className="dropdown-item" to="/account/profile">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
-                  </li> 
-                  <div className={props.user.name ?'d-none': ''} >
-                  <li >
-                    <Link className="dropdown-item" to="/account/login">
-                      Login
-                    </Link>
                   </li>
-                  <li>
-                    <Link className="dropdown-item" to="/account/signup">
-                      <IconStarFill className="text-warning" /> Create Account
-                    </Link>
-                  </li>
+                  <div className={props.user.name ? "d-none" : ""}>
+                    <li>
+                      <Link className="dropdown-item" to="/account/login">
+                        Login <i className="fa fa-sign-in-alt" />
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to="/account/signup">
+                        Create Account <i className="fa fa-plus" />
+                      </Link>
+                    </li>
                   </div>
-                  <li>
-                    <Link className="dropdown-item" to="/account/orders">
-                      <IconListCheck className="text-primary" /> Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/account/wishlist">
-                      <IconHeartFill className="text-danger" /> Wishlist
-                    </Link>
-                  </li>
-                  <li>
+                  <li className={props.user.name ? "" : "d-none"}>
                     <hr className="dropdown-divider" />
                   </li>
-                  <li>
-                    <Link className="dropdown-item" to="/account/notification">
-                      <IconBellFill className="text-primary" /> Notification
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/support">
-                      <IconInfoCircleFill className="text-success" /> Support
-                    </Link>
-                  </li>
-                  <li>
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li className={props.user.name?'':'d-none'}>
-                    <Link to='/' className="dropdown-item" onClick={logOut}>
+                  <li className={props.user.name ? "" : "d-none"}>
+                    <Link to="/" className="dropdown-item" onClick={logOut}>
                       <IconDoorClosedFill className="text-danger" /> Logout
                     </Link>
                   </li>
@@ -126,7 +99,7 @@ props.getUserInfo()
               </div>
 
               <div className="btn-group">
-              <LanguageSwitcher/>
+                <LanguageSwitcher />
               </div>
 
               <div className="position-relative d-inline ml-2">
@@ -136,11 +109,7 @@ props.getUserInfo()
                     {props.totalItem > 0 ? props.totalItem : null}
                   </div>
                 </Link>
-                
               </div>
-             
-             
-              
             </div>
           </div>
         </div>
@@ -151,15 +120,14 @@ props.getUserInfo()
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     getUserInfo: () => {
-      dispatch({type:'GET_INFO'})
-    }
-  }
-}
+      dispatch({ type: "GET_INFO" });
+    },
+  };
+};
 const mapStateToProps = (state, ownProps) => {
   return {
     user: state.cartReducer.userInfo,
-    totalItem:state.cartReducer.items
- 
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(Header);
+    totalItem: state.cartReducer.items,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
