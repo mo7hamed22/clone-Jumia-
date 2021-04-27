@@ -12,6 +12,8 @@ const categoryController = require("./controllers/category");
 const productController = require("./controllers/products");
 const settings = require("./controllers/settings");
 const review = require("./controllers/review");
+const paymentController = require('./controllers/payment');
+const orders =require('./controllers/orders');
 
 let _port = process.env.PORT || 8080;
 server.use(bodyParser.json());
@@ -35,6 +37,8 @@ server.use("/category", categoryController);
 server.use("/product", productController);
 server.use("/settings", settings);
 server.use("/review", review);
+server.use('/payment',paymentController)
+server.use('/order',orders)
 
 mongoose
   .connect(

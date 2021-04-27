@@ -160,6 +160,7 @@ if(token){
     data: {cart:cart},
     headers: { Authorization: `Bearer ${token}`}
   }).then(data=>{
+    localStorage.setItem('total',total)
   props.history.push('/checkout')
   }).catch(e=>{
     console.log(e,'error')
@@ -214,6 +215,7 @@ const body = (
 
   return (
     <>
+  
     {props.totalItems == 0? <div className='container'>
 
 <div className="row">
