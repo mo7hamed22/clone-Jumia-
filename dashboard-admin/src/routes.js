@@ -2,6 +2,7 @@ import Dashboard from "views/Dashboard.js";
 import UserProfile from "views/UserProfile.js";
 import Users from "views/Users.js";
 import Products from "views/Products.js";
+import Orders from "views/Orders.js";
 import Categories from "views/Categories.js";
 import Icons from "views/Icons.js";
 import Notifications from "views/Notifications.js";
@@ -11,6 +12,13 @@ import AddProduct from "./views/AddProduct";
 
 const dashboardRoutes = [
 
+  {
+    path: "/orders",
+    name: "Orders",
+    icon: "nc-icon nc-backpack",
+    component: Orders,
+    layout: "/admin",
+  },
   {
     path: "/dashboard",
     name: "Dashboard",

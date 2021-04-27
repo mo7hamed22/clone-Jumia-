@@ -59,6 +59,13 @@ function Sidebar({ color, image, routes }) {
           </li>
 
           <li>
+            <NavLink to='/admin/orders' className="nav-link" activeClassName="active">
+              <i className='nc-icon nc-backpack' />
+              <p>Orders</p>
+            </NavLink>
+          </li>
+
+          <li>
             <NavLink to='/admin/users/all' className="nav-link" activeClassName="active">
               <i className='nc-icon nc-notes' />
               <p>Users</p>
