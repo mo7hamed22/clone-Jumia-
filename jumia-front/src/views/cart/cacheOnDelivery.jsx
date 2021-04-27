@@ -5,27 +5,34 @@ import axios from 'axios';
 const CacheOnDelivery=(props)=>{
 console.log(props.items)
 console.log(props.address)
-
+console.log(props.user)
 
 const paymentWithCache=()=>{
+    const paymentId=(Math.random()*10).toString().slice(2)
     const token=localStorage.getItem('token')
     const total=localStorage.getItem('total');
-    
-    const newOrders={
 
+    const newOrders={
+        paymentId: paymentId,
+        orderDate: new Date(),
+        // payerId: PayerID,
+        userId: props.user._id,
+        orderToken: token,
+        orderFunds: total,
     }
-    axios({
-        method: "put",
-        url: "http://localhost:8080/user/orders",
-        data: {orders:newOrders},
-        headers: { Authorization: `Bearer ${token}`}
-      }).then(user=>{
-        if(user.data=='User Updated'){
-          props.history.push('/account/profile')
-        }
-      }).catch(e=>{
-        console.log(e)
-      })
+    console.log(newOrders)
+    // axios({
+    //     method: "put",
+    //     url: "http://localhost:8080/user/orders",
+    //     data: {orders:newOrders},
+    //     headers: { Authorization: `Bearer ${token}`}
+    //   }).then(user=>{
+    //     if(user.data=='User Updated'){
+    //       props.history.push('/account/profile')
+    //     }
+    //   }).catch(e=>{
+    //     console.log(e)
+    //   })
 }
 
 return(<>
@@ -150,16 +157,14 @@ return(<>
             >
               <span className="price_col-desc"
                 ><i className="osh-font-airplane -fs-12 -prxs"></i>International
-                Delivery Fees</span
-              >
+                Delivery Fees</span>
              
             </div>
             
           </div>
           
           <Button
-            
-            onClick={()=>setClasses(false)}
+          
             type="submit"
             style={{
               backgroundColor: "#f68b1e",

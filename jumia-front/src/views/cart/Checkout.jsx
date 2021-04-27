@@ -437,6 +437,7 @@ const CheckoutView = (props) => {
                     <CacheOnDelivery
                       items={userCart && userCart}
                       address={fullAddress && fullAddress}
+                      user={props.user&&props.user}
                     />
                 
                   </div>
