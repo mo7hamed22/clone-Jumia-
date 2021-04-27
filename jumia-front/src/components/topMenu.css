@@ -1,0 +1,103 @@
+.markup h2,
+      .markup h1,
+      .markup h3 {
+        font-weight: 400;
+        font-size: 18px;
+      }
+      #vertical-menu svg {
+        color: #000 !important;
+        position: absolute;
+        top: 12px;
+        left: 3px;
+        width: 23px;
+      }
+      #vertical-menu ul {
+        list-style: none;
+        padding: 0;
+      }
+      #vertical-menu ul li {
+        cursor: pointer;
+      }
+      #vertical-menu {        
+        width: 100%;
+        display: inline-block;
+      }
+      .main-menu {
+        display: inline-block;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .main-menu li {
+        position: relative;
+        height: 50px;        
+      }
+      .main-menu > li > a > i {
+        color: #000;
+        width: 2em;
+        height: 100%;
+        line-height: 40px;
+        text-align: left;
+      }
+      .main-menu > li:first-child,
+      .submenu-1 > li:first-child,
+      .submenu-2 > li:first-child,
+      .submenu-3 > li:first-child {
+        box-shadow: none;
+      }
+      .main-menu > li:first-child > a,
+      .submenu-1 > li:first-child > a,
+      .submenu-2 > li:first-child > a,
+      .submenu-3 > li:first-child > a {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .main-menu > li:last-child > a,
+      .submenu-1 > li:last-child > a,
+      .submenu-2 > li:last-child > a,
+      .submenu-3 > li:last-child > a {
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+      }
+
+      .main-menu > li > a,
+      .submenu-1 > li > a,
+      .submenu-2 > li > a,
+      .submenu-3 > li > a {
+        color: #000;
+        background: #fff;
+        text-decoration: none;
+        line-height: 50px;
+        display: block;
+        padding: 0 2em;
+      }
+
+      .submenu-1,
+      .submenu-2,
+      .submenu-3 {
+        position: absolute;
+        white-space: nowrap;
+        top: -9999px;
+        z-index: 1;
+      }
+
+      .main-menu > li:hover .submenu-1,
+      .submenu-1 > li:hover .submenu-2,
+      .submenu-2 > li:hover .submenu-3 {
+        top: 0;
+        left: 100%;
+        transition: top 0.2s cubic-bezier(0.38, 0.82, 0.79, 0.93);
+        z-index: 111;
+      }
+
+      .main-menu > li:hover > a {
+        color: #22af70;
+      }
+      .submenu-1 li:hover > a {
+        color: #22a7f0;
+      }
+      .submenu-2 li:hover > a {
+        color: #f6db7f;
+      }
+      .submenu-3 li:hover > a {
+        color: #f2784b;
+      }

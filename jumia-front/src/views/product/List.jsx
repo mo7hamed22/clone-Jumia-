@@ -2,6 +2,7 @@ import React, { lazy, Component } from "react";
 import { homeServices } from "../../services/_home";
 import { Link } from "react-router-dom";
 import { data } from "../../data"; // old data
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 const Paging = lazy(() => import("../../components/Paging"));
@@ -214,7 +215,7 @@ class ProductListView extends Component {
                   this.state.currentProducts.map((product, idx) => {
                     return (
                       <div key={idx} className="col-md-12">
-                        <CardProductList data={product} />
+                        <CardProductList data={product} addToCart={this.props.onAddToCart}/>
                       </div>
                     );
                   })}
@@ -235,5 +236,7 @@ class ProductListView extends Component {
     );
   }
 }
+
+
 
 export default ProductListView;

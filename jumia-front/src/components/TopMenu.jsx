@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { homeServices } from "../services/_home";
+import './topMenu.css';
+
 const TopMenu = (props) => {
  const [products, setProducts] = React.useState([]);
   // Get All Products

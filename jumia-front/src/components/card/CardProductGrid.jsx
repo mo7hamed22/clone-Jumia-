@@ -3,9 +3,16 @@ import { Link } from "react-router-dom";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
+import { connect } from "react-redux";
 
 const CardProductGrid = (props) => {
   const product = props.data;
+  const [isClicked, setisClicked] = React.useState(false);
+
+  const handeAddToCart = (e) => {
+    setisClicked(true);
+  };
+  
   return (
     <div className="card">
       <img src={product.image} className="card-img-top img-fluid"  style={{maxHeight: "220px"}}/>
@@ -39,26 +46,63 @@ const CardProductGrid = (props) => {
           </span>
         </div>
         <div className="btn-group btn-block" role="group">
-          <button
-            type="button"
-            className="btn btn-sm btn-primary"
-            title="Add to cart"
-          >
-            <FontAwesomeIcon icon={faCartPlus} />
-          </button>
-          
-          {/* <button
-            type="button"
-            className="btn btn-sm btn-outline-secondary"
-            title="Add to wishlist"
-          >
-            <FontAwesomeIcon icon={faHeart} />
-          </button> */}
+              {!isClicked ? (
+                <>
+                  {" "}
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-primary mr-2 w-100"
+                    title="Add to cart"
+                    onClick={() => {
+                      props.onAddToCart({
+                        nameEn: product.nameEn,
+                        price: product.price,
+                        discount: product.discount,
+                        prodQuantity: product.quantity,
+                        image: product.image,
+                      });
+                      handeAddToCart();
+                    }}
+                  >
+                    <FontAwesomeIcon icon={faCartPlus} /> Add to cart
+                  </button>{" "}
+                </>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    disabled
+                    className="btn btn-sm btn-success mr-2 w-100"
+                  >
+                    Item added
+                  </button>
+                </>
+              )}
 
-        </div>
+              <button
+                type="button"
+                className="btn btn-sm btn-outline-secondary"
+                title="Add to wishlist"
+              >
+                <FontAwesomeIcon icon={faHeart} />
+              </button>
+            </div>
       </div>
     </div>
   );
 };
 
-export default CardProductGrid;
+const mapStateToProps = (state) => {
+  return { count: state.productReducer.count };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onPlus: (proName) => dispatch({ type: "PLUS", name: proName }),
+    onMinus: (proName) => dispatch({ type: "MINUS", name: proName }),
+    onAddToCart: (userProduct) =>
+      dispatch({ type: "ADDTOCART", product: userProduct }),
+    onLoad: (proName) => dispatch({ type: "LOAD", name: proName }),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardProductGrid);

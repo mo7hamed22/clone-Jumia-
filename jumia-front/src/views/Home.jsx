@@ -49,15 +49,26 @@ class HomeViewClass extends Component {
       phones: [],
       homes: [],
       electronics: [],
+      settings: {},
+      two_img_ad: [],
+      slider_siblings: [],
     };
   }
 
   componentDidMount() {
-    homeServices.getAllSliders().then((data) => {
-      this.setState({
-        sliders: data.data.sliders,
-      });
-    });
+    homeServices.getSiteSettings().then(
+      (data) => {
+        this.setState({
+          settings: data.data,
+          two_img_ad: data.data.two_img_ad,
+          sliders: data.data.sliders,
+          slider_siblings: data.data.slider_siblings,          
+        });
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
 
     homeServices.getAllCats().then(
       (data) => {
@@ -98,7 +109,6 @@ class HomeViewClass extends Component {
   }
 
   render() {
-    
     // console.log("products", this.state.products);
 
     const iconProducts = data.iconProducts;
@@ -135,7 +145,7 @@ class HomeViewClass extends Component {
       console.log("catName", catNAme);
       return catNAme;
     }
-    
+
     return (
       <React.Fragment>
         <div className="container-fluid mt-2">
@@ -152,12 +162,11 @@ class HomeViewClass extends Component {
               />
             </div>
             <div className="col-md-2">
-              <div className="card">
-                <img src="https://eg.jumia.is//cms/ramadan-21/teasers/new/Artboard_1_copy.jpg" />
-              </div>
-              <div className="card mt-2">
-                <img src="https://eg.jumia.is//cms/ramadan-21/teasers/new/_Teaser_.png" />
-              </div>
+              {this.state.slider_siblings.map((item=>
+              <div className="card mt-1">
+                <img src={item} />
+              </div>              
+              ))}
             </div>
           </div>
         </div>
@@ -171,9 +180,9 @@ class HomeViewClass extends Component {
                   src="https://eg.jumia.is/cms/QuickLinks/JumiaMall_.png"
                   style={{ width: "40px" }}
                 />
-                <a href="#">
+                <a target="_blank" href="https://www.jumia.com.eg/jumia-mall/">
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                  {this.props.trans("offical")}
+                    {this.props.trans("offical")}
                   </b>
                 </a>
               </div>
@@ -182,12 +191,15 @@ class HomeViewClass extends Component {
             <div className="col-md-3">
               <div className="card p-2">
                 <img
-                  src="https://eg.jumia.is/cms/QuickLinks/JumiaMall_.png"
+                  src="https://eg.jumia.is/cms/QuickLinks/JumiaGlobal.png"
                   style={{ width: "40px" }}
                 />
-                <a href="#">
+                <a
+                  target="_blank"
+                  href="https://www.jumia.com.eg/mlp-jumia-global/"
+                >
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                  {this.props.trans("offical")}
+                    {this.props.trans("jumiaGlobal")}
                   </b>
                 </a>
               </div>
@@ -195,12 +207,15 @@ class HomeViewClass extends Component {
             <div className="col-md-3">
               <div className="card p-2">
                 <img
-                  src="https://eg.jumia.is/cms/QuickLinks/JumiaMall_.png"
+                  src="https://eg.jumia.is/cms/QuickLinks/JumiaOne_1.png"
                   style={{ width: "40px" }}
                 />
-                <a href="#">
+                <a
+                  target="_blank"
+                  href="https://pay.jumia.com.eg/services/recharge?utm_source=jumia&utm_medium=mall&utm_campaign=Teaser"
+                >
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                  {this.props.trans("offical")}
+                    {this.props.trans("jumiaDoniation")}
                   </b>
                 </a>
               </div>
@@ -208,12 +223,15 @@ class HomeViewClass extends Component {
             <div className="col-md-3">
               <div className="card p-2">
                 <img
-                  src="https://eg.jumia.is/cms/QuickLinks/JumiaMall_.png"
+                  src="https://eg.jumia.is/cms/QuickLinks/Artboard_1222.png"
                   style={{ width: "40px" }}
                 />
-                <a href="#">
+                <a
+                  target="_blank"
+                  href="https://www.jumia.com.eg/sp-orange-redemption/"
+                >
                   <b style={{ position: "absolute", right: "11%", top: "31%" }}>
-                  {this.props.trans("offical")}
+                    {this.props.trans("orangePoints")}
                   </b>
                 </a>
               </div>
@@ -226,36 +244,20 @@ class HomeViewClass extends Component {
             <div className="col-md-12">
               <div className="card p-2">
                 <div className="card-header bg-warning">
-                  <h4>Supermarket products</h4>
+                  <h4>{this.props.trans('superMarket')}</h4>
                 </div>
                 <Slider data={this.state.suerpMarkets} />
               </div>
             </div>
           </div>
         </div>
-        {/* 
-
-        <div className="container">
-          <div className="row">
-          <div className="col-md-6">
-            <div className="card">
-              <img src="https://eg.jumia.is/cms/ramadan-21/Free-Shipping/Floor-Desktop-en_copy.jpg"/>
-            </div>          
-          </div>
-          <div className="col-md-6">
-          <div className="card">
-              <img src="https://eg.jumia.is/cms/ramadan-21/Free-Shipping/Floor-Desktop-en_copy.jpg"/>
-            </div>
-          </div>
-          </div>
-        </div> */}
-
+       
         <div className="container bg-light mt-4 mb-3">
           <div className="row">
             <div className="col-md-12">
               <div className="card p-2">
                 <div className="card-header bg-warning">
-                  <h4>Fashions' products</h4>
+                  <h4>{this.props.trans('fashion')}</h4>
                 </div>
                 <Slider data={this.state.fashions} />
               </div>
@@ -265,16 +267,13 @@ class HomeViewClass extends Component {
 
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
-              <div className="card">
-                <img src="https://eg.jumia.is/cms/ramadan-21/same-day/Floor-Desktop-en_copy.jpg" />
+            {this.state.two_img_ad.map((item) => (
+              <div className="col-md-6">
+                <div className="card">
+                  <img src={item} />
+                </div>
               </div>
-            </div>
-            <div className="col-md-6">
-              <div className="card">
-                <img src="https://eg.jumia.is/cms/ramadan-21/same-day/Floor-Desktop-en_copy.jpg" />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -283,7 +282,7 @@ class HomeViewClass extends Component {
             <div className="col-md-12">
               <div className="card p-2">
                 <div className="card-header bg-warning">
-                  <h4>Phones & Tablets products</h4>
+                  <h4>{this.props.trans('PhonesTablets')}</h4>
                 </div>
                 <Slider data={this.state.phones} />
               </div>
@@ -296,7 +295,7 @@ class HomeViewClass extends Component {
             <div className="col-md-12">
               <div className="card p-2">
                 <div className="card-header bg-warning">
-                  <h4>Home & Office products</h4>
+                  <h4>{this.props.trans('homeOffice')}</h4>
                 </div>
                 <Slider data={this.state.homes} />
               </div>
@@ -309,7 +308,7 @@ class HomeViewClass extends Component {
             <div className="col-md-12">
               <div className="card p-2">
                 <div className="card-header bg-warning">
-                  <h4>Electronics products</h4>
+                  <h4>{this.props.trans('electroic')}</h4>
                 </div>
                 <Slider data={this.state.electronics} />
               </div>
@@ -514,10 +513,9 @@ class HomeViewClass extends Component {
   }
 }
 
-const HomeView = () => {  
+const HomeView = () => {
   const { t } = useTranslation();
-  return <HomeViewClass trans={t}/>
-}
-
+  return <HomeViewClass trans={t} />;
+};
 
 export default HomeView;
