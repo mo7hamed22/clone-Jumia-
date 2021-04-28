@@ -216,7 +216,7 @@ const body = (
   return (
     <>
   
-    {props.totalItems == 0? <div className='container'>
+    {props.totalItems == 0 ||!cart? <div className='container'>
 
 <div className="row">
   <div className="col-12 d-flex justify-content-center">

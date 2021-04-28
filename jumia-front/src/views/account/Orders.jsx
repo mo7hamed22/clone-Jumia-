@@ -54,8 +54,13 @@ const OrdersView = (props) => {
               <div className="list-group">
               {
                  user&&user.map((order,index)=>{
-                   const address=JSON.parse(order.address)
-                   console.log(address)
+                   var address;
+            
+                 try{
+                  address=JSON.parse(order.address)
+                 }catch(e){
+                   console.log(e)
+                 }
                    return(
                     
                      
@@ -69,7 +74,7 @@ const OrdersView = (props) => {
                     <h5 className="mb-1">Order ID :{order.paymentId}</h5>
                     <small>Shipping Date :{order.orderDate}</small>
                   </div>
-                  <p className="mb-1">address:{address.address}</p>
+                  <p className="mb-1">address:{address&&address.address}</p>
                   <small>Order funds :{order.orderFunds} EGP</small>
                 </a>
                     

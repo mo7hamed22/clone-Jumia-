@@ -1,41 +1,99 @@
 import React from 'react'
 import './casheOnDelivery.css'
-import Button from "@material-ui/core/Button";
+import Button from '@material-ui/core/Button';
+import {useHistory}from 'react-router-dom'
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
 import axios from 'axios';
 const CacheOnDelivery=(props)=>{
-console.log(props.items)
-console.log(props.address)
-console.log(props.user)
+    const history =useHistory()
 
-const paymentWithCache=()=>{
+    const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+      };
+const paymentWithCache=(e)=>{
+    setOpen(true)
+e.preventDefault()
     const paymentId=(Math.random()*10).toString().slice(2)
     const token=localStorage.getItem('token')
     const total=localStorage.getItem('total');
+    const payerId=(Math.random()*10).toString().slice(2)
+
 
     const newOrders={
         paymentId: paymentId,
         orderDate: new Date(),
-        // payerId: PayerID,
+        payerId: payerId,
         userId: props.user._id,
         orderToken: token,
         orderFunds: total,
     }
     console.log(newOrders)
-    // axios({
-    //     method: "put",
-    //     url: "http://localhost:8080/user/orders",
-    //     data: {orders:newOrders},
-    //     headers: { Authorization: `Bearer ${token}`}
-    //   }).then(user=>{
-    //     if(user.data=='User Updated'){
-    //       props.history.push('/account/profile')
-    //     }
-    //   }).catch(e=>{
-    //     console.log(e)
-    //   })
+    console.log(props.user.orders)
+
+    axios({
+        url: "http://localhost:8080/order/set-order",
+        method: "post",
+      
+        data: {
+         ...newOrders
+        },
+      })
+        .then((data) => {
+            const { paymentId, payerId, orderFunds, orderDate } = data.data;
+            const token = localStorage.getItem("token");
+            const Address = localStorage.getItem("address");
+            const newOrders = props.user.orders;
+            newOrders.push({
+              paymentId: paymentId,
+              payerId: payerId,
+              orderDate: orderDate,
+              orderFunds: orderFunds,
+              address: Address,
+            });
+
+
+            axios({
+              method: "put",
+              url: "http://localhost:8080/user/orders",
+              data: { orders: newOrders },
+              headers: { Authorization: `Bearer ${token}` },
+            })
+              .then((user) => {
+                if (user.data == "User Updated") {
+                    localStorage.removeItem('total')
+                    localStorage.removeItem('address')
+                    localStorage.removeItem('cart')
+              setOpen(false)
+              history.push('/account/profile')
+                }
+              })
+              .catch((e) => {
+                console.log(e);
+              });
+        
+        })
+        .catch((e) => {
+          console.log(e);
+        });
 }
 
 return(<>
+ <div>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
  <div className="cont brdt">
       <form
         id="osh-opc-shipping-form"
@@ -58,10 +116,9 @@ return(<>
                 className="osh-radio option"
                 value="UniversalShippingMatrix"
                 rel="Door Delivery."
-                data-address-name=""
                 checked="checked"
                 type="radio"
-                name="ShippingMethodForm[shipping_method]"
+               
               />
               <label className="-fwm" htmlFor="UniversalShippingMatrix"
                 >Door Delivery.</label
@@ -164,7 +221,7 @@ return(<>
           </div>
           
           <Button
-          
+          onClick={paymentWithCache}
             type="submit"
             style={{
               backgroundColor: "#f68b1e",
