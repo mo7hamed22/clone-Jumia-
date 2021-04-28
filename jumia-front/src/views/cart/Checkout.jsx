@@ -60,6 +60,7 @@ const CheckoutView = (props) => {
   const [address, setAddress] = React.useState("");
   const [address2, setAddress2] = React.useState("");
   const [toggleClasses, setClasses] = React.useState(false);
+  const [spinner,setSpinner]=React.useState('')
   const getCountry = (e) => {
     setFullAddress({ ...fullAddress, country: e.target.value });
     fetch(`https://www.universal-tutorial.com/api/states/${e.target.value}`, {
@@ -152,7 +153,7 @@ const CheckoutView = (props) => {
                     localStorage.removeItem("address");
                     localStorage.removeItem("cart");
                     setOpen(false);
-                    props.history.push("/account/profile");
+                    props.history.push("/account/orders");
                   }
                 })
                 .catch((e) => {
@@ -223,6 +224,7 @@ const CheckoutView = (props) => {
     setFullAddress({ ...fullAddress, city: e.target.value });
   };
   const payment = (e) => {
+    setSpinner('spinner-border')
     e.preventDefault();
     setItems(() => {
       return userCart.map((item) => {
@@ -270,7 +272,9 @@ const CheckoutView = (props) => {
         },
       })
         .then((data) => {
+
           if (data.data.redirect) window.location.href = data.data.redirect;
+          setSpinner('')
         })
         .catch((e) => {
           console.log(e);
@@ -509,6 +513,9 @@ const CheckoutView = (props) => {
                       </AccordionSummary>
                       <AccordionDetails>
                         <div>
+                        <div class={`${spinner} text-info`} role="status">
+  <span class="sr-only">Loading...</span>
+</div>
                           <Button
                             onClick={payment}
                             type="button"
@@ -525,6 +532,7 @@ const CheckoutView = (props) => {
                             />
 
                             <span className="paypal_btn_content">Buy Now</span>
+    
                           </Button>
                         </div>
                       </AccordionDetails>
