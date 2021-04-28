@@ -12,7 +12,10 @@ import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CacheOnDelivery from "./cacheOnDelivery";
+import { connect } from "react-redux";
 
+import "./checkout.css";
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -31,10 +34,6 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
 }));
-import CacheOnDelivery from "./cacheOnDelivery";
-import { connect } from "react-redux";
-
-import "./checkout.css";
 
 const CheckoutView = (props) => {
   const search = useLocation().search;
