@@ -100,7 +100,7 @@ const RatingsReviews = (props) => {
 };
 
 const mapStateToProps = (state) => {
-  return { user: state.cartReducer.userInfo };
+  return { user: state.productReducer.userInfo };
 };
 
 export default connect(mapStateToProps)(RatingsReviews);

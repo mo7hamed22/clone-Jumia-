@@ -38,8 +38,7 @@ e.preventDefault()
         orderToken: token,
         orderFunds: total,
     }
-    console.log(newOrders)
-    console.log(props.user.orders)
+
 
     axios({
         url: "http://localhost:8080/order/set-order",
@@ -116,7 +115,7 @@ return(<>
                 className="osh-radio option"
                 value="UniversalShippingMatrix"
                 rel="Door Delivery."
-                checked="checked"
+                defaultChecked="defaultChecked"
                 type="radio"
                
               />

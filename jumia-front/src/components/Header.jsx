@@ -126,8 +126,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.cartReducer.userInfo,
-    totalItem: state.cartReducer.items,
+    user: state.productReducer.userInfo,
+    totalItem: state.productReducer.items,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

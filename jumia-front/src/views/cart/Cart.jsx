@@ -1,11 +1,9 @@
 import React, { lazy } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
@@ -14,16 +12,6 @@ import{setItems} from '../../Store/actions';
 import axios from 'axios';
 import Modal from '@material-ui/core/Modal';
 
-const CouponApplyForm = lazy(() =>
-  import("../../components/others/CouponApplyForm")
-);
-
-// discount: 6
-// image: "https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/29/870951/2.jpg?5867"
-// nameEn: "Grouhy GLD43SA - 43-inch Full HD LED Smart TV"
-// price: 4599
-// prodQuantity: 6
-// selectedQuantity: 1
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -151,8 +139,6 @@ const Cart = (props) => {
 const toCheckOut=()=>{
 if(props.userLogin){
   const token= localStorage.getItem('token')
- console.log(token)
- console.log(cart)
 if(token){
   axios({
     method: "put",
@@ -452,8 +438,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 const mapStateToProps = (state) => {
   return {
-    totalItems: state.cartReducer.items,
-    userLogin:state.cartReducer.isOnline
+    totalItems: state.productReducer.items,
+    userLogin:state.productReducer.isOnline
   };
 };
 

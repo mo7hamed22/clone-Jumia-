@@ -5,33 +5,31 @@ import { ReactComponent as IconCart3 } from "bootstrap-icons/icons/cart3.svg";
 import { useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
+    color: "#fff",
   },
   root: {
-    width: '100%',
+    width: "100%",
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
-    flexBasis: '33.33%',
+    flexBasis: "33.33%",
     flexShrink: 0,
   },
   secondaryHeading: {
     fontSize: theme.typography.pxToRem(15),
     color: theme.palette.text.secondary,
   },
-
 }));
 import CacheOnDelivery from "./cacheOnDelivery";
 import { connect } from "react-redux";
@@ -43,13 +41,13 @@ const CheckoutView = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const handleClose = () => {
-      setOpen(false);
-    };
-    const [expanded, setExpanded] = React.useState(false);
+    setOpen(false);
+  };
+  const [expanded, setExpanded] = React.useState(false);
 
-    const handleChange = (panel) => (event, isExpanded) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   const [fullAddress, setFullAddress] = React.useState({});
   const [countries, setCountries] = React.useState([]);
   const [token, setToken] = React.useState("");
@@ -112,7 +110,7 @@ const CheckoutView = (props) => {
       const orderToken = new URLSearchParams(search).get("token");
       const PayerID = new URLSearchParams(search).get("PayerID");
       const totalPrice = localStorage.getItem("total");
-setOpen(true)
+      setOpen(true);
       if (totalPrice) {
         axios({
           url: "http://localhost:8080/order/set-order",
@@ -151,10 +149,10 @@ setOpen(true)
               })
                 .then((user) => {
                   if (user.data == "User Updated") {
-                    localStorage.removeItem('total')
-                    localStorage.removeItem('address')
-                    localStorage.removeItem('cart')
-                    setOpen(false)
+                    localStorage.removeItem("total");
+                    localStorage.removeItem("address");
+                    localStorage.removeItem("cart");
+                    setOpen(false);
                     props.history.push("/account/profile");
                   }
                 })
@@ -273,7 +271,6 @@ setOpen(true)
         },
       })
         .then((data) => {
-          console.log(data.data);
           if (data.data.redirect) window.location.href = data.data.redirect;
         })
         .catch((e) => {
@@ -298,13 +295,12 @@ setOpen(true)
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
     localStorage.setItem("address", JSON.stringify(fullAddress));
     setClasses(true);
   };
   return (
     <React.Fragment>
-       <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
         <CircularProgress color="inherit" />
       </Backdrop>
       <div className="bg-secondary border-top p-4 text-white mb-3">
@@ -473,63 +469,68 @@ setOpen(true)
               </div>
               <div className="row">
                 <div className="col-md-12">
-                <div className={classes.root}>
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
-          <div className={classes.heading}>Cash on Delivery</div>
-          <div className={classes.secondaryHeading}>you will pay when delivery</div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div>
-          <CacheOnDelivery
-                      items={userCart && userCart}
-                      address={fullAddress && fullAddress}
-                      user={props.user&&props.user}
-                    />
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel2bh-content"
-          id="panel2bh-header"
-        >
-          <div className={classes.heading}>Pay With PayPal</div>
-          <div className={classes.secondaryHeading}>
-           Pay with your PayPal Account
-          </div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <div>
-          
-                      <Button
-                      onClick={payment}
-                        type="button"
-                        style={{
-                          border: "0",
-                        }}
-                        variant="outlined"
-                        className="paypal_btn"
+                  <div className={classes.root}>
+                    <Accordion
+                      expanded={expanded === "panel1"}
+                      onChange={handleChange("panel1")}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
                       >
-                        
+                        <div className={classes.heading}>Cash on Delivery</div>
+                        <div className={classes.secondaryHeading}>
+                          you will pay when delivery
+                        </div>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <div>
+                          <CacheOnDelivery
+                            items={userCart && userCart}
+                            address={fullAddress && fullAddress}
+                            user={props.user && props.user}
+                          />
+                        </div>
+                      </AccordionDetails>
+                    </Accordion>
+                    <Accordion
+                      expanded={expanded === "panel2"}
+                      onChange={handleChange("panel2")}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2bh-content"
+                        id="panel2bh-header"
+                      >
+                        <div className={classes.heading}>Pay With PayPal</div>
+                        <div className={classes.secondaryHeading}>
+                          Pay with your PayPal Account
+                        </div>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <div>
+                          <Button
+                            onClick={payment}
+                            type="button"
+                            style={{
+                              border: "0",
+                            }}
+                            variant="outlined"
+                            className="paypal_btn"
+                          >
+                            <img
+                              style={{ width: "30%" }}
+                              src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg"
+                              alt=""
+                            />
 
-                         <img 
-                       style={{width:'30%'}}
-                         src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg" alt=""/>
-                       
-                           
-                        <span className="paypal_btn_content">Buy Now</span>
-                      </Button>
-                  
-          </div>
-        </AccordionDetails>
-      </Accordion>
-      </div>
+                            <span className="paypal_btn_content">Buy Now</span>
+                          </Button>
+                        </div>
+                      </AccordionDetails>
+                    </Accordion>
+                  </div>
                   {/* <div className="card-header">
                     <IconTruck className="i-va mr-2" />
                     Cache On delivery
@@ -572,7 +573,6 @@ setOpen(true)
                     </form>
                 </div>
                   </div> */}
-                
               </div>
             </div>
           </div>
@@ -600,6 +600,7 @@ setOpen(true)
                               src={item.image}
                               alt="item"
                             />
+                            <div>qty:{item.selectedQuantity}</div>
                           </div>
                           <small className="text-muted"></small>
                         </div>
@@ -628,39 +629,14 @@ setOpen(true)
           </div>
         </div>
       </div>
-      
-      {/* <PayPalButton
-        amount=''
-        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        onSuccess={(details, data) => {
-          alert("Transaction completed by " );
-
-          // OPTIONAL: Call your server to save the transaction
-          // return fetch("/paypal-transaction-complete", {
-          //   method: "post",
-          //   body: JSON.stringify({
-          //     orderID: data.orderID
-          //   })
-          // });
-        }}
-      /> */}
     </React.Fragment>
   );
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.cartReducer.items,
-    user: state.cartReducer.userInfo,
+    items: state.productReducer.items,
+    user: state.productReducer.userInfo,
   };
 };
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     setOrders: (cart) => {
-//       dispatch(makeOrder(cart))
-//     },
-//     doPayment:()=>{
-//       dispatch(beforePayment)
-//     }
-//   }
-// }
+
 export default connect(mapStateToProps)(CheckoutView);
