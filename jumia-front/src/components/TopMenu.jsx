@@ -18,9 +18,7 @@ const TopMenu = (props) => {
     );
   }, []);
 
-  function setProductCat(catNAme, indx) {
-    console.log("ProductsCategory", products);
-    console.log("catName", catNAme.innerText);
+  function setProductCat(catNAme, indx) { 
     products.filter((product) => {
       return;
     });

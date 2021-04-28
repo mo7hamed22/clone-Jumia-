@@ -10,20 +10,21 @@ const responsive = {
     1024: { items: 3 },
 };
 
-// const items = [
-//     <div className="item" data-value="1">1</div>,
-//     <div className="item" data-value="2">2</div>,
-//     <div className="item" data-value="3">3</div>,
-//     <div className="item" data-value="4">4</div>,
-//     <div className="item" data-value="5">5</div>,
-// ];
-
 let items = [];
 
 props.data.map((item=>
     items.push(    
         <div className="card text-center m-3">
             <div className="card-body">
+            <div className="mb-3">
+                <p className="font-weight-bold h5 mr-2">
+                  EGP {item.price - (item.price * item.discount) / 100}
+                </p>
+                <del className="small text-muted mr-2">EGP {item.price}</del>
+                <span className="rounded p-1 bg-warning  mr-2 small">
+                  {item.discount}%
+                </span>
+              </div>
             <Link className="text-decoration-none" to={`/product/detail/${item.nameEn}`}>
                 <img src={item.image} style={{width:'100px'}}/>
                 <h6 className="card-title text-capitalize">{formatTitle(item.nameEn)}</h6>

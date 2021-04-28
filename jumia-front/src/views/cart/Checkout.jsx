@@ -276,7 +276,7 @@ const CheckoutView = (props) => {
           console.log(e);
         });
     } else {
-      console.log("not");
+      
     }
   };
   const handleName = (e) => {

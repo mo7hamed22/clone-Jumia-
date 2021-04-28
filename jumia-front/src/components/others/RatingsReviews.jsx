@@ -27,8 +27,7 @@ const RatingsReviews = (props) => {
   useEffect(() => {
     setProductID(props.productID);
     if (props.productID) {
-      homeServices.getProductReview(props.productID).then((data) => {
-        console.log(data);
+      homeServices.getProductReview(props.productID).then((data) => {        
         setReviews(data.data);
       });
     }

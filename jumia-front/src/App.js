@@ -7,42 +7,35 @@ import Privacy from "./components/static/privacy.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
 import { connect } from "react-redux"; 
-import Search from "./components/Search";
+
 import searchResult from "./components/searchResult";
 import ScrollToTop from "./components/ScrollToTop";
 import loader from "./assets/loader.gif";
-//const Header = lazy(() => import("./components/Header"));
-//const TopMenu = lazy(() => import("./components/TopMenu"));
+
 const HomeView = lazy(() => import("./views/Home"));
-// const SignInView = lazy(() => import("./views/account/SignIn"));
-// const SignUpView = lazy(() => import("./views/account/SignUp"));
+
+
 const ForgotPasswordView = lazy(() => import("./views/account/ForgotPassword"));
 const OrdersView = lazy(() => import("./views/account/Orders"));
-const WishlistView = lazy(() => import("./views/account/Wishlist"));
-const NotificationView = lazy(() => import("./views/account/Notification"));
-const MyProfileView = lazy(() => import("./views/account/MyProfile"));
+
 const ProductListView = lazy(() => import("./views/product/List"));
 const ProductDetailView = lazy(() => import("./views/product/Detail"));
-const StarZoneView = lazy(() => import("./views/product/StarZone"));
+
 const CartView = lazy(() => import("./views/cart/Cart"));
 const CheckoutView = lazy(() => import("./views/cart/Checkout"));
-const DocumentationView = lazy(() => import("./views/Documentation"));
 const NotFoundView = lazy(() => import("./views/pages/404"));
 const Team = lazy(() => import("./views/team"));
-const InternalServerErrorView = lazy(() => import("./views/pages/500"));
+
 const ContactUsView = lazy(() => import("./views/pages/ContactUs"));
 const SupportView = lazy(() => import("./views/pages/Support"));
-const BlogView = lazy(() => import("./views/blog/Blog"));
-const BlogDetailView = lazy(() => import("./views/blog/Detail"));
+
 const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
 function App(props) {
  
   try{
-    const token =localStorage.getItem('token')
-       
-    
+    const token =localStorage.getItem('token')           
          if(token){
           fetch('http://localhost:8080/user/is-login',
           {  method: "post",
@@ -90,16 +83,10 @@ function App(props) {
                 exact
                 path="/account/forgotpassword"
                 component={ForgotPasswordView}
-              />
-              <Route exact path="/account/profile" component={MyProfileView} />
-              <Route exact path="/account/orders" component={OrdersView} />
-              <Route exact path="/account/wishlist" component={WishlistView} />
+              />              
+              <Route exact path="/account/orders" component={OrdersView} />              
 
-              <Route
-                exact
-                path="/account/notification"
-                component={NotificationView}
-              />
+              
               <Route exact path="/category/:main" component={ProductListView} />
               {/*======  */}
               <Route
@@ -112,30 +99,22 @@ function App(props) {
                 path="/category/:main/:subCatName/:type"
                 component={ProductListView}
               />
-              {/* ======= */}
+              
 
               <Route
                 exact
                 path="/product/detail/:proName"
                 component={ProductDetailView}
               />
-              <Route exact path="/star/zone" component={StarZoneView} />
+              
               <Route exact path="/cart" component={CartView} />
               <Route exact path="/checkout" component={CheckoutView} />
-              <Route
-                exact
-                path="/documentation"
-                component={DocumentationView}
-              />
+             
               <Route exact path="/contact-us" component={ContactUsView} />
-              <Route exact path="/support" component={SupportView} />
-              <Route exact path="/blog" component={BlogView} />
-              <Route exact path="/blog/detail" component={BlogDetailView} />
+              <Route exact path="/support" component={SupportView} />            
               <Route exact path="/account/login" component={LoginView} />
-              <Route exact path="/account/signup" component={SignUpView} />
-              <Route exact path="/500" component={InternalServerErrorView} />
+              <Route exact path="/account/signup" component={SignUpView} />              
               <Route exact path="/team" component={Team} />
-
               <Route exact path="/privacy" component={Privacy} />
 
               

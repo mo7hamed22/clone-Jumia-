@@ -1,6 +1,7 @@
 import React from "react";
 import {  useFormik } from "formik";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import { Navbar,Col,Row, Container, Nav, Dropdown, Button } from "react-bootstrap";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -345,35 +346,30 @@ setFeedBackAlert("error");
             </Row>
             <Row className="pt-5 mt-5">
               <Col>
-                <Button
+                <Link to='/account/signup'
                   type="button"
                   style={{
                     backgroundColor: "#f68b1e",
                     color: "#ffff",
                     fontWeight: "bold",
-                    width:'100%'
+                    width:'100%',
+                    padding: '10px',
+                    textDecoration: 'none'
                   }}
                   variant="contained"
                   
                 >
                   <Row className="w-100">
                     <Col sm={3}>
-                      <svg
-                        style={{ fill: "#fff", width: "2rem" }}
-                        viewBox="0 0 24 24"
-                        id="email"
-                      >
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                      </svg>
+                      <i className="fa fa-users"/>
                     </Col>
 
                     <Col sm={7}>
                       {" "}
-                      <div> Login With Email</div>
+                      <div> Register new account </div>
                     </Col>
                   </Row>
-                </Button>
+                </Link>
               </Col>
             </Row>
             <Row className=" mt-2">
@@ -386,7 +382,7 @@ setFeedBackAlert("error");
             setFeedBackAlert("error");
   
   */}
-               <Facebook handleClickAlert={handleClickAlert}  setFeedBackAlert={setFeedBackMsg} setFeedBackAlert={setFeedBackAlert} setFeedBackMsg={setFeedBackMsg}
+               <Facebook style={{width: '100%'}} handleClickAlert={handleClickAlert}  setFeedBackAlert={setFeedBackMsg} setFeedBackAlert={setFeedBackAlert} setFeedBackMsg={setFeedBackMsg}
                
                
                

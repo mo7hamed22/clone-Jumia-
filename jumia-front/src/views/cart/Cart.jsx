@@ -316,10 +316,9 @@ const body = (
                                 justifyContent: "space-around",
                               }}
                             >
-                              {" "}
-                              <div>Wish List </div>{" "}
-                              <div
-                                style={{ color: "orange", cursor: "pointer" }}
+                              
+                              <div className="btn btn-sm btn-danger"
+                                style={{ color: "#fff", cursor: "pointer" }}
                                 onClick={() => removeItem(index)}
                               >
                                 <DeleteOutlineIcon /> Remove
@@ -334,6 +333,7 @@ const body = (
                 <div className="col-2 d-flex justify-content-center">
                   <FormControl variant="outlined">
                     <Select
+                    style={{marginTop: '15px'}}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       value={item.selectedQuantity}
@@ -345,9 +345,10 @@ const body = (
                     </Select>
                   </FormControl>
                 </div>
+
                 <div className="col-2 d-flex justify-content-center flex-column">
-               <p> EGP{item.price - (item.price * item.discount) / 100}   <span 
-               
+               <p> EGP{item.price - (item.price * item.discount) / 100}   
+               <span               
                className='rounded p-1 bg-warning  mr-2 small'
                > {item.discount}%</span></p>
                <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> EGP {item.price}</p>
@@ -358,26 +359,22 @@ const body = (
                 >
                   EGP {subTotalPrice(index)}
                 </div>
+              
+              
               </div>
             );
           })}
         <div
-          className="row mt-5 pt-5"
+          className="row mt-5 p-3"
           style={{
             boxShadow:
               "rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
             backgroundColor: "#fff",
           }}
         >
-          <div className="col d-flex justify-content-end mb-3">
-            <div>
-              <h2 style={{ fontWeight: "bold" }}>
-                {" "}
-                Total: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
-              </h2>
-            </div>
-          </div>
+          
           <div className="row">
+          
             <div className="col d-flex justify-content-end">
              
                 <Button
@@ -413,6 +410,7 @@ const body = (
                   {" "}
                  Continue to Shipping
                 </Button>
+              
                 <Modal
         open={openModal}
         onClose={handleCloseModal}
@@ -421,7 +419,17 @@ const body = (
       >
       {body}
       </Modal>
+
             </div>
+            <div className="col d-flex justify-content-end mb-3">
+            <div>
+              <h2 style={{ fontWeight: "bold" }}>
+                {" "}
+                Total: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
+              </h2>
+            </div>
+          </div>
+          
           </div>
         </div>
       </div>

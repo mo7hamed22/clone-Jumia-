@@ -4,7 +4,7 @@ import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { connect } from "react-redux";
-
+import {formatTitle} from "../../pipes/formatTitle";
 const CardProductGrid = (props) => {
   const product = props.data;
   const [isClicked, setisClicked] = React.useState(false);
@@ -52,22 +52,16 @@ const CardProductGrid = (props) => {
             to={`/product/detail/${product.nameEn}`}
             className="text-decoration-none"
           >
-            {product.nameEn}
+            {formatTitle(product.nameEn)}
           </Link>
         </h6>
         <div className="my-2">
           <span className="font-weight-bold h5">
-            ${product.price - (product.price * product.discount) / 100}
+            EGP {(product.price - (product.price * product.discount) / 100).toFixed(2)}
           </span>
 
-          <del className="small text-muted ml-2">${product.price}</del>
-
-          <span className="ml-2">
-            <IconStarFill className="text-warning mr-1" />
-            <IconStarFill className="text-warning mr-1" />
-            <IconStarFill className="text-warning mr-1" />
-            <IconStarFill className="text-secondary mr-1" />
-          </span>
+          <del className="small text-muted ml-2">EGP{product.price}</del>
+          
         </div>
         <div className="btn-group btn-block" role="group">
           {!isClicked ? (
@@ -102,14 +96,7 @@ const CardProductGrid = (props) => {
               </button>
             </>
           )}
-
-          <button
-            type="button"
-            className="btn btn-sm btn-outline-secondary"
-            title="Add to wishlist"
-          >
-            <FontAwesomeIcon icon={faHeart} />
-          </button>
+         
         </div>
       </div>
     </div>

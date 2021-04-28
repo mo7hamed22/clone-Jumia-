@@ -46,10 +46,8 @@ const resources = {
 
       shipping: {
         title: "Your order of 100$ or more gets free standard delivery.",
-        arr: [
-          "Standard delivered 4-5 Business Days",
-          "Express delivered 2-4 Business Days",
-        ],
+        details: "Standard delivered 4-5 Business Days",
+        details1: "Express delivered 2-4 Business Days",       
         body:
           "Orders are processed and delivered Monday-Friday (excluding public holidays)",
         footer:

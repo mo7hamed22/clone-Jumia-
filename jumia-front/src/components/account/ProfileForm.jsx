@@ -13,20 +13,14 @@ const ProfileSiderBar = (props) => {
 
       <div className="card border-primary">
         <h6 className="card-header">
-          <IconPersonSquareFill /> Profile Detail
+          <IconPersonSquareFill /> Profile Details
         </h6>
 
         <div className="cardLinks">
-          <ul class="list-group">
-            <Link to="/account/profile">
-              <li class="list-group-item">My Account</li>
-            </Link>
+          <ul class="list-group">            
             <Link to="/account/orders">
               <li class="list-group-item">Orders</li>
-            </Link>
-            <Link to="/account/wishlist">
-              <li class="list-group-item">Wishlist</li>
-            </Link>
+            </Link>           
             <Link to="/support">
               <li class="list-group-item">Support</li>
             </Link>

@@ -71,7 +71,7 @@ const CacheOnDelivery = (props) => {
               localStorage.removeItem("address");
               localStorage.removeItem("cart");
               setOpen(false);
-              history.push("/account/profile");
+              history.push("/account/orders");
             }
           })
           .catch((e) => {
