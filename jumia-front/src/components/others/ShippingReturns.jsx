@@ -1,21 +1,16 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 const ShippingReturns = (props) => {
+  const { t } = useTranslation();
   return (
     <React.Fragment>
-      <p>Your order of 100$ or more gets free standard delivery.</p>
+      <p>{t("shipping.title")}</p>
       <ul>
-        <li>Standard delivered 4-5 Business Days</li>
-        <li>Express delivered 2-4 Business Days</li>
+        <li>{t("shipping.details")}</li>
+        <li>{t("shipping.details1")}</li>
       </ul>
-      <p>
-        Orders are processed and delivered Monday-Friday (excluding public
-        holidays)
-      </p>
-      <p>
-        No Returns/Replacements Allowed - Returns or replacements are not
-        accepted by seller for this product. Cancellation allowed.
-      </p>
+      <p>{t("shipping.body")}</p>
+      <p>{t("shipping.footer")}</p>
     </React.Fragment>
   );
 };

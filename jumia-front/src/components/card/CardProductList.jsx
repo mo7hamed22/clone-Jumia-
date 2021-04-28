@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { ReactComponent as IconTruckFill } from "bootstrap-icons/icons/truck.svg";
@@ -12,6 +12,23 @@ const CardProductList = (props) => {
   const handeAddToCart = (e) => {
     setisClicked(true);
   };
+
+  useEffect(() => {
+    checkCart();
+  }, []);
+
+  function checkCart() {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      cart.map((prod, index) => {
+        if (prod.nameEn === product.nameEn) {
+          setisClicked(true);
+        } else {
+          setisClicked(false);
+        }
+      });
+    }
+  }
 
   return (
     <div className="card">

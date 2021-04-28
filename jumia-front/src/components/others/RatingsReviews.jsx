@@ -35,13 +35,6 @@ const RatingsReviews = (props) => {
   }, [setReviews, props.productID]);
 
   const onSubmit = () => {
-    console.log("aut side if", {
-      productID,
-      userName,
-      rating,
-      reviewText,
-      createdAt,
-    });
     if (productID && userName && rating && reviewText && createdAt) {
       homeServices
         .addReview(productID, userName, rating, reviewText, createdAt)
@@ -49,15 +42,7 @@ const RatingsReviews = (props) => {
           console.log(data);
         });
       homeServices.getProductReview(props.productID).then((data) => {
-        console.log(data);
         setReviews(data.data);
-      });
-      console.log("in Side if", {
-        productID,
-        userName,
-        rating,
-        reviewText,
-        createdAt,
       });
     }
   };
