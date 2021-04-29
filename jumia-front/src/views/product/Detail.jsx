@@ -1,15 +1,12 @@
 import React, { useEffect, lazy } from "react";
 import { connect } from "react-redux";
-import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ReactStars from "react-rating-stars-component";
 import {
   faCartPlus,
-  faHeart,
-  faShoppingCart,
   faMinus,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
-import { data } from "../../data";
 import { homeServices } from "../../services/_home";
 import { useParams } from "react-router-dom";
 const CardFeaturedProduct = lazy(() =>
@@ -20,19 +17,17 @@ const Details = lazy(() => import("../../components/others/Details"));
 const RatingsReviews = lazy(() =>
   import("../../components/others/RatingsReviews")
 );
-const QuestionAnswer = lazy(() =>
-  import("../../components/others/QuestionAnswer")
-);
 const ShippingReturns = lazy(() =>
   import("../../components/others/ShippingReturns")
 );
-const SizeChart = lazy(() => import("../../components/others/SizeChart"));
+
 function ProductDetailView(props) {
   const [product, setProduct] = React.useState({});
   const [image, setImage] = React.useState([]);
   const [activeImg, setActiveImg] = React.useState("");
   const [products, setProducts] = React.useState([]);
   const [productType, setProductType] = React.useState("");
+  const [review, setReview] = React.useState([]);
   let { proName } = useParams();
   useEffect(() => {
     props.onLoad(proName);
@@ -47,8 +42,16 @@ function ProductDetailView(props) {
           setProducts(data.data);
         });
     });
-    console.log("props detail", props);
+    homeServices.getProductReview(product._id).then((data) => {      
+      setReview(data.data);
+    });
+    
   }, [setProduct, setProducts]);
+  const stars = {
+    size: 30,
+    value: 4,
+    edit: false,
+  };
   return (
     <div className="container-fluid mt-3">
       <div className="row">
@@ -68,22 +71,15 @@ function ProductDetailView(props) {
             </div>
             <div className="col-md-7">
               <h1 className="h5 d-inline mr-2">{product.nameEn}</h1>
-              <div className="mb-3">
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-warning mr-1" />
-                <IconStarFill className="text-secondary mr-1" />|{" "}
-                <span className="text-muted small">
-                  42 ratings and 4 reviews
-                </span>
+              <div className="mb-3 d-flex align-items-center">
+                <ReactStars {...stars} /> 
               </div>
 
               <div className="mb-3">
                 <p className="font-weight-bold h5 mr-2">
-                  ${product.price - (product.price * product.discount) / 100}
+                  EGP{product.price - (product.price * product.discount) / 100}
                 </p>
-                <del className="small text-muted mr-2">${product.price}</del>
+                <del className="small text-muted mr-2">EGP{product.price}</del>
                 <span className="rounded p-1 bg-warning  mr-2 small">
                   {product.discount}%
                 </span>
@@ -159,17 +155,7 @@ function ProductDetailView(props) {
                   >
                     Ratings & Reviews
                   </a>
-                  <a
-                    className="nav-link"
-                    id="nav-faq-tab"
-                    data-toggle="tab"
-                    href="#nav-faq"
-                    role="tab"
-                    aria-controls="nav-faq"
-                    aria-selected="false"
-                  >
-                    Questions and Answers
-                  </a>
+                  
                   <a
                     className="nav-link"
                     id="nav-ship-returns-tab"
@@ -199,17 +185,7 @@ function ProductDetailView(props) {
                   aria-labelledby="nav-randr-tab"
                 >
                   <RatingsReviews productID={product._id} />
-                </div>
-                <div
-                  className="tab-pane fade"
-                  id="nav-faq"
-                  role="tabpanel"
-                  aria-labelledby="nav-faq-tab"
-                >
-                  <dl>
-                    <QuestionAnswer />
-                  </dl>
-                </div>
+                </div>              
                 <div
                   className="tab-pane fade"
                   id="nav-ship-returns"

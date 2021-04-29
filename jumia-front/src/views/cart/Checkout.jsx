@@ -5,14 +5,50 @@ import { ReactComponent as IconCart3 } from "bootstrap-icons/icons/cart3.svg";
 import { useLocation } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import Backdrop from "@material-ui/core/Backdrop";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { makeStyles } from "@material-ui/core/styles";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CacheOnDelivery from "./cacheOnDelivery";
+import { useTranslation } from "react-i18next";
 import { connect } from "react-redux";
 
 import "./checkout.css";
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: "#fff",
+  },
+  root: {
+    width: "100%",
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    flexShrink: 0,
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+}));
 
 const CheckoutView = (props) => {
+  const {t} =useTranslation();
   const search = useLocation().search;
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const [expanded, setExpanded] = React.useState(false);
 
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
   const [fullAddress, setFullAddress] = React.useState({});
   const [countries, setCountries] = React.useState([]);
   const [token, setToken] = React.useState("");
@@ -26,6 +62,7 @@ const CheckoutView = (props) => {
   const [address, setAddress] = React.useState("");
   const [address2, setAddress2] = React.useState("");
   const [toggleClasses, setClasses] = React.useState(false);
+  const [spinner,setSpinner]=React.useState('')
   const getCountry = (e) => {
     setFullAddress({ ...fullAddress, country: e.target.value });
     fetch(`https://www.universal-tutorial.com/api/states/${e.target.value}`, {
@@ -75,7 +112,7 @@ const CheckoutView = (props) => {
       const orderToken = new URLSearchParams(search).get("token");
       const PayerID = new URLSearchParams(search).get("PayerID");
       const totalPrice = localStorage.getItem("total");
-
+      setOpen(true);
       if (totalPrice) {
         axios({
           url: "http://localhost:8080/order/set-order",
@@ -114,7 +151,11 @@ const CheckoutView = (props) => {
               })
                 .then((user) => {
                   if (user.data == "User Updated") {
-                    props.history.push("/account/profile");
+                    localStorage.removeItem("total");
+                    localStorage.removeItem("address");
+                    localStorage.removeItem("cart");
+                    setOpen(false);
+                    props.history.push("/account/orders");
                   }
                 })
                 .catch((e) => {
@@ -185,6 +226,7 @@ const CheckoutView = (props) => {
     setFullAddress({ ...fullAddress, city: e.target.value });
   };
   const payment = (e) => {
+    setSpinner('spinner-border')
     e.preventDefault();
     setItems(() => {
       return userCart.map((item) => {
@@ -232,14 +274,15 @@ const CheckoutView = (props) => {
         },
       })
         .then((data) => {
-          console.log(data.data);
+
           if (data.data.redirect) window.location.href = data.data.redirect;
+          setSpinner('')
         })
         .catch((e) => {
           console.log(e);
         });
     } else {
-      console.log("not");
+      
     }
   };
   const handleName = (e) => {
@@ -257,14 +300,16 @@ const CheckoutView = (props) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
     localStorage.setItem("address", JSON.stringify(fullAddress));
     setClasses(true);
   };
   return (
     <React.Fragment>
+      <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <div className="bg-secondary border-top p-4 text-white mb-3">
-        <h1 className="display-6">Checkout</h1>
+        <h1 className="display-6">{t("checkOut")}</h1>
       </div>
       <div className="container mb-3">
         <div className="row">
@@ -284,7 +329,7 @@ const CheckoutView = (props) => {
                 variant="contained"
               >
                 {" "}
-                Edit information
+                {t("editInfo")}
               </Button>
             </div>
             <form
@@ -293,7 +338,7 @@ const CheckoutView = (props) => {
             >
               <div className={`card mb-3`}>
                 <div className="card-header">
-                  <IconEnvelope className="i-va" /> Contact Info
+                  <IconEnvelope className="i-va" /> {t("ContactInfo")}
                 </div>
                 <div className="card-body">
                   <div className="row g-3">
@@ -301,7 +346,7 @@ const CheckoutView = (props) => {
                       <input
                         type="email"
                         className="form-control"
-                        placeholder="Email Address"
+                        placeholder={t("emailAddress")}
                         aria-label="Email Address"
                         onChange={handleEmail}
                         value={email}
@@ -311,7 +356,7 @@ const CheckoutView = (props) => {
                       <input
                         type="tel"
                         className="form-control"
-                        placeholder="Mobile no"
+                        placeholder={t("mobileNo")}
                         aria-label="Mobile no"
                       />
                     </div>
@@ -321,7 +366,7 @@ const CheckoutView = (props) => {
 
               <div className="card mb-3">
                 <div className="card-header">
-                  <IconTruck className="i-va" /> Shipping Infomation
+                  <IconTruck className="i-va" /> {t("shippingInfo")}
                 </div>
                 <div className="card-body">
                   <div className="row g-3">
@@ -329,7 +374,7 @@ const CheckoutView = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Name"
+                        placeholder={t("name")}
                         value={name}
                         required
                         onChange={handleName}
@@ -339,7 +384,7 @@ const CheckoutView = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Addresss"
+                        placeholder={t("address")}
                         required
                         onChange={handleAddress}
                       />
@@ -348,7 +393,7 @@ const CheckoutView = (props) => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Address 2 (Optional)"
+                        placeholder={t("address2")}
                         onChange={handleAddress2}
                       />
                     </div>
@@ -358,7 +403,7 @@ const CheckoutView = (props) => {
                         className="form-select"
                         required
                       >
-                        <option value>-- Country --</option>
+                        <option value>-- {t("country")} --</option>
                         {countries &&
                           countries.map((country) => {
                             return (
@@ -378,7 +423,7 @@ const CheckoutView = (props) => {
                         required
                         onChange={getCity}
                       >
-                        <option value>-- State --</option>
+                        <option value>-- {t("state")} --</option>
                         {states &&
                           states.map((state) => {
                             return (
@@ -395,7 +440,7 @@ const CheckoutView = (props) => {
                         required
                         onChange={getCityAddress}
                       >
-                        <option value>-- city --</option>
+                        <option value>-- {t("city")} --</option>
                         {city &&
                           city.map((city) => {
                             return (
@@ -420,7 +465,8 @@ const CheckoutView = (props) => {
                 variant="contained"
               >
                 {" "}
-                Continue to CheckOut
+               
+               {t("continueToCheckOut")}
               </Button>
             </form>
             <div className={`col-md-12 ${toggleClasses ? "" : "d-none"}`}>
@@ -429,45 +475,73 @@ const CheckoutView = (props) => {
               </div>
               <div className="row">
                 <div className="col-md-12">
-                  <div className="card-header">
-                    <IconTruck className="i-va mr-2" />
-                    Cache On delivery
-                  </div>
-                  <div className="card-body">
-                    <CacheOnDelivery
-                      items={userCart && userCart}
-                      address={fullAddress && fullAddress}
-                      user={props.user&&props.user}
-                    />
-                
-                  </div>
-                </div>
-                <div className="col-md-12">
-                  <div className="card-header">
-                    <IconTruck className="i-va mr-2" />
-                    PayPal
-                  </div>
-                  <div className="card-body">
-                    <form onSubmit={payment}>
-                      <Button
-                        type="submit"
-                        style={{
-                          border: "0",
-                        }}
-                        variant="outlined"
-                        className="paypal_btn"
+                  <div className={classes.root}>
+                    <Accordion
+                      expanded={expanded === "panel1"}
+                      onChange={handleChange("panel1")}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
                       >
-                        
+                        <div className={classes.heading}>Cash on Delivery</div>
+                        <div className={classes.secondaryHeading}>
+                          you will pay when delivery
+                        </div>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <div>
+                          <CacheOnDelivery
+                            items={userCart && userCart}
+                            address={fullAddress && fullAddress}
+                            user={props.user && props.user}
+                          />
+                        </div>
+                      </AccordionDetails>
+                    </Accordion>
+                    <Accordion
+                      expanded={expanded === "panel2"}
+                      onChange={handleChange("panel2")}
+                    >
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel2bh-content"
+                        id="panel2bh-header"
+                      >
+                        <div className={classes.heading}>Pay With PayPal</div>
+                        <div className={classes.secondaryHeading}>
+                          Pay with your PayPal Account
+                        </div>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <div>
+                        <div class={`${spinner} text-info`} role="status">
+  <span className="sr-only">Loading...</span>
+</div>
+                          <Button
+                            onClick={payment}
+                            type="button"
+                            style={{
+                              border: "0",
+                            }}
+                            variant="outlined"
+                            className="paypal_btn"
+                          >
+                            <img
+                              style={{ width: "30%" }}
+                              src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg"
+                              alt=""
+                            />
 
-                         <img 
-                       style={{width:'30%'}}
-                         src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg" alt=""/>
-                       
-                           
-                        <span className="paypal_btn_content">Buy Now</span>
-                      </Button>
-                    </form>
+                            <span className="paypal_btn_content">Buy Now</span>
+    
+                          </Button>
+                        </div>
+                      </AccordionDetails>
+                    </Accordion>
                   </div>
+        
                 </div>
               </div>
             </div>
@@ -475,7 +549,7 @@ const CheckoutView = (props) => {
           <div className="col-md-4">
             <div className="card">
               <div className="card-header">
-                <IconCart3 className="i-va" /> Cart{" "}
+                <IconCart3 className="i-va" /> {t("cart")}{" "}
                 <span className="badge bg-secondary float-right">
                   {props.items}
                 </span>
@@ -496,6 +570,7 @@ const CheckoutView = (props) => {
                               src={item.image}
                               alt="item"
                             />
+                            <div>{t("quantity")}:{item.selectedQuantity}</div>
                           </div>
                           <small className="text-muted"></small>
                         </div>
@@ -507,7 +582,7 @@ const CheckoutView = (props) => {
                   })}
 
                 <li className="list-group-item d-flex justify-content-between">
-                  <span>Total (USD)</span>
+                  <span>{t("total")} (EGP)</span>
                   <strong>
                     {userCart &&
                       userCart.reduce((sum, next) => {
@@ -524,38 +599,14 @@ const CheckoutView = (props) => {
           </div>
         </div>
       </div>
-      {/* <PayPalButton
-        amount=''
-        // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-        onSuccess={(details, data) => {
-          alert("Transaction completed by " );
-
-          // OPTIONAL: Call your server to save the transaction
-          // return fetch("/paypal-transaction-complete", {
-          //   method: "post",
-          //   body: JSON.stringify({
-          //     orderID: data.orderID
-          //   })
-          // });
-        }}
-      /> */}
     </React.Fragment>
   );
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    items: state.cartReducer.items,
-    user: state.cartReducer.userInfo,
+    items: state.productReducer.items,
+    user: state.productReducer.userInfo,
   };
 };
-// const mapDispatchToProps = (dispatch, ownProps) => {
-//   return {
-//     setOrders: (cart) => {
-//       dispatch(makeOrder(cart))
-//     },
-//     doPayment:()=>{
-//       dispatch(beforePayment)
-//     }
-//   }
-// }
+
 export default connect(mapStateToProps)(CheckoutView);

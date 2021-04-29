@@ -1,6 +1,7 @@
 import React from "react";
 import {  useFormik } from "formik";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
 import { Navbar,Col,Row, Container, Nav, Dropdown, Button } from "react-bootstrap";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -11,10 +12,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import axios from "axios";
-// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { useTranslation } from "react-i18next";
 import Facebook from './facebook'
 import FacebookLogin from 'react-facebook-login';
-
 import "./Login.css";
 function Alert(propsAlert) {
   return <MuiAlert elevation={6} variant="filled" {...propsAlert} />;
@@ -29,7 +29,7 @@ const validationSchema = yup.object({
 });
 
 export default function Login(props) {
- 
+  const { t } = useTranslation();
   const useStyles = makeStyles((theme) => ({
     backdrop: {
       zIndex: theme.zIndex.drawer + 1,
@@ -196,7 +196,7 @@ setFeedBackAlert("error");
           <Col md={6} className="pl-5">
             <Row className="d-flex justify-content-center align-items-center ">
               <span style={{ color: "#f68b1e", fontWeight: "bolder" }}>
-                Login
+                {t("login")}
               </span>
             </Row>
             <Row>
@@ -207,7 +207,7 @@ setFeedBackAlert("error");
                       style={{width:'100%'}}
                       id="email"
                       name="email"
-                      label="Email"
+                      label={t("emailAddress")}
                       value={formik.values.email}
                       onChange={formik.handleChange}
                       error={
@@ -221,7 +221,7 @@ setFeedBackAlert("error");
                        style={{width:'100%'}}
                       id="password"
                       name="password"
-                      label="password"
+                      label={t("password")}
                       type="password"
                       value={formik.values.password}
                       onChange={formik.handleChange}
@@ -244,7 +244,7 @@ setFeedBackAlert("error");
                           style={{ color: "#f68b1e" }}
                         />
                       }
-                      label="Remember Me"
+                      label={t("rememberMe")}
                     />
                   </Col>
                 </Row>
@@ -277,7 +277,7 @@ setFeedBackAlert("error");
                         </Col>
                         <Col className="pt-1">
                           {" "}
-                          <span> Login</span>
+                          <span> {t("login")}</span>
                         </Col>
                       </Row>
                     </Button>
@@ -310,6 +310,7 @@ setFeedBackAlert("error");
     autoLoad={false}
     fields="name,email,picture"
     content
+    textButton={t("loginWithFacebook")}
     onClick={componentClicked}
     callback={responseFacebook} />
                  
@@ -331,65 +332,48 @@ setFeedBackAlert("error");
                     marginLeft: "30px",
                   }}
                 >
-                  Create your Jumia account
+                 {t("createJumiaAccount")}
                 </h4>
               </Col>
               <Col md={9} className="pt-2 mt-5 ">
                 {" "}
                 <p style={{ fontSize: "1rem" }}>
-                  Create your Jumia customer account in just a few clicks! You
-                  can register either using your e-mail address or through your
-                  Facebook account.
+                  {t("loginparagraphe")}
                 </p>
               </Col>
             </Row>
             <Row className="pt-5 mt-5">
               <Col>
-                <Button
+                <Link to='/account/signup'
                   type="button"
                   style={{
                     backgroundColor: "#f68b1e",
                     color: "#ffff",
                     fontWeight: "bold",
-                    width:'100%'
+                    width:'100%',
+                    padding: '10px',
+                    textDecoration: 'none'
                   }}
                   variant="contained"
                   
                 >
                   <Row className="w-100">
                     <Col sm={3}>
-                      <svg
-                        style={{ fill: "#fff", width: "2rem" }}
-                        viewBox="0 0 24 24"
-                        id="email"
-                      >
-                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path>
-                        <path d="M0 0h24v24H0z" fill="none"></path>
-                      </svg>
+                      <i className="fa fa-users"/>
                     </Col>
 
                     <Col sm={7}>
                       {" "}
-                      <div> Login With Email</div>
+                      <div> {t("registerWithNewAccount")} </div>
                     </Col>
                   </Row>
-                </Button>
+                </Link>
               </Col>
             </Row>
             <Row className=" mt-2">
               <Col>
-              {/* handleClickAlert();
-  setFeedBackMsg("Login Successfully");
-  setFeedBackAlert("success"); 
-    handleClickAlert();
-            setFeedBackMsg("invalid Username or password");
-            setFeedBackAlert("error");
-  
-  */}
-               <Facebook handleClickAlert={handleClickAlert}  setFeedBackAlert={setFeedBackMsg} setFeedBackAlert={setFeedBackAlert} setFeedBackMsg={setFeedBackMsg}
-               
-               
-               
+         
+               <Facebook style={{width: '100%'}} handleClickAlert={handleClickAlert}  setFeedBackAlert={setFeedBackMsg} setFeedBackAlert={setFeedBackAlert} setFeedBackMsg={setFeedBackMsg}
                />
 
               </Col>

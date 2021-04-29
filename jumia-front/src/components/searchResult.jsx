@@ -6,18 +6,9 @@ import Error from "../Error";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import ProductDetailView from "../views/product/Detail";
+
 
 function Heading({ searchResult, term }) {
-  useEffect(
-    () => {
-      console.log("searchHHH", searchResult);
-      console.log("input", term);
-    },
-    (err) => {
-      console.log(err);
-    }
-  );
 
   return (
     <>
@@ -42,7 +33,9 @@ function Heading({ searchResult, term }) {
                     </div>
                   </Link>
                   <h5 className="card-title title ">
+                  <Link style={{textDecoration:'none'}} to={`/product/detail/${item.nameEn}`}>
                     {formatTitle(item.nameEn)}
+                    </Link>
                   </h5>
                   <h6 className=".product_price">
                     {" "}
@@ -59,8 +52,8 @@ function Heading({ searchResult, term }) {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    searchResult: state.cartReducer.searchResult,
-    term: state.cartReducer.term,
+    searchResult: state.productReducer.searchResult,
+    term: state.productReducer.term,
   };
 };
 

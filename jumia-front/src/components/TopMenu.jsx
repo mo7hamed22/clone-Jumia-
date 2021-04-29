@@ -2,9 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { homeServices } from "../services/_home";
+import { useTranslation } from "react-i18next";
 import './topMenu.css';
 
 const TopMenu = (props) => {
+   const { t } = useTranslation();
  const [products, setProducts] = React.useState([]);
   // Get All Products
   useEffect(() => {
@@ -18,9 +20,7 @@ const TopMenu = (props) => {
     );
   }, []);
 
-  function setProductCat(catNAme, indx) {
-    console.log("ProductsCategory", products);
-    console.log("catName", catNAme.innerText);
+  function setProductCat(catNAme, indx) { 
     products.filter((product) => {
       return;
     });
@@ -35,7 +35,7 @@ const TopMenu = (props) => {
             className={`${item.subCategory ? "contain-submenu" : ""}`}
           >             
             <Link to={`/category/${item.nameEn}`}>
-                      {item.nameEn}
+                      {t(item.nameEn)}
                     </Link>
                     <svg dangerouslySetInnerHTML={{ __html: item.icon }} />
             <ul className="submenu-1">

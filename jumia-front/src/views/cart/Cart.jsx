@@ -1,11 +1,9 @@
 import React, { lazy } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import FormControl from "@material-ui/core/FormControl";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
@@ -13,17 +11,8 @@ import { connect } from "react-redux";
 import{setItems} from '../../Store/actions';
 import axios from 'axios';
 import Modal from '@material-ui/core/Modal';
+import { useTranslation } from "react-i18next";
 
-const CouponApplyForm = lazy(() =>
-  import("../../components/others/CouponApplyForm")
-);
-
-// discount: 6
-// image: "https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/29/870951/2.jpg?5867"
-// nameEn: "Grouhy GLD43SA - 43-inch Full HD LED Smart TV"
-// price: 4599
-// prodQuantity: 6
-// selectedQuantity: 1
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
@@ -60,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cart = (props) => {
+  const { t } = useTranslation();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
@@ -151,8 +141,6 @@ const Cart = (props) => {
 const toCheckOut=()=>{
 if(props.userLogin){
   const token= localStorage.getItem('token')
- console.log(token)
- console.log(cart)
 if(token){
   axios({
     method: "put",
@@ -174,11 +162,11 @@ handleOpenModal()
 }
 const body = (
   <div style={modalStyle} className={classes.paper}>
-    <h2 id="simple-modal-title">Login To Continue</h2>
+    <h2 id="simple-modal-title">{t("LoginToContinue")}</h2>
     <p id="simple-modal-description">
-   Please You need Login To Continue to checkout 
+   {t("loginCredential")}
 
-   <Link to='/account/login' style={{textDecoration:'none',color:'orangered',marginLeft:'10px'}}>Login</Link>
+   <Link to='/account/login' style={{textDecoration:'none',color:'orangered',marginLeft:'10px'}}>{t("login")}</Link>
     </p>
   
   </div>
@@ -216,7 +204,7 @@ const body = (
   return (
     <>
   
-    {props.totalItems == 0? <div className='container'>
+    {props.totalItems == 0 ||!cart? <div className='container'>
 
 <div className="row">
   <div className="col-12 d-flex justify-content-center">
@@ -226,7 +214,7 @@ const body = (
 </div>
 <div className="row p-3">
   <div className="col-12 justify-content-center d-flex text-muted">
-    <h2>your car it empty</h2>
+    <h2>{t("emptyCart")}</h2>
   </div>
   
 </div>
@@ -246,7 +234,7 @@ const body = (
                onClick={()=>props.history.push('/')}
                 >
                   {" "}
-                 Continue to Shipping
+                {t("ContinueToShopping")}
                 </Button>
     </div>
   </div>
@@ -266,7 +254,7 @@ const body = (
       <div className="container ">
         <div className="row">
           <div className="col">
-            <h3>Cart( {props.totalItems} Items) </h3>
+            <h3>{t("cart")} : {props.totalItems} {t("item")} </h3>
           </div>
         </div>
         <div
@@ -277,10 +265,10 @@ const body = (
             color: "#565450db",
           }}
         >
-          <div className="col-6  ">Item</div>
-          <div className="col-2 d-flex justify-content-center">Quantity</div>
-          <div className="col-2 d-flex justify-content-center">price</div>
-          <div className="col-2 d-flex justify-content-center">SubTotal</div>
+          <div className="col-6  ">{t("items")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("quantity")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("price")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("SubTotal")}</div>
         </div>
         {cart &&
           cart.map((item, index) => {
@@ -330,13 +318,12 @@ const body = (
                                 justifyContent: "space-around",
                               }}
                             >
-                              {" "}
-                              <div>Wish List </div>{" "}
-                              <div
-                                style={{ color: "orange", cursor: "pointer" }}
+                              
+                              <div className="btn btn-sm btn-danger"
+                                style={{ color: "#fff", cursor: "pointer" }}
                                 onClick={() => removeItem(index)}
                               >
-                                <DeleteOutlineIcon /> Remove
+                                <DeleteOutlineIcon /> {t('remove')}
                               </div>
                             </div>
                           </div>
@@ -348,6 +335,7 @@ const body = (
                 <div className="col-2 d-flex justify-content-center">
                   <FormControl variant="outlined">
                     <Select
+                    style={{marginTop: '15px'}}
                       labelId="demo-simple-select-outlined-label"
                       id="demo-simple-select-outlined"
                       value={item.selectedQuantity}
@@ -359,39 +347,36 @@ const body = (
                     </Select>
                   </FormControl>
                 </div>
+
                 <div className="col-2 d-flex justify-content-center flex-column">
-               <p> EGP{item.price - (item.price * item.discount) / 100}   <span 
-               
+               <p> {t("currency")}{item.price - (item.price * item.discount) / 100}   
+               <span               
                className='rounded p-1 bg-warning  mr-2 small'
                > {item.discount}%</span></p>
-               <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> EGP {item.price}</p>
+               <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> {t("currency")} {item.price}</p>
                 </div>
                 <div
                   className="col-2 d-flex justify-content-center"
                   style={{ color: "orange", fontWeight: "bolder" }}
                 >
-                  EGP {subTotalPrice(index)}
+                  {t("currency")} {subTotalPrice(index)}
                 </div>
+              
+              
               </div>
             );
           })}
         <div
-          className="row mt-5 pt-5"
+          className="row mt-5 p-3"
           style={{
             boxShadow:
               "rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px",
             backgroundColor: "#fff",
           }}
         >
-          <div className="col d-flex justify-content-end mb-3">
-            <div>
-              <h2 style={{ fontWeight: "bold" }}>
-                {" "}
-                Total: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
-              </h2>
-            </div>
-          </div>
+          
           <div className="row">
+          
             <div className="col d-flex justify-content-end">
              
                 <Button
@@ -408,7 +393,7 @@ const body = (
                   
                 >
                   {" "}
-                  Continue to CheckOut
+                  {t("ContinueToCheckOut")}
                 </Button>
               
               
@@ -425,8 +410,9 @@ const body = (
                onClick={()=>props.history.push('/')}
                 >
                   {" "}
-                 Continue to Shipping
+                 {t("ContinueToShopping")}
                 </Button>
+              
                 <Modal
         open={openModal}
         onClose={handleCloseModal}
@@ -435,7 +421,17 @@ const body = (
       >
       {body}
       </Modal>
+
             </div>
+            <div className="col d-flex justify-content-end mb-3">
+            <div>
+              <h2 style={{ fontWeight: "bold" }}>
+                {" "}
+                {t("total")}: {t("currency")} <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
+              </h2>
+            </div>
+          </div>
+          
           </div>
         </div>
       </div>
@@ -452,8 +448,8 @@ const mapDispatchToProps = (dispatch) => {
 };
 const mapStateToProps = (state) => {
   return {
-    totalItems: state.cartReducer.items,
-    userLogin:state.cartReducer.isOnline
+    totalItems: state.productReducer.items,
+    userLogin:state.productReducer.isOnline
   };
 };
 

@@ -1,14 +1,11 @@
 import React, { lazy, Component } from "react";
 import { homeServices } from "../../services/_home";
 import { Link } from "react-router-dom";
-import { data } from "../../data"; // old data
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 const Paging = lazy(() => import("../../components/Paging"));
 const FilterCategory = lazy(() => import("../../components/filter/Category"));
-const FilterPrice = lazy(() => import("../../components/filter/Price"));
-const FilterStar = lazy(() => import("../../components/filter/Star"));
 const CardServices = lazy(() => import("../../components/card/CardServices"));
 const CardProductGrid = lazy(() =>
   import("../../components/card/CardProductGrid")
@@ -20,7 +17,6 @@ const CardProductList = lazy(() =>
 class ProductListView extends Component {
   constructor(props) {
     super(props);
-    console.log("subCatNameH", this.props.match.params.subCatName);
   }
   state = {
     main: "",
@@ -52,8 +48,6 @@ class ProductListView extends Component {
   };
 
   getProducts = () => {
-    console.log("category-mainCat", this.state.mainCat);
-
     let products = this.state.products;
     products = products.concat(products);
     products = products.concat(products);
@@ -66,12 +60,13 @@ class ProductListView extends Component {
   // ====
   componentDidMount() {
     let _params = this.props.match.params;
-    console.log("sd", _params);
+
     if (_params.type) {
-      homeServices.getProductsByType(this.props.match.params.type).then(
+      homeServices.getProductsByType(_params.type).then(
         (data) => {
           this.setState({
             products: data.data,
+            currentProducts: data.data,
           });
         },
         (err) => {
@@ -79,10 +74,11 @@ class ProductListView extends Component {
         }
       );
     } else if (_params.subCatName) {
-      homeServices.getProductsBySubCat(this.props.match.params.subCatName).then(
+      homeServices.getProductsBySubCat(_params.subCatName).then(
         (data) => {
           this.setState({
             products: data.data,
+            currentProducts: data.data,
           });
         },
         (err) => {
@@ -90,14 +86,12 @@ class ProductListView extends Component {
         }
       );
     } else {
-      homeServices.getProductsByMainCat(this.props.match.params.main).then(
+      homeServices.getProductsByMainCat(_params.main).then(
         (data) => {
-          console.log("MainProductmain", data.data);
           this.setState({
             products: data.data,
             currentProducts: data.data,
           });
-          console.log("MainProducts", this.state.products);
         },
         (err) => {
           console.log(err);
@@ -144,8 +138,6 @@ class ProductListView extends Component {
         <div className="container-fluid mb-3">
           <div className="row">
             <div className="col-md-3">
-              <FilterPrice />
-              <FilterStar />
               <FilterCategory />
               <CardServices />
             </div>
@@ -153,21 +145,13 @@ class ProductListView extends Component {
               <div className="row">
                 <div className="col-md-8">
                   <span className="align-middle font-weight-bold">
-                    {this.state.totalItems} results for{" "}
-                    <span className="text-warning">"t-shirts"</span>
+                    {this.state.products.length} results for{" "}
+                    <span className="text-warning">
+                      "{this.state.main} {this.state.sub} {this.state.type}"
+                    </span>
                   </span>
                 </div>
                 <div className="col-md-4">
-                  <select
-                    className="form-select mw-180 float-left"
-                    aria-label="Default select"
-                  >
-                    <option value={1}>Most Popular</option>
-                    <option value={2}>Latest items</option>
-                    <option value={3}>Trending</option>
-                    <option value={4}>Price low to high</option>
-                    <option value={4}>Price high to low</option>
-                  </select>
                   <div className="btn-group ml-3" role="group">
                     <button
                       aria-label="Grid"

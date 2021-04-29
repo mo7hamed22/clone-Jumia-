@@ -61,7 +61,7 @@ const Header = (props) => {
                   aria-label="Profile"
                 >
                   <i className="fa fa-user mr-1"></i>
-                  {props.user.name ? props.user.name : " login "}
+                  {props.user.name ? props.user.name :`${t("login")}`}
 
                   {/* {props.userLogin&&props.userLogin } */}
                   <i className="fa fa-arrow-down ml-1"></i>
@@ -71,19 +71,19 @@ const Header = (props) => {
                     style={{ display: "none" }}
                     className={props.user.name ? "d-block" : ""}
                   >
-                    <Link className="dropdown-item" to="/account/profile">
+                    <Link className="dropdown-item" to="/account/orders">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
                   </li>
                   <div className={props.user.name ? "d-none" : ""}>
                     <li>
                       <Link className="dropdown-item" to="/account/login">
-                        Login <i className="fa fa-sign-in-alt" />
+                        {t("login")} <i className="fa fa-sign-in-alt" />
                       </Link>
                     </li>
                     <li>
                       <Link className="dropdown-item" to="/account/signup">
-                        Create Account <i className="fa fa-plus" />
+                       {t("createAccount")} <i className="fa fa-plus" />
                       </Link>
                     </li>
                   </div>
@@ -126,8 +126,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.cartReducer.userInfo,
-    totalItem: state.cartReducer.items,
+    user: state.productReducer.userInfo,
+    totalItem: state.productReducer.items,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

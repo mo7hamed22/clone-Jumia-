@@ -8,7 +8,7 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 // import rootReducer from "./reducers";
-import reducer from "./Store/reducer";
+
 import { loadState, saveState } from "./localStorage";
 import rootReducer from "./reducers";
 // const persistedState = loadState();

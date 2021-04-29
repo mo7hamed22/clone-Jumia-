@@ -2,12 +2,13 @@ import React from "react";
 import { ReactComponent as IconTruckFill } from "bootstrap-icons/icons/truck.svg";
 import { ReactComponent as IconLifePreserverFill } from "bootstrap-icons/icons/life-preserver.svg";
 import { ReactComponent as IconArrowCounterclockwiseFill } from "bootstrap-icons/icons/arrow-counterclockwise.svg";
-
+import { useTranslation } from "react-i18next";
 const CardServices = (props) => {
+  const { t } = useTranslation();
   return (
     <div className="card">
       <div className="card-header font-weight-bold text-uppercase">
-        Custom Service
+        {t("CustomService")}
       </div>
       <div className="card-body">
         <div className="row border-bottom">
@@ -16,8 +17,8 @@ const CardServices = (props) => {
           </div>
           <div className="col">
             <div className="ml-3">
-              <span className="font-weight-bold">Free Delivery</span>
-              <p className="text-muted small">From $59.89</p>
+              <span className="font-weight-bold">{t("Delivery.title")}</span>
+              <p className="text-muted small">{t("Delivery.body")}</p>
             </div>
           </div>
         </div>
@@ -27,8 +28,8 @@ const CardServices = (props) => {
           </div>
           <div className="col">
             <div className="ml-3">
-              <span className="font-weight-bold">Support 24/7</span>
-              <p className="text-muted small m-0">Online 24 hours</p>
+              <span className="font-weight-bold">{t("Support.title")}</span>
+              <p className="text-muted small m-0">{t("Support.body")}</p>
             </div>
           </div>
         </div>
@@ -38,8 +39,8 @@ const CardServices = (props) => {
           </div>
           <div className="col">
             <div className="ml-3">
-              <span className="font-weight-bold">Free return</span>
-              <p className="text-muted small m-0">365 a day</p>
+              <span className="font-weight-bold">{t("return.title")}</span>
+              <p className="text-muted small m-0">{t("return.body")}</p>
             </div>
           </div>
         </div>

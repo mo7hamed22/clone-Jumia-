@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ReactComponent as IconStarFill } from "bootstrap-icons/icons/star-fill.svg";
 import { ReactComponent as IconTruckFill } from "bootstrap-icons/icons/truck.svg";
@@ -12,6 +12,23 @@ const CardProductList = (props) => {
   const handeAddToCart = (e) => {
     setisClicked(true);
   };
+
+  useEffect(() => {
+    checkCart();
+  }, []);
+
+  function checkCart() {
+    const cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart) {
+      cart.map((prod, index) => {
+        if (prod.nameEn === product.nameEn) {
+          setisClicked(true);
+        } else {
+          setisClicked(false);
+        }
+      });
+    }
+  }
 
   return (
     <div className="card">
@@ -33,25 +50,6 @@ const CardProductList = (props) => {
             <span className="badge bg-success mr-2">{product.brand}</span>
 
             {product.isHot && <span className="badge bg-danger mr-2">Hot</span>}
-
-            <div>
-              <IconStarFill className="text-warning mr-1" />
-              <IconStarFill className="text-warning mr-1" />
-              <IconStarFill className="text-warning mr-1" />
-              <IconStarFill className="text-warning mr-1" />
-              <IconStarFill className="text-secondary mr-1" />
-              {/* {product.star > 0 &&
-                Array.from({ length: 5 }, (_, key) => {
-                  if (key <= product.star)
-                    return (
-                      <IconStarFill className="text-warning mr-1" key={key} />
-                    );
-                  else
-                    return (
-                      <IconStarFill className="text-secondary mr-1" key={key} />
-                    );
-                })} */}
-            </div>
 
             <p className="small mt-2">{product.description.substr(0, 150)}</p>
           </div>
@@ -113,14 +111,7 @@ const CardProductList = (props) => {
                   </button>
                 </>
               )}
-
-              <button
-                type="button"
-                className="btn btn-sm btn-outline-secondary"
-                title="Add to wishlist"
-              >
-                <FontAwesomeIcon icon={faHeart} />
-              </button>
+             
             </div>
           </div>
         </div>
