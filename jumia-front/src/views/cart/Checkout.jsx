@@ -517,7 +517,7 @@ const CheckoutView = (props) => {
                       <AccordionDetails>
                         <div>
                         <div class={`${spinner} text-info`} role="status">
-  <span class="sr-only">Loading...</span>
+  <span className="sr-only">Loading...</span>
 </div>
                           <Button
                             onClick={payment}

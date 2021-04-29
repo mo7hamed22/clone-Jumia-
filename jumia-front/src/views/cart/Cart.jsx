@@ -349,7 +349,7 @@ const body = (
                 </div>
 
                 <div className="col-2 d-flex justify-content-center flex-column">
-               <p> EGP{item.price - (item.price * item.discount) / 100}   
+               <p> {t("currency")}{item.price - (item.price * item.discount) / 100}   
                <span               
                className='rounded p-1 bg-warning  mr-2 small'
                > {item.discount}%</span></p>
@@ -427,7 +427,7 @@ const body = (
             <div>
               <h2 style={{ fontWeight: "bold" }}>
                 {" "}
-                {t("total")}: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
+                {t("total")}: {t("currency")} <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
               </h2>
             </div>
           </div>

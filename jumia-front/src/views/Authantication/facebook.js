@@ -1,13 +1,14 @@
 import React from 'react'
 import axios from 'axios'
 import FacebookLogin from 'react-facebook-login';
-
+import { useTranslation } from "react-i18next";
 export default function Facebook(props){
 
 const componentClicked=()=>{
     console.log('clicked')
 }
 const responseFacebook=(res)=>{
+ 
 console.log(res)
 axios.post("http://localhost:8080/auth/signup",{
         name:res.name,
@@ -38,25 +39,15 @@ axios.post("http://localhost:8080/auth/signup",{
       })
       
 
-
-// fetch(,{
-//     method:'POST',
-//  body:{
-//      withFacebook:'true'
-//  }
-// }).then(data=>{
-//     data.json().then(data=>{
-//         console.log(data)
-//     })
-// })
 }
+const { t } = useTranslation();
     return(
         <>
  <FacebookLogin
  size='medium'
     appId="738272283510004"
     autoLoad={false}
-    textButton='Register With Facebook'
+    textButton={t("registerWithFacebook")}
     fields="name,email,picture"
     onClick={componentClicked}
     callback={responseFacebook} />,

@@ -61,7 +61,7 @@ const Header = (props) => {
                   aria-label="Profile"
                 >
                   <i className="fa fa-user mr-1"></i>
-                  {props.user.name ? props.user.name : " login "}
+                  {props.user.name ? props.user.name :`${t("login")}`}
 
                   {/* {props.userLogin&&props.userLogin } */}
                   <i className="fa fa-arrow-down ml-1"></i>
@@ -78,12 +78,12 @@ const Header = (props) => {
                   <div className={props.user.name ? "d-none" : ""}>
                     <li>
                       <Link className="dropdown-item" to="/account/login">
-                        Login <i className="fa fa-sign-in-alt" />
+                        {t("login")} <i className="fa fa-sign-in-alt" />
                       </Link>
                     </li>
                     <li>
                       <Link className="dropdown-item" to="/account/signup">
-                        Create Account <i className="fa fa-plus" />
+                       {t("createAccount")} <i className="fa fa-plus" />
                       </Link>
                     </li>
                   </div>
