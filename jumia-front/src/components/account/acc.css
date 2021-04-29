@@ -1,0 +1,11 @@
+.cardLinks li:hover{
+    background: #eee;
+} 
+
+.cardLinks li{
+    padding-top: 1em;
+}
+.cardLinks a{
+    color: #000;
+    text-decoration: none;
+}

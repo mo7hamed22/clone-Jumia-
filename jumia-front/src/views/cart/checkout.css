@@ -1,0 +1,86 @@
+.paypal_btn{
+  
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: 0;
+    border: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    text-transform: none;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    cursor: pointer;
+    z-index: 0;
+    max-width: 230px !important;
+    width: auto;
+    box-sizing: border-box;
+    padding-bottom: 2px;
+    }
+    .paypal_btn:hover{ background: #e05c04; }
+    .paypal_btn_logo{
+     
+        white-space: nowrap;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        text-transform: none;
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        cursor: pointer;
+        border: 1px solid #aaa;
+        border-right: 0;
+        border-radius: 3px 0 0 3px;
+        vertical-align: top;
+        box-sizing: content-box !important;
+        display: none;
+        width: 30px;
+        height: 30px;
+    }
+    .paypal_btn_content{
+       
+        white-space: nowrap;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+        text-transform: none;
+        font-weight: 500;
+        -webkit-font-smoothing: antialiased;
+        cursor: pointer;
+        box-sizing: content-box !important;
+        min-width: 71px !important;
+        padding-top: 0;
+        padding-bottom: 0;
+        position: relative;
+        background: #ffc439;
+        color: #000;
+        text-shadow: 0px 1px 0 #ffdc88;
+        height: 30px !important;
+        max-height: 30px !important;
+        padding-left: 6px;
+        padding-right: 6px;
+        margin-left: 2px;
+        margin-top: 2px;
+        margin-right: 2px;
+        width: 210px;
+        display: inline-block;
+        overflow: visible;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+        border-top-right-radius: 15px;
+        border-bottom-right-radius: 15px;
+        border: none;
+        font-size: 12px !important;
+        line-height: 34px !important;
+        vertical-align: middle;
+    }
+    .paypal_btn_content::before{
+        content: "";
+        padding: 2px;
+        top: -2px;
+        left: -2px;
+        position: absolute;
+        z-index: -1;
+        width: 100%;
+        height: 100%;
+        border-top-left-radius: 17px;
+        border-bottom-left-radius: 17px;
+        border-top-right-radius: 17px;
+        border-bottom-right-radius: 17px;
+    }

@@ -1,8 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Footer.css";
+import { useTranslation } from "react-i18next";
+
+
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
     <>
       <div className="bg-darker">
@@ -28,12 +33,11 @@ export default function Footer() {
             </div>
             <div className="col-md-6 col-sm-6">
               <h6>
-                <b>NEW TO JUMIA?</b>
+                <b>{t("newToJuima")}</b>
               </h6>
               <p>
                 <small>
-                  Subscribe to our newsletter to get updates on our latest
-                  offers!
+                  {t('subcsribeMesg')}
                 </small>
               </p>
               <form className="form-inline my-lg-0">
@@ -49,10 +53,10 @@ export default function Footer() {
 
             <div className="col-md-4 col-sm-6">
               <h6>
-                <b>DOWNLOAD JUMIA FREE APP</b>
+                <b>{t('downloadJumi')}</b>
               </h6>
               <p>
-                <small>Get access to exclusive offers!</small>
+                <small>{t('getAccess')}</small>
               </p>
 
               <a target="_blank" href="https://apps.apple.com/app/id925015459?mt=8" className="btn btn-outline-light mr-2">
@@ -70,62 +74,53 @@ export default function Footer() {
           <div className="row py-3">
             <div className="col-md-3 col-sm-6">
               <h6>
-                <b> LET US HELP YOU</b>
+                <b> {t('letUsHelpU')} </b>
               </h6>
               <ul className="p-0">
                 <li className="f-li"></li>
-                <li className="f-li"><Link to="/contact-us">Help Ceneter</Link></li>                
-                <li className="f-li"><Link to="/contact-us">Contact us</Link></li>
-                <li className="f-li"><Link to="/privacy">Privacy</Link></li>
-                <li className="f-li"><Link to="/shp-delivery-policy">Shipping & Delivery Policy</Link></li>                
-                <li className="f-li"><Link to="/shp-delivery-policy">Shipping & Delivery Policy</Link></li>                
-                <li className="f-li"><Link to="/terms-condtions">Terms and Conditions</Link></li>                
-                <li className="f-li"><a href="https://docs.google.com/forms/d/1poBfqrj0bXCtkvJIm_24mLCTdvKJNebDB7-ATHZwRW4/viewform?edit_requested=true">Report a product</a></li>                                               
+                <li className="f-li"><Link to="/contact-us">{t('helpCenter')}</Link></li>                
+                <li className="f-li"><Link to="/contact-us">{t('contactUs')}</Link></li>
+                <li className="f-li"><Link to="/privacy">{t('privacy')}</Link></li>
+                <li className="f-li"><Link to="/shp-delivery-policy">{t('shipDP')}</Link></li>                                
+                <li className="f-li"><Link to="/terms-condtions">{t('termsAndCondtion')}</Link></li>                
+                <li className="f-li"><a href="https://docs.google.com/forms/d/1poBfqrj0bXCtkvJIm_24mLCTdvKJNebDB7-ATHZwRW4/viewform?edit_requested=true">{t('reportAPro')}</a></li>                                               
               </ul>
             </div>
 
             <div className="col-md-3 col-sm-6">
               <h6>
-                <b> ABOUT JUMIA EGYPT</b>
+                <b> {t('aboutJumiaEgypt')} </b>
               </h6>
               <ul className="p-0">
                 <li className="f-li"> </li>
-                <li className="f-li"> How to pay on Jumia?</li>
-                <li className="f-li"> Delivery timelines</li>
-                <li className="f-li"> Return Policy</li>
-                <li className="f-li"> Help Center</li>
-                <li className="f-li"> Contact us</li>
-                <li className="f-li"> How to buy on Jumia?</li>
-                <li className="f-li"> Corporate Services</li>
+                <li className="f-li">{t('howToPy')} </li>                
+                <li className="f-li"> {t('returnPolicy')}</li>           
               </ul>
             </div>
 
             <div className="col-md-3 col-sm-6">
               <h6>
-                <b> MAKE MONEY WITH JUMIA</b>
+                <b> {t('makeMoeny')} </b>
               </h6>
               <ul className="p-0">
-                <li className="f-li">Sell on Jumia</li>
-                <li className="f-li"> Become a Logistics Service Partner</li>
-                <li className="f-li">Become a Sales Consultant (J-Force )</li>
+                <li className="f-li">{t('sellOnJumia')}</li>                
               </ul>
             </div>
 
             <div className="col-md-3 col-sm-6">
               <h6>
-                <b> JUMIA INTERNATIONAL</b>
+                <b> {t('jumiaInterNational') }</b>
               </h6>
-              <ul className="p-0">
-                <li className="f-li"> </li>
-                <li className="f-li"> Algeria</li>
-                <li className="f-li"> Ghana</li>
-                <li className="f-li"> Kenya</li>
-                <li className="f-li"> Morocco</li>
+              <ul className="p-0">                
+                <li className="f-li"> {t('Algeria')}</li>
+                <li className="f-li"> {t('Ghana')}</li>
+                <li className="f-li"> {t('Kenya')}</li>
+                <li className="f-li"> {t('Morocco')}</li>
               </ul>
             </div>
             <div className="col-md-3 col-sm-6">
               <h6>
-                <b>JOIN US ON</b>
+                <b>{t('joinUs')}</b>
               </h6>
               <p>
                 <span className=" text-white rounded-circle px-2 py-1">

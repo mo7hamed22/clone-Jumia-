@@ -2,6 +2,7 @@ import React, { lazy, Component } from "react";
 import { homeServices } from "../../services/_home";
 import { Link } from "react-router-dom";
 import { data } from "../../data"; // old data
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTh, faBars } from "@fortawesome/free-solid-svg-icons";
 const Paging = lazy(() => import("../../components/Paging"));
@@ -22,7 +23,7 @@ class ProductListView extends Component {
     console.log("subCatNameH", this.props.match.params.subCatName);
   }
   state = {
-    main: '',
+    main: "",
     sub: "",
     type: "",
     products: [],
@@ -64,11 +65,11 @@ class ProductListView extends Component {
 
   // ====
   componentDidMount() {
-    let _params = this.props.match.params;    
-    console.log('sd', _params);
-    if (_params.type) {      
+    let _params = this.props.match.params;
+    console.log("sd", _params);
+    if (_params.type) {
       homeServices.getProductsByType(this.props.match.params.type).then(
-        (data) => {          
+        (data) => {
           this.setState({
             products: data.data,
           });
@@ -82,7 +83,7 @@ class ProductListView extends Component {
         (data) => {
           this.setState({
             products: data.data,
-          });          
+          });
         },
         (err) => {
           console.log(err);
@@ -102,22 +103,17 @@ class ProductListView extends Component {
           console.log(err);
         }
       );
-    }   
-       
-  
-  
-    if(_params.main){
+    }
+
+    if (_params.main) {
       this.setState({ main: this.props.match.params.main });
     }
-    if(_params.subCatName){
+    if (_params.subCatName) {
       this.setState({ sub: this.props.match.params.subCatName });
     }
-    if(_params.type){
+    if (_params.type) {
       this.setState({ type: this.props.match.params.type });
     }
-    
-  
-  
   }
   // ======
 
@@ -127,29 +123,29 @@ class ProductListView extends Component {
         <div className="p-5 bg-warning bs-cover">
           <div className="container text-center">
             <span className="display-6 px-3 bg-white rounded shadow">
-          {this.state.main}  {this.state.sub}  {this.state.type}
+              {this.state.main} {this.state.sub} {this.state.type}
             </span>
           </div>
         </div>
 
         <nav aria-label="breadcrumb">
-      <ol className="breadcrumb rounded-0">
-        <li className="breadcrumb-item">
-          <Link to="/" title="Home">
-            Home
-          </Link>
-        </li>        
-        <li className="breadcrumb-item active" aria-current="page">
-        {this.state.main}
-        </li>
-      </ol>
-    </nav>
+          <ol className="breadcrumb rounded-0">
+            <li className="breadcrumb-item">
+              <Link to="/" title="Home">
+                Home
+              </Link>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              {this.state.main}
+            </li>
+          </ol>
+        </nav>
 
         <div className="container-fluid mb-3">
           <div className="row">
             <div className="col-md-3">
-              <FilterPrice />              
-              <FilterStar />            
+              <FilterPrice />
+              <FilterStar />
               <FilterCategory />
               <CardServices />
             </div>
@@ -214,7 +210,10 @@ class ProductListView extends Component {
                   this.state.currentProducts.map((product, idx) => {
                     return (
                       <div key={idx} className="col-md-12">
-                        <CardProductList data={product} />
+                        <CardProductList
+                          data={product}
+                          addToCart={this.props.onAddToCart}
+                        />
                       </div>
                     );
                   })}

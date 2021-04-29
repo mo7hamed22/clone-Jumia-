@@ -13,7 +13,8 @@ var userSchema = new mongoose.Schema({
   },
   cart:[],
   age:Number,
-  isAdmin:Boolean
+  isAdmin:Boolean,
+  orders:[]
 })
 
 
