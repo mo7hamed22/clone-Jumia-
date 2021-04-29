@@ -91,13 +91,17 @@ const resources = {
         footer:
           "No Returns/Replacements Allowed - Returns or replacements are not accepted by seller for this product. Cancellation allowed.",
         },
+loginCredential:"Please You need Login To Continue to checkout ",
 
-
-        
+LoginToContinue:"Login To Continue",
+emptyCart:"your car it empty",
     },
   },
   ar: {
     translation: {
+      emptyCart:"السلة فارغه",
+      LoginToContinue:"سجل للمتابعه",
+      loginCredential:"من فضلك قم بتسجيل الدخول لتتمكن من المتابعه",
       currency:"جنيه",
       registerWithFacebook:"تسجيل الدخول عبر الفيسبوك",
       loginWithFacebook:"تسجيل الدخول عبر الفيسبوك ",

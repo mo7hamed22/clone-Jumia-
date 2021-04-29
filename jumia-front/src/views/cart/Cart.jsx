@@ -162,11 +162,11 @@ handleOpenModal()
 }
 const body = (
   <div style={modalStyle} className={classes.paper}>
-    <h2 id="simple-modal-title">Login To Continue</h2>
+    <h2 id="simple-modal-title">{t("LoginToContinue")}</h2>
     <p id="simple-modal-description">
-   Please You need Login To Continue to checkout 
+   {t("loginCredential")}
 
-   <Link to='/account/login' style={{textDecoration:'none',color:'orangered',marginLeft:'10px'}}>Login</Link>
+   <Link to='/account/login' style={{textDecoration:'none',color:'orangered',marginLeft:'10px'}}>{t("login")}</Link>
     </p>
   
   </div>
@@ -214,7 +214,7 @@ const body = (
 </div>
 <div className="row p-3">
   <div className="col-12 justify-content-center d-flex text-muted">
-    <h2>your car it empty</h2>
+    <h2>{t("emptyCart")}</h2>
   </div>
   
 </div>
@@ -234,7 +234,7 @@ const body = (
                onClick={()=>props.history.push('/')}
                 >
                   {" "}
-                 Continue to Shipping
+                {t("ContinueToShopping")}
                 </Button>
     </div>
   </div>
