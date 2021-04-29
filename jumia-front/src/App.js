@@ -7,10 +7,11 @@ import Privacy from "./components/static/privacy.jsx";
 import Footer from "./components/footer/Footer.jsx";
 import "./App.min.css";
 import { connect } from "react-redux"; 
-
+import { makeStyles } from "@material-ui/core/styles";
 import searchResult from "./components/searchResult";
 import ScrollToTop from "./components/ScrollToTop";
 import loader from "./assets/loader.gif";
+import { useTranslation } from "react-i18next";
 
 const HomeView = lazy(() => import("./views/Home"));
 
@@ -32,8 +33,17 @@ const SupportView = lazy(() => import("./views/pages/Support"));
 const LoginView = lazy(() => import("./views/Authantication/Login"));
 const SignUpView = lazy(() => import("./views/Authantication/Register.jsx"));
 
+
 function App(props) {
- 
+  const {t} =useTranslation();
+  const useStyles = makeStyles((theme) => ({
+  
+    root: {
+    direction:t("direction")
+    },
+   
+  }));
+  const classes = useStyles();
   try{
     const token =localStorage.getItem('token')           
          if(token){
@@ -67,10 +77,11 @@ function App(props) {
     <BrowserRouter>
       <ScrollToTop>
         <React.Fragment>
-          <Header />
+         <div className={classes.root}> 
+         <Header />
           <Suspense
             fallback={
-              <div className="text-white text-center mt-3">
+              <div className={`text-white text-center mt-3`}>
                 <img src={loader} />
               </div>
             }
@@ -130,6 +141,7 @@ function App(props) {
             </Switch>
           </Suspense>
           <Footer />
+         </div>
         </React.Fragment>
       </ScrollToTop>
     </BrowserRouter>

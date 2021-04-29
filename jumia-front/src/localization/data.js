@@ -73,14 +73,23 @@ const resources = {
           city:"city",
           mobileNo:"Mobile No",
           continueToCheckOut:"continue To Check out",
-       
+          direction:"ltr",
+          Supermarket:"Supermarket",
+          Fashion:"Fashion",
+          "Phones & Tablets":"Phones & Tablets",
+          "Home & Office":"Home & Office",
+          Electronics:"Electronics"
           
       },
     },
   },
   ar: {
     translation: {
-     
+      Supermarket:"سوبر ماركت",
+      Fashion:"الموضه",
+      "Phones & Tablets":"موبايلات وتابلت",
+      "Home & Office":"المنزل و المكتب",
+      Electronics:"إلكترونيات",
       continueToCheckOut:"اكمل عملية الدفع",
       mobileNo:"رقم الهاتف",
       country:"الدوله",
@@ -111,7 +120,7 @@ const resources = {
       offical: "المتاجر الرسمية",
       jumiaDoniation: "التبرعات",
       orangePoints: "نقاط Orange",
-
+      direction:"rtl",
       superMarket: "منتجات السوبرماركت",
       fashion: "منتجات الموضة",
       PhonesTablets: "منتجات الموبايل والتابلت",

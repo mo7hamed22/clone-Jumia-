@@ -71,7 +71,7 @@ const Header = (props) => {
                     style={{ display: "none" }}
                     className={props.user.name ? "d-block" : ""}
                   >
-                    <Link className="dropdown-item" to="/account/profile">
+                    <Link className="dropdown-item" to="/account/orders">
                       <IconPersonBadgeFill /> My Profile
                     </Link>
                   </li>
