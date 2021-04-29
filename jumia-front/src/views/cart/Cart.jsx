@@ -353,13 +353,13 @@ const body = (
                <span               
                className='rounded p-1 bg-warning  mr-2 small'
                > {item.discount}%</span></p>
-               <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> EGP {item.price}</p>
+               <p className='small text-muted mr-2' style={{textDecoration:'line-through'}}> {t("currency")} {item.price}</p>
                 </div>
                 <div
                   className="col-2 d-flex justify-content-center"
                   style={{ color: "orange", fontWeight: "bolder" }}
                 >
-                  EGP {subTotalPrice(index)}
+                  {t("currency")} {subTotalPrice(index)}
                 </div>
               
               
