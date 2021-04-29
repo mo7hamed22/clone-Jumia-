@@ -15,7 +15,7 @@ Graduation Project From ITI MEARN Stack ,This is Web Site E-commerce Application
   <img src="WebSiteImges/dash2.png" width:"200px">  
     
     Tools and technologies used 
- <h1>  User Interface<h1>
+ <h1>  User Interface</h1>
 <li>HTML5 & CSS</li>
 <li>Bootstrap</li>
 <li>JavaScript</li>
