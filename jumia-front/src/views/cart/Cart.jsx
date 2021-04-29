@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import{setItems} from '../../Store/actions';
 import axios from 'axios';
 import Modal from '@material-ui/core/Modal';
+import { useTranslation } from "react-i18next";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -48,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cart = (props) => {
+  const { t } = useTranslation();
   const [modalStyle] = React.useState(getModalStyle);
   const [openModal, setOpenModal] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
@@ -252,7 +254,7 @@ const body = (
       <div className="container ">
         <div className="row">
           <div className="col">
-            <h3>Cart( {props.totalItems} Items) </h3>
+            <h3>{t("cart")} : {props.totalItems} {t("item")} </h3>
           </div>
         </div>
         <div
@@ -263,10 +265,10 @@ const body = (
             color: "#565450db",
           }}
         >
-          <div className="col-6  ">Item</div>
-          <div className="col-2 d-flex justify-content-center">Quantity</div>
-          <div className="col-2 d-flex justify-content-center">price</div>
-          <div className="col-2 d-flex justify-content-center">SubTotal</div>
+          <div className="col-6  ">{t("items")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("quantity")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("price")}</div>
+          <div className="col-2 d-flex justify-content-center">{t("SubTotal")}</div>
         </div>
         {cart &&
           cart.map((item, index) => {
@@ -321,7 +323,7 @@ const body = (
                                 style={{ color: "#fff", cursor: "pointer" }}
                                 onClick={() => removeItem(index)}
                               >
-                                <DeleteOutlineIcon /> Remove
+                                <DeleteOutlineIcon /> {t('remove')}
                               </div>
                             </div>
                           </div>
@@ -391,7 +393,7 @@ const body = (
                   
                 >
                   {" "}
-                  Continue to CheckOut
+                  {t("ContinueToCheckOut")}
                 </Button>
               
               
@@ -408,7 +410,7 @@ const body = (
                onClick={()=>props.history.push('/')}
                 >
                   {" "}
-                 Continue to Shipping
+                 {t("ContinueToShopping")}
                 </Button>
               
                 <Modal
@@ -425,7 +427,7 @@ const body = (
             <div>
               <h2 style={{ fontWeight: "bold" }}>
                 {" "}
-                Total: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
+                {t("total")}: EGP <span style={{ color: "orangered" }}>{total.toFixed(2)}</span>
               </h2>
             </div>
           </div>
